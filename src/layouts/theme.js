@@ -107,22 +107,86 @@ const lineHeights = {
   copy: 1.5,
 }
 
-const buttons = {
-  primary: {
-    borderRadius: radii[2],
-    paddingTop: space[2],
-    paddingRight: space[4],
-    paddingBottom: space[2],
-    paddingLeft: space[4],
-    backgroundColor: colors.green,
-    fontFamily: fonts['sans-serif'],
-    fontWeight: fontWeights.normal,
-    color: colors.white,
-    transition: 'background-color 0.2s ease',
+// Button Variants
+const buttonBase = {
+  display: 'inline-block',
+  borderRadius: radii[2],
+  fontFamily: fonts['sans-serif'],
+  fontWeight: fontWeights.normal,
+  transition: 'all 0.2s ease',
+}
 
-    '&:hover': {
-      backgroundColor: colors.greens[6],
-    },
+const smallButtonBase = {
+  paddingTop: space[1],
+  paddingRight: space[3],
+  paddingBottom: space[1],
+  paddingLeft: space[3],
+}
+
+const mediumButtonBase = {
+  paddingTop: space[2],
+  paddingRight: space[4],
+  paddingBottom: space[2],
+  paddingLeft: space[4],
+}
+
+const largeButtonBase = {
+  paddingTop: space[3],
+  paddingRight: space[5],
+  paddingBottom: space[3],
+  paddingLeft: space[5],
+}
+
+const primaryButtonBase = {
+  backgroundColor: colors.green,
+  color: colors.white,
+  '&:hover': {
+    backgroundColor: colors.greens[6],
+  },
+}
+
+const outlineButtonBase = {
+  border: borders[1],
+  borderColor: colors.black,
+  backgroundColor: 'transparent',
+  color: colors.black,
+  '&:hover': {
+    backgroundColor: colors.black,
+    color: colors.white,
+  },
+}
+
+const buttons = {
+  'primary-small': {
+    ...buttonBase,
+    ...smallButtonBase,
+    ...primaryButtonBase,
+  },
+  primary: {
+    ...buttonBase,
+    ...mediumButtonBase,
+    ...primaryButtonBase,
+  },
+  'primary-large': {
+    ...buttonBase,
+    ...largeButtonBase,
+    ...primaryButtonBase,
+  },
+
+  'outline-small': {
+    ...buttonBase,
+    ...smallButtonBase,
+    ...outlineButtonBase,
+  },
+  outline: {
+    ...buttonBase,
+    ...mediumButtonBase,
+    ...outlineButtonBase,
+  },
+  'outline-large': {
+    ...buttonBase,
+    ...largeButtonBase,
+    ...outlineButtonBase,
   },
 }
 
