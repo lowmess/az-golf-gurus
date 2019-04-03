@@ -10,14 +10,16 @@ import 'sanitize.css'
 import '../fonts/geomanist/stylesheet.css'
 
 const GlobalStyles = createGlobalStyle`
+  html{
   scroll-behavior: smooth;
 
   @media (prefers-reduced-motion: reduce) {
     scroll-behavior: auto;
   }
+}
 
   ::selection {
-    background-color: ${({ theme }) => theme.colors.greens[1]} !important;
+    background-color: ${({ theme }) => theme.colors.greens[3]} !important;
     color: ${({ theme }) => theme.colors.black} !important;
   }
 
