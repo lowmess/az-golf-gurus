@@ -5,6 +5,7 @@ import { createGlobalStyle, withTheme } from 'styled-components'
 import { useSiteMetadata } from '../utils/hooks'
 
 import 'sanitize.css'
+import '../fonts/geomanist/stylesheet.css'
 
 const GlobalStyles = createGlobalStyle`
   scroll-behavior: smooth;
