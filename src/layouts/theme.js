@@ -29,6 +29,11 @@ const borders = [
 const radii = [0, '0.125rem', '0.25rem', '0.5rem', '1rem', '100%']
 
 // Typography
+const fonts = {
+  'sans-serif':
+    'geomanist, futura, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Oxygen, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+  serif: 'georgia, times, serif',
+}
 const fontSizes = [
   '0.875rem',
   '1rem',
@@ -39,10 +44,6 @@ const fontSizes = [
   '5rem',
   '6rem',
 ]
-const lineHeights = {
-  title: 1.25,
-  copy: 1.5,
-}
 const fontWeights = {
   1: '100',
   2: '200',
@@ -52,24 +53,44 @@ const fontWeights = {
   6: '600',
   7: '700',
   normal: '400',
+  book: '500',
   bold: '700',
 }
-const fonts = {
-  'sans-serif':
-    'geomanist, futura, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Oxygen, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
-  serif: 'georgia, times, serif',
+const lineHeights = {
+  title: 1.25,
+  copy: 1.5,
+}
+
+const buttons = {
+  primary: {
+    borderRadius: radii[2],
+    paddingTop: space[2],
+    paddingRight: space[4],
+    paddingBottom: space[2],
+    paddingLeft: space[4],
+    backgroundColor: colors.green,
+    fontFamily: fonts['sans-serif'],
+    fontWeight: fontWeights.normal,
+    color: colors.white,
+    transition: 'background-color 0.2s ease',
+
+    '&:hover': {
+      backgroundColor: colors.greens[3],
+    },
+  },
 }
 
 const theme = {
   breakpoints,
+  colors,
   space,
-  fontSizes,
   borders,
   radii,
   fonts,
-  lineHeights,
+  fontSizes,
   fontWeights,
-  colors,
+  lineHeights,
+  buttons,
 }
 
 module.exports = theme

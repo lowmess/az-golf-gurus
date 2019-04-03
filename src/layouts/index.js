@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import { createGlobalStyle, withTheme } from 'styled-components'
+import { Text } from 'rebass'
+import Navigation from '../components/Navigation'
 import { useSiteMetadata } from '../utils/hooks'
 
 import 'sanitize.css'
@@ -78,7 +80,11 @@ const Layout = ({ children, location, theme }) => {
         />
       </Helmet>
 
-      <main id="main-content">{children}</main>
+      <Text fontFamily="serif" lineHeight="copy" color="black">
+        <Navigation location={location} />
+
+        <main id="main-content">{children}</main>
+      </Text>
     </>
   )
 }
