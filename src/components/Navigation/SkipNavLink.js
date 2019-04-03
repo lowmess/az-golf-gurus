@@ -1,10 +1,9 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { css } from 'styled-components'
 import { Text } from 'rebass'
 import { themeHover } from '../../utils/styles'
 
-const LinkElement = ({ children, ...props }) => {
+const SkipNavLink = () => {
   const styles = css`
     position: absolute;
     top: 0;
@@ -29,18 +28,10 @@ const LinkElement = ({ children, ...props }) => {
   `
 
   return (
-    <Text as="a" fontFamily="sans-serif" css={styles} {...props}>
-      {children}
+    <Text as="a" href="#main-content" fontFamily="sans-serif" css={styles}>
+      Skip to main content
     </Text>
   )
 }
-
-LinkElement.propTypes = {
-  children: PropTypes.string.isRequired,
-}
-
-const SkipNavLink = () => (
-  <LinkElement href="#main-content">Skip to main content</LinkElement>
-)
 
 export default SkipNavLink

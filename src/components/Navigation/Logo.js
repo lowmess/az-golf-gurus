@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'gatsby'
+import { Link as GatsbyLink } from 'gatsby'
 import { withTheme } from 'styled-components'
-import { Box } from 'rebass'
+import { Link } from 'rebass'
 
 const Logo = ({ theme, ...props }) => (
-  <Box as={Link} to="/" {...props}>
+  <Link as={GatsbyLink} to="/" {...props}>
     <svg
       viewBox="0 0 1000 228"
       xmlns="http://www.w3.org/2000/svg"
@@ -24,7 +24,7 @@ const Logo = ({ theme, ...props }) => (
         fillRule="nonzero"
       />
     </svg>
-  </Box>
+  </Link>
 )
 
 Logo.propTypes = {

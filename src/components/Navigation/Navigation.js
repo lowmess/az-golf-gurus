@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'gatsby'
+import { Link as GatsbyLink } from 'gatsby'
 import { css } from 'styled-components'
-import { Box, Flex, Button, Card } from 'rebass'
+import { Flex, Link, Button, Card } from 'rebass'
 import Container from '../Container'
 import { List, ListItem } from '../Typography'
 import SkipNavLink from './SkipNavLink'
@@ -23,8 +23,8 @@ const NavLink = ({ children, to, ...props }) => {
 
   return (
     <ListItem fontFamily="sans-serif" css="display: inline-block">
-      <Box
-        as={Link}
+      <Link
+        as={GatsbyLink}
         to={to}
         activeClassName="active"
         py={3}
@@ -33,7 +33,7 @@ const NavLink = ({ children, to, ...props }) => {
         {...props}
       >
         {children}
-      </Box>
+      </Link>
     </ListItem>
   )
 }
@@ -44,10 +44,14 @@ NavLink.propTypes = {
 }
 
 const Navigation = ({ location }) => (
-  <Card as="header" boxShadow="0 -0.25rem 0.5rem 0.125rem rgba(0, 0, 0, 0.25)">
-    <Container css="position: relative">
-      <SkipNavLink />
+  <Card
+    as="header"
+    boxShadow="0 -0.25rem 0.5rem 0.125rem rgba(0, 0, 0, 0.25)"
+    css="position: relative"
+  >
+    <SkipNavLink />
 
+    <Container>
       <Flex as="nav" alignItems="center" justifyContent="space-between">
         <Logo />
 
@@ -65,7 +69,7 @@ const Navigation = ({ location }) => (
           </NavLink>
 
           <Flex as={ListItem} alignItems="center">
-            <Button variant="primary" as={Link} to="/lessons/">
+            <Button variant="primary" as={GatsbyLink} to="/lessons/">
               Book a Lesson
             </Button>
           </Flex>
