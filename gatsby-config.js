@@ -1,6 +1,6 @@
 const dotenv = require('dotenv')
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV !== 'production') {
   dotenv.config()
 }
 
@@ -18,18 +18,35 @@ module.exports = {
         path: `${__dirname}/src/pages/`,
       },
     },
-    // {
-    //   resolve: 'gatsby-source-contentful',
-    //   options: {
-
-    //   },
-    // },
+    {
+      resolve: 'gatsby-source-contentful',
+      options: {
+        spaceId: process.env.CONTENTFUL_SPACE_ID,
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+      },
+    },
     // {
     //   resolve: 'gatsby-source-youtube',
     //   options: {
 
     //   },
     // },
+    {
+      resolve: 'gatsby-transformer-remark',
+      options: {
+        plugins: [
+          {
+            resolve: 'gatsby-remark-images',
+            options: {
+              maxWidth: 768,
+              linkImagesToOriginal: false,
+              tracedSVG: true,
+            },
+          },
+          'gatsby-remark-smartypants',
+        ],
+      },
+    },
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
