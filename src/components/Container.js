@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Box } from 'rebass'
+import { Card } from 'rebass'
 
 const Container = ({ children, ...props }) => (
-  <Box {...props} mx="auto" px={3} css="max-width: 64rem">
+  <Card {...props} mx="auto" px={3} css="max-width: 64rem">
     {children}
-  </Box>
+  </Card>
 )
 
 Container.propTypes = {
