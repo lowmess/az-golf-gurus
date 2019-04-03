@@ -53,8 +53,8 @@ module.exports = {
         name: 'AZ Golf Gurus',
         short_name: 'AZGG',
         start_url: '/',
-        background_color: '#4db85c',
-        theme_color: '#4db85c',
+        background_color: '#15ab3d',
+        theme_color: '#15ab3d',
         display: 'minimal-ui',
         icons: [
           {
