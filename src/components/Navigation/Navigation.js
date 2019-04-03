@@ -55,7 +55,7 @@ const Navigation = ({ location }) => (
       <Flex as="nav" alignItems="center" justifyContent="space-between">
         <Logo />
 
-        <Flex as={List} alignItems="stretch" css="height: 100%;">
+        <Flex as={List} alignItems="baseline" css="height: 100%;">
           <NavLink to="/" mr={2}>
             Home
           </NavLink>
@@ -68,11 +68,11 @@ const Navigation = ({ location }) => (
             Team
           </NavLink>
 
-          <Flex as={ListItem} alignItems="center">
-            <Button variant="primary" as={GatsbyLink} to="/lessons/">
+          <ListItem>
+            <Button variant="primary-small" as={GatsbyLink} to="/lessons/">
               Book a Lesson
             </Button>
-          </Flex>
+          </ListItem>
         </Flex>
       </Flex>
     </Container>
