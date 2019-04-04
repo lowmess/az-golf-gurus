@@ -112,7 +112,7 @@ const buttonBase = {
   display: 'inline-block',
   borderRadius: radii[2],
   fontFamily: fonts['sans-serif'],
-  fontWeight: fontWeights.normal,
+  fontWeight: 'inherit',
   transition: 'all 0.2s ease',
 }
 
@@ -156,7 +156,24 @@ const outlineButtonBase = {
   },
 }
 
+const outlineReverseButtonBase = {
+  border: borders[1],
+  borderColor: colors.white,
+  backgroundColor: 'transparent',
+  color: colors.white,
+  '&:hover': {
+    backgroundColor: colors.white,
+    color: colors.black,
+  },
+}
+
 const buttons = {
+  reset: {
+    borderRadius: 0,
+    backgroundColor: 'transparent',
+    color: 'inherit',
+    transition: 'all 0.2s ease',
+  },
   'primary-small': {
     ...buttonBase,
     ...smallButtonBase,
@@ -187,6 +204,22 @@ const buttons = {
     ...buttonBase,
     ...largeButtonBase,
     ...outlineButtonBase,
+  },
+
+  'outline-reverse-small': {
+    ...buttonBase,
+    ...smallButtonBase,
+    ...outlineReverseButtonBase,
+  },
+  'outline-reverse': {
+    ...buttonBase,
+    ...mediumButtonBase,
+    ...outlineReverseButtonBase,
+  },
+  'outline-reverse-large': {
+    ...buttonBase,
+    ...largeButtonBase,
+    ...outlineReverseButtonBase,
   },
 }
 
