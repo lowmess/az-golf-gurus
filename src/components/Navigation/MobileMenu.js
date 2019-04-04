@@ -82,7 +82,7 @@ const MobileMenu = ({ theme }) => {
 
   const closeIconStyles = css`
     position: absolute;
-    top: 0;
+    top: ${theme.space[1]};
     left: 0;
     color: ${theme.colors.white};
     ${menuHover};
