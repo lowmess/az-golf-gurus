@@ -10,7 +10,7 @@ import Logo from './Logo'
 const Hero = () => {
   const { contentfulHomePageHero: data } = useStaticQuery(graphql`
     query {
-      contentfulHomePageHero(entryTitle: { eq: "Home Page Hero" }) {
+      contentfulHomePageHero(entryTitle: { ne: "SCHEMA__HomePageHero" }) {
         heroImage {
           title
           fluid(maxWidth: 2560) {
