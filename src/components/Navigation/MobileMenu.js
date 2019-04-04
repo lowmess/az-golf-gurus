@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Link as GatsbyLink } from 'gatsby'
 import FocusTrap from 'focus-trap-react'
@@ -48,6 +48,12 @@ NavLink.propTypes = {
 const MobileMenu = ({ theme }) => {
   const [open, setOpen] = useState(false)
   const openButtonEl = useRef(null)
+
+  useEffect(() => {
+    return () => {
+      noScroll.off()
+    }
+  }, [])
 
   const openIconStyles = css`
     position: absolute;
