@@ -28,6 +28,11 @@ const GlobalStyles = createGlobalStyle`
     text-decoration: none;
     text-decoration-skip: ink;
     text-decoration-skip-ink: auto;
+    transition: all 0.2s ease;
+  }
+
+  button, [role="button"], [type="button"], [type="submit"], [type="reset"] {
+    cursor: pointer;
   }
 
   @media print {
