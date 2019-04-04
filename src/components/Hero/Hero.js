@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useStaticQuery, graphql } from 'gatsby'
 import Img from 'gatsby-image'
 import { css } from 'styled-components'
@@ -7,7 +8,7 @@ import Container from '../Container'
 import MarkdownContent from '../MarkdownContent'
 import Logo from './Logo'
 
-const Hero = () => {
+const Hero = ({ bg }) => {
   const { contentfulHomePageHero: data } = useStaticQuery(graphql`
     query {
       contentfulHomePageHero(entryTitle: { ne: "SCHEMA__HomePageHero" }) {
@@ -56,11 +57,7 @@ const Hero = () => {
 
   const contentStyles = css`
     position: relative;
-    background-image: linear-gradient(
-      to bottom,
-      transparent 50%,
-      ${({ theme }) => theme.colors.greens[0]} 50%
-    );
+    background-image: linear-gradient(to bottom, transparent 50%, ${bg} 50%);
   `
 
   return (
@@ -100,6 +97,14 @@ const Hero = () => {
       </Box>
     </Box>
   )
+}
+
+Hero.propTypes = {
+  bg: PropTypes.string.isRequired,
+}
+
+Hero.defaultProps = {
+  bg: '#ffffff',
 }
 
 export default Hero

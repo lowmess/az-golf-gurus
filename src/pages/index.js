@@ -1,21 +1,24 @@
 import React from 'react'
-import { css } from 'styled-components'
+import PropTypes from 'prop-types'
+import { css, withTheme } from 'styled-components'
 import { Box } from 'rebass'
 import Hero from '../components/Hero'
 import { Rule } from '../components/Typography'
 
-const HomePage = () => {
+const HomePage = ({ theme }) => {
+  const bg = theme.colors.greens[0]
+
   const background = css`
     background-image: linear-gradient(
       to bottom,
-      ${({ theme }) => theme.colors.greens[0]},
+      ${theme.colors.greens[0]},
       transparent
     );
   `
 
   return (
     <>
-      <Hero />
+      <Hero bg={bg} />
       <Box css={background} py={7}>
         <h1>yesssss hello i am the rest of the content</h1>
       </Box>
@@ -27,4 +30,8 @@ const HomePage = () => {
   )
 }
 
-export default HomePage
+HomePage.propTypes = {
+  theme: PropTypes.object.isRequired,
+}
+
+export default withTheme(HomePage)
