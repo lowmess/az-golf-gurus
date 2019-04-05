@@ -61,7 +61,7 @@ const Layout = ({ children, location, theme }) => {
         <meta name="theme-color" content={theme.colors.green} />
         <meta name="apple-mobile-web-app-title" content="{title}" />
         <meta name="application-name" content="{title}" />
-        <meta name="msapplication-TileColor" content="{theme.colors.green}" />
+        <meta name="msapplication-TileColor" content="#00a300" />
         {/* icons */}
         <link
           rel="apple-touch-icon"
@@ -71,20 +71,16 @@ const Layout = ({ children, location, theme }) => {
         <link
           rel="icon"
           type="image/png"
-          href="/favicon-32x32.png"
           sizes="32x32"
+          href="/favicon-32x32.png"
         />
         <link
           rel="icon"
           type="image/png"
-          href="/favicon-16x16.png"
           sizes="16x16"
+          href="/favicon-16x16.png"
         />
-        <link
-          rel="mask-icon"
-          href="/safari-pinned-tab.svg"
-          color={theme.colors.green}
-        />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
       </Helmet>
 
       <Text fontFamily="serif" lineHeight="copy" color="black">
