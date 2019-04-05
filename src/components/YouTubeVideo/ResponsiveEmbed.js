@@ -12,24 +12,16 @@ const AspectRatio = ({ children, ratio, ...props }) => {
     height: 0;
     padding-bottom: ${(y / x) * 100}%;
     overflow: hidden;
-  `
 
-  return (
-    <Box css={styles} {...props}>
-      {children}
-    </Box>
-  )
-}
-
-const AspectRatioChild = ({ children, ...props }) => {
-  const styles = css`
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    iframe {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
   `
 
   return (
@@ -51,12 +43,7 @@ AspectRatio.propTypes = {
 }
 
 AspectRatio.defaultProps = {
-  children: <AspectRatioChild />,
   ratio: '16:9',
 }
 
-AspectRatioChild.propTypes = {
-  children: PropTypes.node.isRequired,
-}
-
-export { AspectRatio, AspectRatioChild }
+export default AspectRatio

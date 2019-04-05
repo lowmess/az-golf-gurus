@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import YouTube from 'react-youtube'
-import { AspectRatio, AspectRatioChild } from './AspectRatio'
+import ResponsiveEmbed from './ResponsiveEmbed'
 
 const YouTubeVideo = ({ videoId, ...props }) => {
   const options = {
@@ -16,9 +16,9 @@ const YouTubeVideo = ({ videoId, ...props }) => {
   }
 
   return (
-    <AspectRatio ratio="16:9" {...props}>
-      <AspectRatioChild as={YouTube} videoId={videoId} opts={options} />
-    </AspectRatio>
+    <ResponsiveEmbed ratio="16:9" {...props}>
+      <YouTube videoId={videoId} opts={options} />
+    </ResponsiveEmbed>
   )
 }
 
