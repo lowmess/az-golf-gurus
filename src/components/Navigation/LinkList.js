@@ -19,7 +19,7 @@ const NavLink = ({ children, to, ...props }) => {
   `
 
   return (
-    <ListItem fontFamily="sans-serif" css="display: inline-block">
+    <ListItem fontFamily="geomanist" css="display: inline-block">
       <Link
         as={GatsbyLink}
         to={to}
@@ -50,7 +50,7 @@ const LinkList = () => (
       Videos
     </NavLink>
 
-    <NavLink to="/about/" mr={3}>
+    <NavLink to="/team/" mr={3}>
       Team
     </NavLink>
 

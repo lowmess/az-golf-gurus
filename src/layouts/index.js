@@ -2,21 +2,27 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import { createGlobalStyle, withTheme } from 'styled-components'
-import { Text } from 'rebass'
 import Navigation from '../components/Navigation'
+import Footer from '../components/Footer'
 import { useSiteMetadata } from '../utils/hooks'
 
 import 'sanitize.css'
 import '../fonts/geomanist/stylesheet.css'
 
 const GlobalStyles = createGlobalStyle`
-  html{
-  scroll-behavior: smooth;
+  html {
+    scroll-behavior: smooth;
 
-  @media (prefers-reduced-motion: reduce) {
-    scroll-behavior: auto;
+    @media (prefers-reduced-motion: reduce) {
+      scroll-behavior: auto;
+    }
   }
-}
+
+  body {
+    font-family: ${({ theme }) => theme.fonts.georgia};
+    color: ${({ theme }) => theme.colors.black};
+    line-height: ${({ theme }) => theme.lineHeights.copy};
+  }
 
   ::selection {
     background-color: ${({ theme }) => theme.colors.greens[3]} !important;
@@ -35,6 +41,10 @@ const GlobalStyles = createGlobalStyle`
     cursor: pointer;
   }
 
+  svg {
+    max-width: 100%;
+  }
+
   @media print {
     nav, footer {
       display: none !important;
@@ -46,7 +56,7 @@ const GlobalStyles = createGlobalStyle`
   }
 `
 
-const Layout = ({ children, location, theme }) => {
+const Layout = ({ children, theme }) => {
   const { title, description } = useSiteMetadata()
 
   return (
@@ -83,18 +93,17 @@ const Layout = ({ children, location, theme }) => {
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
       </Helmet>
 
-      <Text fontFamily="serif" lineHeight="copy" color="black">
-        <Navigation location={location} />
+      <Navigation />
 
-        <main id="main-content">{children}</main>
-      </Text>
+      <main id="main-content">{children}</main>
+
+      <Footer />
     </>
   )
 }
 
 Layout.propTypes = {
   children: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 }
 

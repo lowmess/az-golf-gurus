@@ -8,4 +8,12 @@ const themeHover = css`
   }
 `
 
-export { themeHover }
+const reverseThemeHover = css`
+  color: inherit;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.greens[2]};
+  }
+`
+
+export { themeHover, reverseThemeHover }

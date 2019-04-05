@@ -77,9 +77,9 @@ const radii = [0, '0.125rem', '0.25rem', '0.5rem', '1rem', '100%']
 
 // Typography
 const fonts = {
-  'sans-serif':
-    'geomanist, futura, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Oxygen, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
-  serif: 'georgia, times, serif',
+  geomanist:
+    'geomanist, avenir, futura, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Oxygen, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+  georgia: 'georgia, times, serif',
 }
 const fontSizes = [
   '0.875rem',
@@ -111,7 +111,7 @@ const lineHeights = {
 const buttonBase = {
   display: 'inline-block',
   borderRadius: radii[2],
-  fontFamily: fonts['sans-serif'],
+  fontFamily: fonts.geomanist,
   fontWeight: 'inherit',
   transition: 'all 0.2s ease',
 }

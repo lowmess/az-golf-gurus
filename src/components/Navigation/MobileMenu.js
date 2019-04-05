@@ -7,16 +7,8 @@ import { css, withTheme } from 'styled-components'
 import { rgba } from 'polished'
 import { Flex, Link, Button } from 'rebass'
 import { List, ListItem } from '../Typography'
-import { themeHover } from '../../utils/styles'
+import { themeHover, reverseThemeHover } from '../../utils/styles'
 import { Hamburger, Close } from './icons'
-
-const menuHover = css`
-  color: ${({ theme }) => theme.colors.white};
-
-  &:hover {
-    color: ${({ theme }) => theme.colors.black};
-  }
-`
 
 const NavLink = ({ children, to, ...props }) => {
   const listItemStyles = css`
@@ -28,7 +20,7 @@ const NavLink = ({ children, to, ...props }) => {
 
   const linkStyles = css`
     display: inline-block;
-    ${menuHover};
+    ${reverseThemeHover};
   `
 
   return (
@@ -85,7 +77,7 @@ const MobileMenu = ({ theme }) => {
     top: ${theme.space[1]};
     left: 0;
     color: ${theme.colors.white};
-    ${menuHover};
+    ${reverseThemeHover};
   `
 
   const focusOpenButton = () => {
@@ -130,6 +122,7 @@ const MobileMenu = ({ theme }) => {
           alignItems="center"
           justifyContent="center"
           p={4}
+          color="white"
           css={menuStyles}
         >
           <Button
@@ -148,7 +141,7 @@ const MobileMenu = ({ theme }) => {
           <List
             textAlign="center"
             fontSize={3}
-            fontFamily="sans-serif"
+            fontFamily="geomanist"
             fontWeight="medium"
           >
             <NavLink to="/" tabIndex={open ? 0 : -1}>
@@ -159,7 +152,7 @@ const MobileMenu = ({ theme }) => {
               Videos
             </NavLink>
 
-            <NavLink to="/about/" tabIndex={open ? 0 : -1}>
+            <NavLink to="/team/" tabIndex={open ? 0 : -1}>
               Team
             </NavLink>
 

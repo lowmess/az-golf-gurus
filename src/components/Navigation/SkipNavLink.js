@@ -29,7 +29,7 @@ const SkipNavLink = () => {
   `
 
   return (
-    <Text as="a" href="#main-content" fontFamily="sans-serif" css={styles}>
+    <Text as="a" href="#main-content" fontFamily="geomanist" css={styles}>
       Skip to main content
     </Text>
   )

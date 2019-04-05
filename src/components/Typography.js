@@ -8,7 +8,7 @@ const Title = ({ children, ...props }) => (
     as="h1"
     mb={3}
     fontSize={[4, 5]}
-    fontFamily="sans-serif"
+    fontFamily="geomanist"
     lineHeight="title"
     {...props}
   >
@@ -26,7 +26,7 @@ const Subtitle = ({ children, ...props }) => (
     mb={4}
     fontSize={[3, 4]}
     fontWeight="medium"
-    fontFamily="sans-serif"
+    fontFamily="geomanist"
     lineHeight="title"
     {...props}
   >
