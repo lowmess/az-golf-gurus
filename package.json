@@ -1,0 +1,31 @@
+{
+  "name": "az-golf-gurus",
+  "version": "0.0.1",
+  "description": "AZ Golf Gurus website",
+  "scripts": {
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "precommit": "lint-staged"
+  },
+  "author": "Alec Lomas <alec@lowmess.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lowmess/lowmess/issues"
+  },
+  "homepage": "https://azgolfgurus.com",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-lowmess": "^2.3.0",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.5",
+    "prettier": "^1.16.4"
+  },
+  "lint-staged": {
+    "*.{js,jsx,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
