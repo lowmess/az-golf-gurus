@@ -14,7 +14,7 @@ const NavLink = ({ children, to, ...props }) => {
   const listItemStyles = css`
     & + & {
       border-top: ${({ theme }) => theme.borders[1]};
-      border-color: ${({ theme }) => theme.colors.greens[4]};
+      border-color: ${({ theme }) => theme.colors.greens[6]};
     }
   `
 
@@ -60,7 +60,7 @@ const MobileMenu = ({ theme }) => {
     bottom: 0;
     left: 0;
     z-index: 999;
-    background-color: ${rgba(theme.colors.green, 0.95)};
+    background-color: ${rgba(theme.colors.greens[7], 0.95)};
     transform: translateY(${open ? 0 : `-${theme.space[4]}`});
     opacity: ${open ? 1 : 0};
     overflow-y: scroll;
