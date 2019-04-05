@@ -98,7 +98,7 @@ const Footer = props => {
   `)
 
   return (
-    <Box as="footer" bg="greens.7" color="white" py={[4, 5]} {...props}>
+    <Box as="footer" bg="greens.7" color="white" py={[4, 4, 5]} {...props}>
       <Flex
         as={Container}
         flexDirection={['column', 'row']}
