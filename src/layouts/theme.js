@@ -147,11 +147,11 @@ const primaryButtonBase = {
 
 const outlineButtonBase = {
   border: borders[1],
-  borderColor: colors.black,
+  borderColor: colors.green,
   backgroundColor: 'transparent',
   color: colors.black,
   '&:hover': {
-    backgroundColor: colors.black,
+    backgroundColor: colors.green,
     color: colors.white,
   },
 }
@@ -163,7 +163,7 @@ const outlineReverseButtonBase = {
   color: colors.white,
   '&:hover': {
     backgroundColor: colors.white,
-    color: colors.black,
+    color: colors.green,
   },
 }
 
