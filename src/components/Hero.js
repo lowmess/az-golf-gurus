@@ -4,11 +4,10 @@ import { useStaticQuery, graphql } from 'gatsby'
 import Img from 'gatsby-image'
 import { css } from 'styled-components'
 import { Box, Button } from 'rebass'
-import { Heading } from '../Typography'
-import Container from '../Container'
-import MarkdownContent from '../MarkdownContent'
-import Logo from './Logo'
-import unwidow from '../../utils/unwidow'
+import { Heading } from './Typography'
+import Container from './Container'
+import MarkdownContent from './MarkdownContent'
+import unwidow from '../utils/unwidow'
 
 const Hero = ({ bg }) => {
   const { contentfulHomePageHero: data } = useStaticQuery(graphql`
@@ -36,6 +35,18 @@ const Hero = ({ bg }) => {
 
   const heroStyles = css`
     position: relative;
+  `
+
+  const headingStyles = css`
+    position: relative;
+
+    /*
+     * For some reason, applying this CSS directly to the <Heading> breaks
+     * rebass/styled-components. I do not know why. Hence the first 3 words.
+     */
+    h1 {
+      text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
+    }
   `
 
   const imageStyles = css`
@@ -68,7 +79,7 @@ const Hero = ({ bg }) => {
   `
 
   return (
-    <Box pt={5} css={heroStyles}>
+    <Box pt={[5, 6]} css={heroStyles}>
       {hasImage ? (
         <Img
           fadeIn={true}
@@ -81,11 +92,17 @@ const Hero = ({ bg }) => {
         <Box css={imageStyles} />
       )}
 
-      <Logo
-        mb={5}
-        color="white"
-        css="position: relative; text-align: center;"
-      />
+      <Container mb={5} css={headingStyles}>
+        <Heading
+          as="h1"
+          fontSize={[4, 5]}
+          fontWeight="bold"
+          color="white"
+          textAlign="center"
+        >
+          {unwidow(data.headline)}
+        </Heading>
+      </Container>
 
       <Box css={contentStyles}>
         <Container
@@ -96,20 +113,16 @@ const Hero = ({ bg }) => {
           maxWidth="48rem"
           css="text-align: center"
         >
-          <Heading as="h1" fontWeight="bold">
-            {unwidow(data.headline)}
-          </Heading>
-
           {hasIntro && (
             <MarkdownContent
-              mt={3}
+              mb={4}
               fontSize={[1, 2]}
               center
               dangerouslySetInnerHTML={{ __html: data.heroText.content.html }}
             />
           )}
 
-          <Button as="a" href="#contact" variant="outline" mt={4}>
+          <Button as="a" href="#contact" variant="outline">
             {data.contactButtonLabel || 'Get In Touch'}
           </Button>
         </Container>

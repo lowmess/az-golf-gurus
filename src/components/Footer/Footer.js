@@ -107,6 +107,8 @@ const Footer = props => {
               <FooterLink to="/videos/">Videos</FooterLink>
 
               <FooterLink to="/lessons/">Lessons</FooterLink>
+
+              <FooterLink to="/events/">Events</FooterLink>
             </FooterList>
           </FooterLinkContainer>
 
