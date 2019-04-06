@@ -21,6 +21,10 @@ const Navigation = ({ theme }) => {
     position: absolute;
     left: 0;
     ${themeHover};
+
+    @media (min-width: ${theme.breakpoints[0]}) {
+      display: none;
+    }
   `
 
   const toggleMenu = () => {
@@ -46,6 +50,8 @@ const Navigation = ({ theme }) => {
           alignItems="center"
           justifyContent={['center', 'space-between']}
         >
+          <Logo py={[2, 0]} />
+
           {!notMobile && (
             <Button
               ref={openButtonEl}
@@ -60,8 +66,6 @@ const Navigation = ({ theme }) => {
               <Hamburger ariaHidden="true" />
             </Button>
           )}
-
-          <Logo py={[2, 0]} />
 
           <LinkList
             id={menuId}

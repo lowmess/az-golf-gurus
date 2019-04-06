@@ -44,6 +44,10 @@ const LinkList = ({
     left: 0;
     color: ${theme.colors.white};
     ${reverseThemeHover};
+
+    @media (min-width: ${theme.breakpoints[0]}) {
+      display: none;
+    }
   `
 
   const handleEscape = event => {
