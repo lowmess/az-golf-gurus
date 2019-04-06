@@ -2,9 +2,11 @@ const unwidow = str => {
   // Remove extra whitespace characters before starting.
   const clean = str.trim().replace(/\s+/g, ' ')
 
-  // We only care about strings with at least 4 words, so if we don't find at
-  // least 3 spaces in the string we can just return the cleaned up string.
-  if (clean.match(/\s/g).length < 3) return clean
+  // We only care about strings with at least 4 words.
+  if (clean.split(' ').count < 4) return clean
+
+  // If the last word is long enough, just return the cleaned string.
+  if (clean.split(' ').pop().length > 15) return clean
 
   // Regex matches the last instance of a whitespace character that is followed
   // by a non-whitespace character. It then replaces the former with a
