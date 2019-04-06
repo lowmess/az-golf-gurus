@@ -1,22 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
-import { keyframes, createGlobalStyle, withTheme } from 'styled-components'
+import { createGlobalStyle, withTheme } from 'styled-components'
 import Navigation from '../components/Navigation'
 import Footer from '../components/Footer'
 import { useSiteMetadata } from '../utils/hooks'
 
 import 'sanitize.css'
 import '../fonts/geomanist/stylesheet.css'
-
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`
 
 const GlobalStyles = createGlobalStyle`
   html {
@@ -31,8 +22,6 @@ const GlobalStyles = createGlobalStyle`
     font-family: ${({ theme }) => theme.fonts.georgia};
     color: ${({ theme }) => theme.colors.black};
     line-height: ${({ theme }) => theme.lineHeights.copy};
-    opacity: 0;
-    animation: ${fadeIn} 1s ease 0.25s 1 normal forwards running;
   }
 
   ::selection {
