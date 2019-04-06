@@ -1,16 +1,36 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
-import { withTheme } from 'styled-components'
-import { Flex, Card } from 'rebass'
+import noScroll from 'no-scroll'
+import { css, withTheme } from 'styled-components'
+import { Flex, Button, Card } from 'rebass'
 import Container from '../Container'
 import SkipNavLink from './SkipNavLink'
 import Logo from './Logo'
-import { useMediaQuery } from '../../utils/hooks'
-import MobileMenu from './MobileMenu'
 import LinkList from './LinkList'
+import { Hamburger } from './icons'
+import { useMediaQuery } from '../../utils/hooks'
+import { themeHover } from '../../utils/styles'
 
 const Navigation = ({ theme }) => {
-  const isMobile = !useMediaQuery(`(min-width: ${theme.breakpoints[0]})`)
+  const [open, setOpen] = useState(false)
+  const openButtonEl = useRef(null)
+  const notMobile = useMediaQuery(`(min-width: ${theme.breakpoints[0]})`)
+  const menuId = 'navigation-menu'
+
+  const openIconStyles = css`
+    position: absolute;
+    left: 0;
+    ${themeHover};
+  `
+
+  const toggleMenu = () => {
+    setOpen(!open)
+    noScroll.toggle()
+  }
+
+  const focusOpenButton = () => {
+    if (openButtonEl.current) openButtonEl.current.focus()
+  }
 
   return (
     <Card
@@ -26,11 +46,30 @@ const Navigation = ({ theme }) => {
           alignItems="center"
           justifyContent={['center', 'space-between']}
         >
-          {isMobile && <MobileMenu />}
+          {!notMobile && (
+            <Button
+              ref={openButtonEl}
+              variant="reset"
+              aria-label="Open the menu"
+              aria-expanded={open}
+              aria-controls={menuId}
+              onClick={toggleMenu}
+              p={3}
+              css={openIconStyles}
+            >
+              <Hamburger ariaHidden="true" />
+            </Button>
+          )}
 
           <Logo py={[2, 0]} />
 
-          {!isMobile && <LinkList />}
+          <LinkList
+            id={menuId}
+            open={open}
+            toggleMenu={toggleMenu}
+            focusOpenButton={focusOpenButton}
+            notMobile={notMobile}
+          />
         </Flex>
       </Container>
     </Card>
