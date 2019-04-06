@@ -118,8 +118,6 @@ const Footer = props => {
             <FooterList>
               <FooterLink to="/about/">About Us</FooterLink>
 
-              <FooterLink to="/team/">Team</FooterLink>
-
               <FooterLink to="/contact/">Contact</FooterLink>
             </FooterList>
           </FooterLinkContainer>
