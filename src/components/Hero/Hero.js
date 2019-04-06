@@ -4,6 +4,7 @@ import { useStaticQuery, graphql } from 'gatsby'
 import Img from 'gatsby-image'
 import { css } from 'styled-components'
 import { Box, Button } from 'rebass'
+import { Heading } from '../Typography'
 import Container from '../Container'
 import MarkdownContent from '../MarkdownContent'
 import Logo from './Logo'
@@ -18,6 +19,7 @@ const Hero = ({ bg }) => {
             ...GatsbyContentfulFluid_noBase64
           }
         }
+        headline
         heroText {
           content: childMarkdownRemark {
             html
@@ -27,6 +29,8 @@ const Hero = ({ bg }) => {
       }
     }
   `)
+
+  const hasIntro = data.heroText && data.heroText.content.html
 
   const heroStyles = css`
     position: relative;
@@ -85,11 +89,18 @@ const Hero = ({ bg }) => {
           maxWidth="48rem"
           css="text-align: center"
         >
-          <MarkdownContent
-            fontSize={[1, 2]}
-            center
-            dangerouslySetInnerHTML={{ __html: data.heroText.content.html }}
-          />
+          <Heading as="h1" fontWeight="bold" fontSize={[3, 4]}>
+            {data.headline}
+          </Heading>
+
+          {hasIntro && (
+            <MarkdownContent
+              mt={3}
+              fontSize={[1, 2]}
+              center
+              dangerouslySetInnerHTML={{ __html: data.heroText.content.html }}
+            />
+          )}
 
           <Button as="a" href="#contact" variant="outline" mt={4}>
             {data.contactButtonLabel || 'Get In Touch'}
