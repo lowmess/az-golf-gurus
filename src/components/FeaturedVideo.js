@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link, useStaticQuery, graphql } from 'gatsby'
 import { css, withTheme } from 'styled-components'
-import { Box, Flex, Text, Button, Heading } from 'rebass'
+import { Box, Flex, Text, Button } from 'rebass'
+import { Heading } from './Typography'
 import Container from './Container'
 import YouTubeVideo from './YouTubeVideo'
 import MarkdownContent from './MarkdownContent'
@@ -65,7 +66,7 @@ const FeaturedVideo = ({ bg, theme, ...props }) => {
 
         {description && (
           <MarkdownContent
-            mt={4}
+            mt={[4, 5]}
             fontSize={[2, 3]}
             center
             dangerouslySetInnerHTML={{ __html: description }}

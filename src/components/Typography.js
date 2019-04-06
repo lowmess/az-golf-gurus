@@ -1,46 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { css } from 'styled-components'
-import { Box, Text, Heading } from 'rebass'
+import { Box, Text, Heading as H } from 'rebass'
 
-const Title = ({ children, ...props }) => (
-  <Heading
-    as="h1"
-    mb={3}
-    fontSize={[4, 5]}
-    fontFamily="geomanist"
-    lineHeight="title"
-    {...props}
-  >
+const Heading = ({ children, ...props }) => (
+  <H fontFamily="geomanist" fontWeight="medium" lineHeight="title" {...props}>
     {children}
-  </Heading>
+  </H>
 )
 
-Title.propTypes = {
-  children: PropTypes.node.isRequired,
-}
-
-const Subtitle = ({ children, ...props }) => (
-  <Heading
-    mt={3}
-    mb={4}
-    fontSize={[3, 4]}
-    fontWeight="medium"
-    fontFamily="geomanist"
-    lineHeight="title"
-    {...props}
-  >
-    {children}
-  </Heading>
-)
-
-Subtitle.propTypes = {
+Heading.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
 const Paragraph = ({ children, ...props }) => (
   <Text
     as="p"
+    m={0}
     fontSize={[1, 2]}
     lineHeight="copy"
     css="max-width: 33em"
@@ -84,4 +60,4 @@ ListItem.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export { Title, Subtitle, Paragraph, Rule, List, ListItem }
+export { Heading, Paragraph, Rule, List, ListItem }

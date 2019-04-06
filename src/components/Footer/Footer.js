@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link as GatsbyLink, useStaticQuery, graphql } from 'gatsby'
 import { css } from 'styled-components'
-import { Box, Flex, Heading, Link } from 'rebass'
-import { List, ListItem } from '../Typography'
+import { Box, Flex, Link } from 'rebass'
+import { Heading, List, ListItem } from '../Typography'
 import Container from '../Container'
 import Logo from './Logo'
 import * as Icon from './socialMediaIcons'
@@ -25,13 +25,7 @@ FooterLinkContainer.propTypes = {
 }
 
 const FooterHeading = ({ children, ...props }) => (
-  <Heading
-    mr={[0, 0, 4]}
-    mb={[2, 2, 0]}
-    fontSize={3}
-    fontFamily="geomanist"
-    fontWeight="medium"
-  >
+  <Heading mr={[0, 0, 4]} mb={[2, 2, 0]} fontSize={3}>
     {children}
   </Heading>
 )
