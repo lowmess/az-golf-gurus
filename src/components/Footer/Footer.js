@@ -6,7 +6,7 @@ import { Box, Flex, Link } from 'rebass'
 import { Heading, List, ListItem } from '../Typography'
 import Container from '../Container'
 import Logo from './Logo'
-import * as Icon from './socialMediaIcons'
+import * as Icon from './SocialMediaIcons'
 import { reverseThemeHover } from '../../utils/styles'
 
 const FooterLinkContainer = ({ children, ...props }) => (

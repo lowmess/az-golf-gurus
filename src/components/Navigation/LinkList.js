@@ -7,7 +7,7 @@ import { rgba } from 'polished'
 import { Flex, Button } from 'rebass'
 import { List, ListItem } from '../Typography'
 import NavLink from './NavLink'
-import { Close } from './icons'
+import { Close } from './Icons'
 import { reverseThemeHover } from '../../utils/styles'
 
 const LinkList = ({

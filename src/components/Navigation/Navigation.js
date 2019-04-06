@@ -7,7 +7,7 @@ import Container from '../Container'
 import SkipNavLink from './SkipNavLink'
 import Logo from './Logo'
 import LinkList from './LinkList'
-import { Hamburger } from './icons'
+import { Hamburger } from './Icons'
 import { useMediaQuery } from '../../utils/hooks'
 import { themeHover } from '../../utils/styles'
 
