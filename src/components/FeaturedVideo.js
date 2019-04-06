@@ -8,6 +8,7 @@ import Container from './Container'
 import YouTubeVideo from './YouTubeVideo'
 import MarkdownContent from './MarkdownContent'
 import { useMediaQuery } from '../utils/hooks'
+import unwidow from '../utils/unwidow'
 
 const ViewAllButton = ({ children, ...props }) => (
   <Button as={Link} to="/videos/" variant="outline-small">
@@ -40,7 +41,9 @@ const FeaturedVideo = ({ bg, theme, ...props }) => {
     ${bg && `background-image: linear-gradient(to bottom, ${bg}, transparent)`};
   `
 
-  const description = data.videoDescription.content.html
+  const title = data.videoTitle || 'Featured Video'
+  const description =
+    data.videoDescription && data.videoDescription.content.html
 
   return (
     <Box css={styles} {...props}>
@@ -52,7 +55,7 @@ const FeaturedVideo = ({ bg, theme, ...props }) => {
           mb={4}
         >
           <Heading mr={[0, 4]} fontFamily="geomanist" fontWeight="medium">
-            {data.videoTitle || 'Featured Video'}
+            {unwidow(title)}
           </Heading>
 
           {!isMobile && (

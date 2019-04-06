@@ -4,7 +4,13 @@ import { css } from 'styled-components'
 import { Box, Text, Heading as H } from 'rebass'
 
 const Heading = ({ children, ...props }) => (
-  <H fontFamily="geomanist" fontWeight="medium" lineHeight="title" {...props}>
+  <H
+    fontSize={[3, 4]}
+    fontFamily="geomanist"
+    fontWeight="medium"
+    lineHeight="title"
+    {...props}
+  >
     {children}
   </H>
 )

@@ -8,6 +8,7 @@ import { Heading } from '../Typography'
 import Container from '../Container'
 import MarkdownContent from '../MarkdownContent'
 import Logo from './Logo'
+import unwidow from '../../utils/unwidow'
 
 const Hero = ({ bg }) => {
   const { contentfulHomePageHero: data } = useStaticQuery(graphql`
@@ -89,8 +90,8 @@ const Hero = ({ bg }) => {
           maxWidth="48rem"
           css="text-align: center"
         >
-          <Heading as="h1" fontWeight="bold" fontSize={[3, 4]}>
-            {data.headline}
+          <Heading as="h1" fontWeight="bold">
+            {unwidow(data.headline)}
           </Heading>
 
           {hasIntro && (

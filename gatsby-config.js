@@ -44,6 +44,7 @@ module.exports = {
             },
           },
           'gatsby-remark-smartypants',
+          'gatsby-remark-widows',
         ],
       },
     },

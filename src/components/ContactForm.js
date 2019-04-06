@@ -4,6 +4,7 @@ import NetlifyForm from 'react-netlify-form'
 import { Box, Flex, Text, Button, Card } from 'rebass'
 import { Paragraph } from './Typography'
 import { Label, Input, Textarea } from './FormElements'
+import unwidow from '../utils/unwidow'
 
 const ContactForm = props => {
   const { contentfulContactForm } = useStaticQuery(graphql`
@@ -59,14 +60,14 @@ const ContactForm = props => {
           <>
             {success && (
               <Paragraph mx="auto" textAlign="center">
-                {successMessage}
+                {unwidow(successMessage)}
               </Paragraph>
             )}
 
             {error && (
               <Card mb={[3, 4]} borderRadius={1} py={3} px={3} bg="reds.2">
                 <Paragraph mx="auto" textAlign="center">
-                  {errorMessage}
+                  {unwidow(errorMessage)}
                 </Paragraph>
               </Card>
             )}

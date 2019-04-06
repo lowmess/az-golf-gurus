@@ -8,6 +8,7 @@ import MarkdownContent from '../components/MarkdownContent'
 import Hero from '../components/Hero'
 import FeaturedVideo from '../components/FeaturedVideo'
 import ContactForm from '../components/ContactForm'
+import unwidow from '../utils/unwidow'
 
 const HomePage = ({ theme }) => {
   const { contentfulHomePageContact } = useStaticQuery(graphql`
@@ -23,6 +24,7 @@ const HomePage = ({ theme }) => {
     }
   `)
   const data = contentfulHomePageContact || {}
+  const title = data.title || 'Get in Touch'
   const hasIntro = data && data.introText
 
   const bg = theme.colors.greens[0]
@@ -38,7 +40,7 @@ const HomePage = ({ theme }) => {
       </Container>
 
       <Container id="contact" mt={[4, 5]} mb={[5, 6]} pt={3} maxWidth="48rem">
-        <Heading textAlign="center">{data.title || 'Get in Touch'}</Heading>
+        <Heading textAlign="center">{unwidow(title)}</Heading>
 
         {hasIntro && (
           <MarkdownContent
