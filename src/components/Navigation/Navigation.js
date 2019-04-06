@@ -50,8 +50,6 @@ const Navigation = ({ theme }) => {
           alignItems="center"
           justifyContent={['center', 'space-between']}
         >
-          <Logo py={[2, 0]} />
-
           {!notMobile && (
             <Button
               ref={openButtonEl}
@@ -66,6 +64,8 @@ const Navigation = ({ theme }) => {
               <Hamburger ariaHidden="true" />
             </Button>
           )}
+
+          <Logo py={[2, 0]} />
 
           <LinkList
             id={menuId}
