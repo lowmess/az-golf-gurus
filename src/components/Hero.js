@@ -83,7 +83,6 @@ const Hero = ({ bg }) => {
       {hasImage ? (
         <Img
           fadeIn={true}
-          alt={data.heroImage.title}
           src={data.heroImage.fluid.src}
           sizes={data.heroImage.fluid}
           css={imageStyles}
