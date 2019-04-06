@@ -31,6 +31,7 @@ const Hero = ({ bg }) => {
     }
   `)
 
+  const hasImage = data.heroImage && data.heroImage.fluid
   const hasIntro = data.heroText && data.heroText.content.html
 
   const heroStyles = css`
@@ -45,6 +46,7 @@ const Hero = ({ bg }) => {
     left: 0;
     width: 100%;
     height: 100%;
+    background-color: ${({ theme }) => theme.colors.greens[7]};
 
     img,
     picture {
@@ -67,13 +69,17 @@ const Hero = ({ bg }) => {
 
   return (
     <Box pt={5} css={heroStyles}>
-      <Img
-        fadeIn={true}
-        alt={data.heroImage.title}
-        src={data.heroImage.fluid.src}
-        sizes={data.heroImage.fluid}
-        css={imageStyles}
-      />
+      {hasImage ? (
+        <Img
+          fadeIn={true}
+          alt={data.heroImage.title}
+          src={data.heroImage.fluid.src}
+          sizes={data.heroImage.fluid}
+          css={imageStyles}
+        />
+      ) : (
+        <Box css={imageStyles} />
+      )}
 
       <Logo
         mb={5}
