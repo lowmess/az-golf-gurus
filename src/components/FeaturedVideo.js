@@ -43,7 +43,7 @@ const FeaturedVideo = ({ bg, theme, ...props }) => {
 
   return (
     <Box css={styles} {...props}>
-      <Container css="max-width: 60rem">
+      <Container maxWidth="60rem">
         <Flex
           flexDirection={['column', 'row']}
           justifyContent="space-between"

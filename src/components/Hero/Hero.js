@@ -82,7 +82,8 @@ const Hero = ({ bg }) => {
           py={4}
           borderRadius={[0, 1]}
           boxShadow={['', '0 0.5rem 4rem 0.5rem rgba(0, 0, 0, 0.25)']}
-          css="max-width: 48rem; text-align: center"
+          maxWidth="48rem"
+          css="text-align: center"
         >
           <MarkdownContent
             fontSize={[1, 2]}
