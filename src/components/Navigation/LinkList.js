@@ -4,11 +4,10 @@ import { Link as GatsbyLink } from 'gatsby'
 import FocusTrap from 'focus-trap-react'
 import { css, withTheme } from 'styled-components'
 import { rgba } from 'polished'
-import { Flex, Button } from 'rebass'
+import { Flex, Link, Button } from 'rebass'
 import { List, ListItem } from '../Typography'
-import NavLink from './NavLink'
 import { Close } from './Icons'
-import { reverseThemeHover } from '../../utils/styles'
+import { themeHover, reverseThemeHover } from '../../utils/styles'
 
 const LinkList = ({
   theme,
@@ -19,6 +18,34 @@ const LinkList = ({
   notMobile,
   ...props
 }) => {
+  const listItemStyles = css`
+    & + & {
+      border-top: ${`${theme.borders[1]} ${theme.colors.greens[6]}`};
+    }
+
+    @media (min-width: ${theme.breakpoints[0]}) {
+      display: inline-block;
+
+      & + & {
+        border-top: 0;
+      }
+    }
+  `
+
+  const linkStyles = css`
+    display: inline-block;
+    ${reverseThemeHover}
+
+    @media (min-width: ${theme.breakpoints[0]}) {
+
+      ${themeHover}
+
+      &.active {
+        border-bottom: ${`${theme.borders[2]} ${theme.colors.green}`};
+      }
+    }
+    `
+
   const containerStyles = css`
     position: fixed;
     top: 0;
@@ -54,6 +81,36 @@ const LinkList = ({
     if (event.key === 'Escape' || event.key === 'Esc') {
       toggleMenu()
     }
+  }
+
+  // It's sort of cumbersome to have this defined here, but it means we don't
+  // have to pass all sorts of props to _every_ link
+  const NavLink = ({ children, to, ...linkProps }) => (
+    <ListItem
+      width={[1, 'auto']}
+      fontFamily="geomanist"
+      textAlign="center"
+      css={listItemStyles}
+    >
+      <Link
+        as={GatsbyLink}
+        to={to}
+        activeClassName="active"
+        py={3}
+        px={2}
+        css={linkStyles}
+        onClick={notMobile ? undefined : toggleMenu}
+        tabIndex={open || notMobile ? 0 : -1}
+        {...linkProps}
+      >
+        {children}
+      </Link>
+    </ListItem>
+  )
+
+  NavLink.propTypes = {
+    children: PropTypes.string.isRequired,
+    to: PropTypes.string.isRequired,
   }
 
   return (
@@ -98,30 +155,15 @@ const LinkList = ({
           css="height: 100%"
           {...props}
         >
-          <NavLink
-            to="/"
-            mr={[0, 2]}
-            onClick={notMobile ? undefined : toggleMenu}
-            tabIndex={open || notMobile ? 0 : -1}
-          >
+          <NavLink to="/" mr={[0, 2]}>
             Home
           </NavLink>
 
-          <NavLink
-            to="/videos/"
-            mr={[0, 2]}
-            onClick={notMobile ? undefined : toggleMenu}
-            tabIndex={open || notMobile ? 0 : -1}
-          >
+          <NavLink to="/videos/" mr={[0, 2]}>
             Videos
           </NavLink>
 
-          <NavLink
-            to="/events/"
-            mr={[0, 3]}
-            onClick={notMobile ? undefined : toggleMenu}
-            tabIndex={open || notMobile ? 0 : -1}
-          >
+          <NavLink to="/events/" mr={[0, 3]}>
             Events
           </NavLink>
 
