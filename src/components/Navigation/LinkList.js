@@ -79,7 +79,7 @@ const LinkList = ({
             aria-label="Close the menu"
             aria-expanded={open}
             aria-controls={id}
-            onClick={toggleMenu}
+            onClick={notMobile ? undefined : toggleMenu}
             tabIndex={open ? 0 : -1}
             p={3}
             css={closeIconStyles}
@@ -98,13 +98,19 @@ const LinkList = ({
           css="height: 100%"
           {...props}
         >
-          <NavLink to="/" mr={[0, 2]} tabIndex={open || notMobile ? 0 : -1}>
+          <NavLink
+            to="/"
+            mr={[0, 2]}
+            onClick={notMobile ? undefined : toggleMenu}
+            tabIndex={open || notMobile ? 0 : -1}
+          >
             Home
           </NavLink>
 
           <NavLink
             to="/videos/"
             mr={[0, 2]}
+            onClick={notMobile ? undefined : toggleMenu}
             tabIndex={open || notMobile ? 0 : -1}
           >
             Videos
@@ -113,6 +119,7 @@ const LinkList = ({
           <NavLink
             to="/events/"
             mr={[0, 3]}
+            onClick={notMobile ? undefined : toggleMenu}
             tabIndex={open || notMobile ? 0 : -1}
           >
             Events
@@ -124,6 +131,7 @@ const LinkList = ({
               as={GatsbyLink}
               to="/lessons/"
               mt={[4, 0]}
+              onClick={notMobile ? undefined : toggleMenu}
               tabIndex={open || notMobile ? 0 : -1}
             >
               Book a Lesson
