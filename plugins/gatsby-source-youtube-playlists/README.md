@@ -1,6 +1,13 @@
 This is a Gatsby source plugin to retrieve a YouTube channel's playlists.
 
-**Schema:**
+## Options
+
+| Key         | Description                                  |
+| ----------- | -------------------------------------------- |
+| `channelId` | The YouTube channel ID to get playlists from |
+| `apiKey`    | Your YouTube API Key                         |
+
+## Schema
 
 ```graphql
 {
@@ -10,6 +17,7 @@ This is a Gatsby source plugin to retrieve a YouTube channel's playlists.
         playlistId
         title
         description
+
         videos {
           videoId
           title

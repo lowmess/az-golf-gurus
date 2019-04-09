@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import { createGlobalStyle, withTheme } from 'styled-components'
+import { Box, Flex } from 'rebass'
 import Navigation from '../components/Navigation'
 import Footer from '../components/Footer'
 import { useSiteMetadata } from '../utils/hooks'
@@ -93,11 +94,15 @@ const Layout = ({ children, theme }) => {
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
       </Helmet>
 
-      <Navigation />
+      <Flex flexDirection="column" css="min-height: 100vh">
+        <Navigation />
 
-      <main id="main-content">{children}</main>
+        <Box as="main" id="main-content" flex="1">
+          {children}
+        </Box>
 
-      <Footer />
+        <Footer />
+      </Flex>
     </>
   )
 }

@@ -4,7 +4,7 @@ import { Link as GatsbyLink } from 'gatsby'
 import FocusTrap from 'focus-trap-react'
 import { css, withTheme } from 'styled-components'
 import { rgba } from 'polished'
-import { Flex, Link, Button } from 'rebass'
+import { Flex, Text, Link, Button } from 'rebass'
 import { List, ListItem } from '../Typography'
 import { Close } from './Icons'
 import { themeHover, reverseThemeHover } from '../../utils/styles'
@@ -34,17 +34,18 @@ const LinkList = ({
 
   const linkStyles = css`
     display: inline-block;
-    ${reverseThemeHover}
+    ${reverseThemeHover};
+    color: ${theme.colors.white};
 
     @media (min-width: ${theme.breakpoints[0]}) {
+      ${themeHover};
+      color: ${theme.colors.black};
 
-      ${themeHover}
-
-      &.active {
-        border-bottom: ${`${theme.borders[2]} ${theme.colors.green}`};
+      .active & {
+        border-bottom: ${theme.borders[2]} ${theme.colors.green};
       }
     }
-    `
+  `
 
   const containerStyles = css`
     position: fixed;
@@ -84,29 +85,44 @@ const LinkList = ({
   }
 
   // It's sort of cumbersome to have this defined here, but it means we don't
-  // have to pass all sorts of props to _every_ link
-  const NavLink = ({ children, to, ...linkProps }) => (
-    <ListItem
-      width={[1, 'auto']}
-      fontFamily="geomanist"
-      textAlign="center"
-      css={listItemStyles}
-    >
-      <Link
-        as={GatsbyLink}
-        to={to}
-        activeClassName="active"
-        py={3}
-        px={2}
-        css={linkStyles}
-        onClick={notMobile ? undefined : toggleMenu}
-        tabIndex={open || notMobile ? 0 : -1}
+  // have to pass all sorts of props to _every_ link.
+  const NavLink = ({ children, to, ...linkProps }) => {
+    const isActive = ({ href, isCurrent, isPartiallyCurrent }) => {
+      if (isCurrent && href === '/') {
+        return { className: 'active' }
+      } else if (isPartiallyCurrent && href !== '/') {
+        return { className: 'active' }
+      }
+
+      return null
+    }
+
+    // Another annoying thing is that there's no way to set an active class
+    // with `@reach/router` without overriding `styled-components`, uhh, styles.
+    // So we have to have a nested span. Pretty cool.
+    return (
+      <ListItem
+        width={[1, 'auto']}
+        fontFamily="geomanist"
+        textAlign="center"
+        css={listItemStyles}
         {...linkProps}
       >
-        {children}
-      </Link>
-    </ListItem>
-  )
+        <Link
+          as={GatsbyLink}
+          to={to}
+          onClick={notMobile ? undefined : toggleMenu}
+          tabIndex={open || notMobile ? 0 : -1}
+          getProps={isActive}
+          style={{ display: 'inline-block' }}
+        >
+          <Text as="span" py={3} px={2} css={linkStyles}>
+            {children}
+          </Text>
+        </Link>
+      </ListItem>
+    )
+  }
 
   NavLink.propTypes = {
     children: PropTypes.string.isRequired,

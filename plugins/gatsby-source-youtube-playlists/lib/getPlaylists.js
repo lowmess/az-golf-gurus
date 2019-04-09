@@ -1,6 +1,13 @@
 const fetch = require('./fetchWithTimeout')
 
-// Define some common
+const toSnakeCase = str =>
+  str
+    .toLowerCase()
+    .replace(/[^a-z]+/g, ' ')
+    .trim()
+    .replace(/\s+/g, '-')
+
+// Define some common options
 const fetchOptions = { headers: { Accept: 'application/json' } }
 
 const errorCatcher = error => {
@@ -27,6 +34,7 @@ const getChannelPlaylists = async (channelId, apiKey) => {
         if (item.kind === 'youtube#playlist') {
           playlists.add({
             playlistId: item.id,
+            slug: `/videos/${toSnakeCase(item.snippet.title)}/`,
             title: item.snippet.title,
             description: item.snippet.description,
           })
