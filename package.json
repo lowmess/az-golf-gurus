@@ -6,7 +6,8 @@
     "start": "gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "postinstall": "cd plugins/gatsby-source-youtube-playlists && npm ci"
   },
   "author": "Alec Lomas <alec@lowmess.com>",
   "license": "MIT",
