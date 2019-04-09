@@ -25,12 +25,13 @@ module.exports = {
         accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
       },
     },
-    // {
-    //   resolve: 'gatsby-source-youtube',
-    //   options: {
-
-    //   },
-    // },
+    {
+      resolve: 'gatsby-source-youtube-playlists',
+      options: {
+        channelId: process.env.YOUTUBE_CHANNEL_ID,
+        apiKey: process.env.YOUTUBE_ACCESS_TOKEN,
+      },
+    },
     {
       resolve: 'gatsby-transformer-remark',
       options: {

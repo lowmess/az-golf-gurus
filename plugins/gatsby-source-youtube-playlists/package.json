@@ -1,0 +1,16 @@
+{
+  "name": "gatsby-source-youtube-playlists",
+  "version": "0.0.1",
+  "description": "This is a Gatsby source plugin to retrieve a YouTube channel's playlists.",
+  "main": "gatsby-node.js",
+  "keywords": [
+    "gatsby",
+    "gatsby-source"
+  ],
+  "author": "Alec Lomas <alec@lowmess.com>",
+  "license": "MIT",
+  "dependencies": {
+    "abort-controller": "^3.0.0",
+    "node-fetch": "^2.3.0"
+  }
+}
