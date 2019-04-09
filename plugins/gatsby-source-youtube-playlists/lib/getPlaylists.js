@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 const fetch = require('./fetchWithTimeout')
 
 const toSnakeCase = str =>
@@ -17,6 +19,8 @@ const errorCatcher = error => {
 
 // Get all playlists from a channel
 const getChannelPlaylists = async (channelId, apiKey) => {
+  console.log(`\nRequesting playlists from channel ${channelId}\n`)
+
   const uri = `https://www.googleapis.com/youtube/v3/playlists?part=snippet&maxResults=50&channelId=${channelId}&key=${apiKey}`
 
   try {
@@ -51,6 +55,8 @@ const getChannelPlaylists = async (channelId, apiKey) => {
 // Get the first 50 videos in a channel. If we need to up this limit, we can
 // recursively fetch the videos. Don't see that happening though.
 const getPlaylistVideos = async (playlistId, apiKey) => {
+  console.log(`\nRequesting videos from playlist ${playlistId}\n`)
+
   const uri = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}`
 
   try {
