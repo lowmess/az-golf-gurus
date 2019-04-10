@@ -9,6 +9,12 @@ const toSnakeCase = str =>
     .trim()
     .replace(/\s+/g, '-')
 
+const getBiggestThumbnailObject = thumbnails =>
+  Object.values(thumbnails).reduce(
+    (prev, next) => (prev.width > next.width ? prev : next),
+    {}
+  )
+
 // Define some common options
 const fetchOptions = { headers: { Accept: 'application/json' } }
 
@@ -36,11 +42,21 @@ const getChannelPlaylists = async (channelId, apiKey) => {
     if (data.items && data.items.length) {
       data.items.forEach(item => {
         if (item.kind === 'youtube#playlist') {
+          const biggestThumbnail = getBiggestThumbnailObject(
+            item.snippet.thumbnails
+          )
+
           playlists.add({
+            id: item.id,
             playlistId: item.id,
             slug: `/videos/${toSnakeCase(item.snippet.title)}/`,
             title: item.snippet.title,
             description: item.snippet.description,
+            thumbnail: {
+              url: biggestThumbnail.url,
+              width: biggestThumbnail.width,
+              height: biggestThumbnail.height,
+            },
           })
         }
       })
@@ -68,10 +84,21 @@ const getPlaylistVideos = async (playlistId, apiKey) => {
     if (data.items && data.items.length) {
       data.items.forEach(item => {
         if (item.snippet.resourceId.kind === 'youtube#video') {
+          const biggestThumbnail = getBiggestThumbnailObject(
+            item.snippet.thumbnails
+          )
+
           videos.add({
+            id: item.snippet.resourceId.videoId,
             videoId: item.snippet.resourceId.videoId,
+            playlistId,
             title: item.snippet.title,
             description: item.snippet.description,
+            thumbnail: {
+              url: biggestThumbnail.url,
+              width: biggestThumbnail.width,
+              height: biggestThumbnail.height,
+            },
           })
         }
       })
@@ -89,22 +116,29 @@ const getPlaylists = async (channelId, apiKey) => {
   try {
     const playlists = await getChannelPlaylists(channelId, apiKey)
 
-    const playlistsWithVideos = new Set()
+    const videos = new Set()
 
     // `.forEach` cannot take an async callback. However, the body of a
     // `for...of` has no such limitation
     for (const playlist of playlists) {
       try {
-        const videos = await getPlaylistVideos(playlist.playlistId, apiKey)
+        const playlistVideos = await getPlaylistVideos(
+          playlist.playlistId,
+          apiKey
+        )
 
         // only return the playlist if it has videos
-        if (videos.length) playlistsWithVideos.add({ ...playlist, videos })
+        if (playlistVideos.length) {
+          playlistVideos.forEach(video => {
+            videos.add(video)
+          })
+        }
       } catch (error) {
         errorCatcher(error)
       }
     }
 
-    return Array.from(playlistsWithVideos)
+    return { playlists, videos: Array.from(videos) }
   } catch (error) {
     errorCatcher(error)
   }

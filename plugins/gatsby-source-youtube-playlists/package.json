@@ -9,8 +9,16 @@
   ],
   "author": "Alec Lomas <alec@lowmess.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lowmess/az-golf-gurus.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lowmess/az-golf-gurus/issues"
+  },
   "dependencies": {
     "abort-controller": "^3.0.0",
+    "gatsby-source-filesystem": "^2.0.29",
     "node-fetch": "^2.3.0"
   }
 }

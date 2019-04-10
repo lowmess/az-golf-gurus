@@ -1,24 +1,43 @@
 const getPlaylists = require('./lib/getPlaylists')
+const {
+  createNodeIds,
+  downloadLocalThumbnails,
+  createVideoNodes,
+  createPlaylistNodes,
+} = require('./lib/createPlaylistNodes')
 
 exports.sourceNodes = async (
-  { actions: { createNode }, createNodeId, createContentDigest },
+  {
+    actions: { createNode, createNodeField },
+    createNodeId,
+    createContentDigest,
+    store,
+    cache,
+  },
   { plugins, ...options }
 ) => {
   const { channelId, apiKey } = options
 
-  const playlists = await getPlaylists(channelId, apiKey)
+  let { playlists, videos } = await getPlaylists(channelId, apiKey)
 
-  playlists.forEach(playlist => {
-    createNode({
-      ...playlist,
-      id: createNodeId(`yt-playlist-${playlist.playlistId}`),
-      parent: null,
-      children: [],
-      internal: {
-        type: 'YouTubePlaylist',
-        content: JSON.stringify(playlist),
-        contentDigest: createContentDigest(playlist),
-      },
-    })
+  playlists = createNodeIds(playlists, createNodeId)
+  videos = createNodeIds(videos, createNodeId)
+
+  playlists = await downloadLocalThumbnails({
+    items: playlists,
+    store,
+    cache,
+    createNode,
+    createNodeId,
   })
+  videos = await downloadLocalThumbnails({
+    items: videos,
+    store,
+    cache,
+    createNode,
+    createNodeId,
+  })
+
+  await createVideoNodes(playlists, videos, createNode, createContentDigest)
+  createPlaylistNodes(playlists, videos, createNode, createContentDigest)
 }
