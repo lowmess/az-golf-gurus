@@ -1,38 +1,36 @@
 const path = require('path')
 const Promise = require('bluebird')
 const _ = require('lodash')
-const contentful = require('contentful')
-const dotenv = require('dotenv')
+const fetch = require('node-fetch')
 
-if (process.env.NODE_ENV !== 'production') {
-  dotenv.config()
-}
+const getFeaturedVideoId = () =>
+  fetch(
+    `https://cdn.contentful.com/spaces/${
+      process.env.CONTENTFUL_SPACE_ID
+    }/entries?content_type=homePageVideo&fields.entryTitle[ne]=SCHEMA__HomePageVideo&access_token=${
+      process.env.CONTENTFUL_ACCESS_TOKEN
+    }`
+  )
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`${response.status}: ${response.statusText}`)
+      }
 
-const client = contentful.createClient({
-  space: process.env.CONTENTFUL_SPACE_ID,
-  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
-})
+      return response.json()
+    })
+    .then(data => {
+      return data.items[0].fields.videoId
+    })
+    .catch(error => {
+      console.error(error.message)
+    })
 
-let featuredVideoId
-
-client
-  .getEntries({
-    'fields.entryTitle[ne]': 'SCHEMA__HomePageVideo',
-    content_type: 'homePageVideo',
-  })
-  .then(response => {
-    if (response.items[0]) {
-      featuredVideoId = response.items[0].fields.videoId
-    }
-  })
-  .catch(error => {
-    console.error(error.message)
-  })
-
-exports.onCreatePage = ({ page, actions }) => {
+exports.onCreatePage = async ({ page, actions }) => {
   const { createPage, deletePage } = actions
 
-  if (page.path === '/' && featuredVideoId) {
+  if (page.path === '/') {
+    const featuredVideoId = await getFeaturedVideoId()
+
     deletePage(page)
 
     createPage({
