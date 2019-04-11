@@ -5,7 +5,6 @@ import { Flex, Card } from 'rebass'
 
 const PlayIcon = ({ title, ...props }) => {
   const bgStyles = css`
-    background-color: rgba(0, 0, 0, 0.33);
     position: absolute;
     top: 0;
     right: 0;
@@ -17,7 +16,7 @@ const PlayIcon = ({ title, ...props }) => {
     transition: background-color 0.3s ease;
 
     &:hover {
-      background-color: rgba(0, 0, 0, 0.1);
+      background-color: rgba(0, 0, 0, 0.25);
     }
   `
 
@@ -27,6 +26,7 @@ const PlayIcon = ({ title, ...props }) => {
     width: ${({ theme }) => theme.space[5]};
     height: ${({ theme }) => theme.space[5]};
     margin: auto;
+    background-color: rgba(0, 0, 0, 0.5);
     transition: transform 0.2s ease;
 
     &:hover {
