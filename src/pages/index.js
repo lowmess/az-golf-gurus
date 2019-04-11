@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useStaticQuery, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 import { withTheme } from 'styled-components'
 import Container from '../components/Container'
 import { Heading, Rule } from '../components/Typography'
@@ -10,22 +10,10 @@ import FeaturedVideo from '../components/FeaturedVideo'
 import ContactForm from '../components/ContactForm'
 import unwidow from '../utils/unwidow'
 
-const HomePage = ({ theme }) => {
-  const { contentfulHomePageContact } = useStaticQuery(graphql`
-    query {
-      contentfulHomePageContact(entryTitle: { ne: "SCHEMA__HomePageContact" }) {
-        title
-        introText {
-          content: childMarkdownRemark {
-            html
-          }
-        }
-      }
-    }
-  `)
-  const data = contentfulHomePageContact || {}
-  const title = data.title || 'Get in Touch'
-  const hasIntro = data && data.introText
+const HomePage = ({ data, theme }) => {
+  const contentfulData = data.contentfulHomePageContact || {}
+  const title = contentfulData.title || 'Get in Touch'
+  const hasIntro = contentfulData && contentfulData.introText
 
   const bg = theme.colors.greens[0]
 
@@ -33,7 +21,11 @@ const HomePage = ({ theme }) => {
     <>
       <Hero bg={bg} />
 
-      <FeaturedVideo bg={bg} pt={[5, 6]} />
+      <FeaturedVideo
+        video={data.youTubeVideo ? data.youTubeVideo : undefined}
+        bg={bg}
+        pt={[5, 6]}
+      />
 
       <Container mt={[5, 6]}>
         <Rule mx="auto" />
@@ -47,7 +39,9 @@ const HomePage = ({ theme }) => {
             mt={3}
             fontSize={[1, 2]}
             center
-            dangerouslySetInnerHTML={{ __html: data.introText.content.html }}
+            dangerouslySetInnerHTML={{
+              __html: contentfulData.introText.content.html,
+            }}
           />
         )}
 
@@ -58,7 +52,33 @@ const HomePage = ({ theme }) => {
 }
 
 HomePage.propTypes = {
+  data: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 }
+
+export const pageQuery = graphql`
+  query HomePageQuery($featuredVideoId: String) {
+    youTubeVideo(videoId: { eq: $featuredVideoId }) {
+      videoId
+      title
+
+      localThumbnail {
+        childImageSharp {
+          fluid(maxWidth: 960) {
+            ...GatsbyImageSharpFluid_noBase64
+          }
+        }
+      }
+    }
+    contentfulHomePageContact(entryTitle: { ne: "SCHEMA__HomePageContact" }) {
+      title
+      introText {
+        content: childMarkdownRemark {
+          html
+        }
+      }
+    }
+  }
+`
 
 export default withTheme(HomePage)

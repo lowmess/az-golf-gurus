@@ -1,6 +1,48 @@
 const path = require('path')
 const Promise = require('bluebird')
 const _ = require('lodash')
+const contentful = require('contentful')
+const dotenv = require('dotenv')
+
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config()
+}
+
+const client = contentful.createClient({
+  space: process.env.CONTENTFUL_SPACE_ID,
+  accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+})
+
+let featuredVideoId
+
+client
+  .getEntries({
+    'fields.entryTitle[ne]': 'SCHEMA__HomePageVideo',
+    content_type: 'homePageVideo',
+  })
+  .then(response => {
+    if (response.items[0]) {
+      featuredVideoId = response.items[0].fields.videoId
+    }
+  })
+  .catch(error => {
+    console.error(error.message)
+  })
+
+exports.onCreatePage = ({ page, actions }) => {
+  const { createPage, deletePage } = actions
+
+  if (page.path === '/' && featuredVideoId) {
+    deletePage(page)
+
+    createPage({
+      ...page,
+      context: {
+        featuredVideoId,
+      },
+    })
+  }
+}
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
