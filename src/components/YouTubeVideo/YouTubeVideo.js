@@ -6,10 +6,11 @@ import { css } from 'styled-components'
 import { Flex } from 'rebass'
 import ResponsiveEmbed from './ResponsiveEmbed'
 import PlayIcon from './PlayIcon'
+import Spinner from './Spinner'
 
 const YouTubeVideo = ({ title, videoId, thumbnail, ...props }) => {
   const [played, setPlayed] = useState(false)
-  const [player, setPlayer] = useState(null)
+  const [ready, setReady] = useState(false)
 
   const options = {
     width: '960',
@@ -37,8 +38,8 @@ const YouTubeVideo = ({ title, videoId, thumbnail, ...props }) => {
     z-index: 1;
     width: 100%;
     height: 100%;
-    opacity: ${played ? 0 : 1};
-    pointer-events: ${played ? 'none' : 'auto'};
+    opacity: ${ready ? 0 : 1};
+    pointer-events: ${ready ? 'none' : 'auto'};
     transition: opacity 0.3s ease;
 
     &:focus {
@@ -63,29 +64,19 @@ const YouTubeVideo = ({ title, videoId, thumbnail, ...props }) => {
     }
   `
 
-  const onReady = event => {
-    setPlayer(event.target)
+  const onVideoReady = event => {
+    const player = event.target
+    const focusElement =
+      player.getIframe().contentDocument || player.getIframe().contentWindow
+
+    player.playVideo()
+    focusElement.focus()
+
+    setReady(true)
   }
 
-  const handleVideoInteraction = event => {
+  const handleClick = event => {
     setPlayed(true)
-
-    if (player) {
-      const focusElement =
-        player.getIframe().contentDocument || player.getIframe().contentWindow
-      focusElement.focus()
-      player.playVideo()
-    }
-  }
-
-  const handleFocus = event => {
-    setPlayed(true)
-
-    if (player) {
-      const focusElement =
-        player.getIframe().contentDocument || player.getIframe().contentWindow
-      focusElement.focus()
-    }
   }
 
   const handleKeyDown = event => {
@@ -94,7 +85,7 @@ const YouTubeVideo = ({ title, videoId, thumbnail, ...props }) => {
       event.key === 'Spacebar' ||
       event.key === ' '
     ) {
-      handleVideoInteraction()
+      setPlayed(true)
     }
   }
 
@@ -105,12 +96,14 @@ const YouTubeVideo = ({ title, videoId, thumbnail, ...props }) => {
           css={imageStyles}
           role="button"
           tabIndex={played ? -1 : 0}
-          onClick={handleVideoInteraction}
+          onClick={handleClick}
           onKeyDown={handleKeyDown}
-          onFocus={handleFocus}
           aria-hidden
+          color="white"
         >
-          <PlayIcon title={title} m="auto" color="white" />
+          {!played && <PlayIcon title={title} />}
+
+          {played && <Spinner />}
 
           <Img
             fadeIn={true}
@@ -120,14 +113,9 @@ const YouTubeVideo = ({ title, videoId, thumbnail, ...props }) => {
         </Flex>
       )}
 
-      <YouTube
-        videoId={videoId}
-        opts={options}
-        paused={!played}
-        onReady={onReady}
-        onFocus={handleVideoInteraction}
-        onPlay={handleVideoInteraction}
-      />
+      {(played || !thumbnail) && (
+        <YouTube videoId={videoId} opts={options} onReady={onVideoReady} />
+      )}
     </ResponsiveEmbed>
   )
 }
