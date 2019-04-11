@@ -20,11 +20,10 @@ ViewAllButton.propTypes = {
   children: PropTypes.string,
 }
 
-const FeaturedVideo = ({ bg, theme, ...props }) => {
+const FeaturedVideo = ({ video, bg, theme, ...props }) => {
   const { contentfulHomePageVideo: data } = useStaticQuery(graphql`
     query {
       contentfulHomePageVideo(entryTitle: { ne: "SCHEMA__HomePageVideo" }) {
-        videoId
         videoTitle
         videoDescription {
           content: childMarkdownRemark {
@@ -41,7 +40,7 @@ const FeaturedVideo = ({ bg, theme, ...props }) => {
     ${bg && `background-image: linear-gradient(to bottom, ${bg}, transparent)`};
   `
 
-  const title = data.videoTitle || 'Featured Video'
+  const title = data.videoTitle || video.title
   const description =
     data.videoDescription && data.videoDescription.content.html
 
@@ -65,7 +64,11 @@ const FeaturedVideo = ({ bg, theme, ...props }) => {
           )}
         </Flex>
 
-        <YouTubeVideo videoId={data.videoId} />
+        <YouTubeVideo
+          title={title}
+          videoId={video.videoId}
+          thumbnail={video.localThumbnail.childImageSharp}
+        />
 
         {description && (
           <MarkdownContent
@@ -87,6 +90,11 @@ const FeaturedVideo = ({ bg, theme, ...props }) => {
 }
 
 FeaturedVideo.propTypes = {
+  video: PropTypes.shape({
+    videoId: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    localThumbnail: PropTypes.object.isRequired,
+  }),
   bg: PropTypes.string,
   theme: PropTypes.object.isRequired,
 }

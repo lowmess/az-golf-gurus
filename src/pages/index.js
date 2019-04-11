@@ -70,6 +70,7 @@ export const pageQuery = graphql`
         }
       }
     }
+
     contentfulHomePageContact(entryTitle: { ne: "SCHEMA__HomePageContact" }) {
       title
       introText {
