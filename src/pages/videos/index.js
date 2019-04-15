@@ -4,11 +4,11 @@ import { Link, useStaticQuery, graphql } from 'gatsby'
 import Img from 'gatsby-image'
 import { css } from 'styled-components'
 import { Box, Flex, Text, Button } from 'rebass'
-import Container from '../components/Container'
-import MarkdownContent from '../components/MarkdownContent'
-import { Heading, Paragraph, Rule } from '../components/Typography'
-import { themeHover } from '../utils/styles'
-import unwidow from '../utils/unwidow'
+import Container from '../../components/Container'
+import MarkdownContent from '../../components/MarkdownContent'
+import { Heading, Paragraph, Rule } from '../../components/Typography'
+import { themeHover } from '../../utils/styles'
+import unwidow from '../../utils/unwidow'
 
 const PlaylistPreview = ({ playlist, index, ...props }) => {
   const { playlistId, title, description, slug, localThumbnail } = playlist
