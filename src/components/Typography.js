@@ -36,10 +36,19 @@ Paragraph.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-const Rule = props => {
+const Separator = props => {
   const styles = css`
     height: ${({ theme }) => theme.space[3]};
     max-width: 40rem;
+    border: 0;
+  `
+
+  return <Box as="hr" mx={0} bg="green" css={styles} {...props} />
+}
+
+const Rule = props => {
+  const styles = css`
+    height: 1px;
     border: 0;
   `
 
@@ -66,4 +75,4 @@ ListItem.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export { Heading, Paragraph, Rule, List, ListItem }
+export { Heading, Paragraph, Separator, Rule, List, ListItem }

@@ -6,7 +6,7 @@ import { css } from 'styled-components'
 import { Box, Flex, Text, Button } from 'rebass'
 import Container from '../../components/Container'
 import MarkdownContent from '../../components/MarkdownContent'
-import { Heading, Paragraph, Rule } from '../../components/Typography'
+import { Heading, Paragraph, Separator } from '../../components/Typography'
 import { themeHover } from '../../utils/styles'
 import unwidow from '../../utils/unwidow'
 
@@ -116,7 +116,7 @@ const VideosPage = () => {
 
   const playlists = data.allYouTubePlaylist.edges
 
-  const ruleStyles = css`
+  const separatorStyles = css`
     display: none;
 
     @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
@@ -143,7 +143,7 @@ const VideosPage = () => {
         )}
       </Text>
 
-      <Rule mt={4} mb={6} mx="auto" css={ruleStyles} />
+      <Separator mt={4} mb={6} mx="auto" css={separatorStyles} />
 
       {playlists.map((playlist, index) => (
         <PlaylistPreview

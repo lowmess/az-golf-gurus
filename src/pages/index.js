@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
 import { withTheme } from 'styled-components'
 import Container from '../components/Container'
-import { Heading, Rule } from '../components/Typography'
+import { Heading, Separator } from '../components/Typography'
 import MarkdownContent from '../components/MarkdownContent'
 import Hero from '../components/Hero'
 import FeaturedVideo from '../components/FeaturedVideo'
@@ -28,7 +28,7 @@ const HomePage = ({ data, theme }) => {
       />
 
       <Container mt={[5, 6]}>
-        <Rule mx="auto" />
+        <Separator mx="auto" />
       </Container>
 
       <Container id="contact" mt={[4, 5]} mb={5} pt={3} maxWidth="48rem">
