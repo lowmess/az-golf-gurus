@@ -31,7 +31,7 @@ const HomePage = ({ data, theme }) => {
         <Rule mx="auto" />
       </Container>
 
-      <Container id="contact" mt={[4, 5]} mb={[5, 6]} pt={3} maxWidth="48rem">
+      <Container id="contact" mt={[4, 5]} mb={5} pt={3} maxWidth="48rem">
         <Heading textAlign="center">{unwidow(title)}</Heading>
 
         {hasIntro && (
@@ -65,7 +65,7 @@ export const pageQuery = graphql`
       localThumbnail {
         childImageSharp {
           fluid(maxWidth: 960) {
-            ...GatsbyImageSharpFluid_noBase64
+            ...GatsbyImageSharpFluid
           }
         }
       }

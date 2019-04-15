@@ -5,6 +5,7 @@ import { css } from 'styled-components'
 import { Box, Flex, Link } from 'rebass'
 import { Heading, List, ListItem } from '../Typography'
 import Container from '../Container'
+import Wave from './Wave'
 import Logo from './Logo'
 import * as Icon from './SocialMediaIcons'
 import { reverseThemeHover } from '../../utils/styles'
@@ -92,61 +93,72 @@ const Footer = props => {
   `)
 
   return (
-    <Box as="footer" bg="greens.7" color="white" py={[4, 4, 5]} {...props}>
-      <Flex
-        as={Container}
-        flexDirection={['column', 'row']}
-        alignItems="center"
-        justifyContent="space-between"
+    <>
+      <Wave color="greens.7" />
+
+      <Box
+        as="footer"
+        bg="greens.7"
+        color="white"
+        pt={5}
+        pb={[4, 4, 5]}
+        {...props}
       >
-        <Box flex="1" mr={[0, 4]} mb={[5, 0]}>
-          <FooterLinkContainer mb={[5, 4, 3]}>
-            <FooterHeading>Learn</FooterHeading>
+        <Flex
+          as={Container}
+          flexDirection={['column', 'row']}
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Box flex="1" mr={[0, 4]} mb={[5, 0]}>
+            <FooterLinkContainer mb={[5, 4, 3]}>
+              <FooterHeading>Learn</FooterHeading>
 
-            <FooterList>
-              <FooterLink to="/videos/">Videos</FooterLink>
+              <FooterList>
+                <FooterLink to="/videos/">Videos</FooterLink>
 
-              <FooterLink to="/lessons/">Lessons</FooterLink>
+                <FooterLink to="/lessons/">Lessons</FooterLink>
 
-              <FooterLink to="/events/">Events</FooterLink>
-            </FooterList>
-          </FooterLinkContainer>
+                <FooterLink to="/events/">Events</FooterLink>
+              </FooterList>
+            </FooterLinkContainer>
 
-          <FooterLinkContainer mb={[5, 4, 3]}>
-            <FooterHeading>Company</FooterHeading>
+            <FooterLinkContainer mb={[5, 4, 3]}>
+              <FooterHeading>Company</FooterHeading>
 
-            <FooterList>
-              <FooterLink to="/about/">About Us</FooterLink>
+              <FooterList>
+                <FooterLink to="/about/">About Us</FooterLink>
 
-              <FooterLink to="/contact/">Contact</FooterLink>
-            </FooterList>
-          </FooterLinkContainer>
+                <FooterLink to="/contact/">Contact</FooterLink>
+              </FooterList>
+            </FooterLinkContainer>
 
-          <List textAlign={['center', 'initial']}>
-            {accounts.edges.map(({ node: { network, link } }) => {
-              const ComponentName = Icon[network]
-              const styles = css`
-                display: inline-block;
+            <List textAlign={['center', 'initial']}>
+              {accounts.edges.map(({ node: { network, link } }) => {
+                const ComponentName = Icon[network]
+                const styles = css`
+                  display: inline-block;
 
-                & + & {
-                  margin-left: ${({ theme }) => theme.space[3]};
-                }
-              `
+                  & + & {
+                    margin-left: ${({ theme }) => theme.space[3]};
+                  }
+                `
 
-              return (
-                <ListItem key={network} css={styles} fontSize={3}>
-                  <Link href={link} css={reverseThemeHover}>
-                    <ComponentName />
-                  </Link>
-                </ListItem>
-              )
-            })}
-          </List>
-        </Box>
+                return (
+                  <ListItem key={network} css={styles} fontSize={3}>
+                    <Link href={link} css={reverseThemeHover}>
+                      <ComponentName />
+                    </Link>
+                  </ListItem>
+                )
+              })}
+            </List>
+          </Box>
 
-        <Logo width={['4rem', '8rem']} />
-      </Flex>
-    </Box>
+          <Logo width={['4rem', '8rem']} />
+        </Flex>
+      </Box>
+    </>
   )
 }
 
