@@ -81,12 +81,7 @@ const Hero = ({ bg }) => {
   return (
     <Box pt={[5, 6]} css={heroStyles}>
       {hasImage ? (
-        <Img
-          fadeIn={true}
-          src={data.heroImage.fluid.src}
-          sizes={data.heroImage.fluid}
-          css={imageStyles}
-        />
+        <Img fluid={data.heroImage.fluid} css={imageStyles} />
       ) : (
         <Box css={imageStyles} />
       )}

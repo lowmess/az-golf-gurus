@@ -41,7 +41,7 @@ const PlayIcon = ({ title, ...props }) => {
 
   return (
     <Flex css={bgStyles} {...props}>
-      <Card borderRadius="100%" border={[2, 3]} css={spinnerStyles} />
+      <Card borderRadius="100%" border={[3, 4]} css={spinnerStyles} />
     </Flex>
   )
 }

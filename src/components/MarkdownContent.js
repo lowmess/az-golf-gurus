@@ -157,7 +157,7 @@ const MarkdownContent = styled(Text)`
     margin-right: 0;
     margin-bottom: ${({ theme }) => theme.space[4]};
     margin-left: 0;
-    border-left: ${({ theme }) => theme.borders[3]}
+    border-left: ${({ theme }) => theme.borders[4]}
       ${({ theme }) => theme.colors.green};
     border-radius: ${({ theme }) => theme.radii[1]};
     padding: ${({ theme }) => theme.space[3]};

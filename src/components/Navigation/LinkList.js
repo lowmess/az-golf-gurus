@@ -20,7 +20,7 @@ const LinkList = ({
 }) => {
   const listItemStyles = css`
     & + & {
-      border-top: ${`${theme.borders[1]} ${theme.colors.greens[6]}`};
+      border-top: ${`${theme.borders[2]} ${theme.colors.greens[6]}`};
     }
 
     @media (min-width: ${theme.breakpoints[0]}) {
@@ -42,7 +42,7 @@ const LinkList = ({
       color: ${theme.colors.black};
 
       .active & {
-        border-bottom: ${theme.borders[2]} ${theme.colors.green};
+        border-bottom: ${theme.borders[3]} ${theme.colors.green};
       }
     }
   `

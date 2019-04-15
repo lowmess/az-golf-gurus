@@ -105,11 +105,7 @@ const YouTubeVideo = ({ title, videoId, thumbnail, ...props }) => {
 
           {played && <Spinner />}
 
-          <Img
-            fadeIn={true}
-            src={thumbnail.fluid.src}
-            sizes={thumbnail.fluid}
-          />
+          <Img fluid={thumbnail.fluid} />
         </Flex>
       )}
 

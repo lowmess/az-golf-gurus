@@ -49,7 +49,7 @@ const PlayIcon = ({ title, ...props }) => {
 
   return (
     <Flex css={bgStyles} {...props}>
-      <Card borderRadius="100%" border={[2, 3]} css={iconStyles}>
+      <Card borderRadius="100%" border={[3, 4]} css={iconStyles}>
         <title>Play &ldquo;{title}&rdquo; video</title>
         <svg
           xmlns="http://www.w3.org/2000/svg"
