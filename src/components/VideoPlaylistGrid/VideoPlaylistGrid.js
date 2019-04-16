@@ -23,6 +23,10 @@ const Grid = ({ children, ...props }) => {
       font-size: ${({ theme }) => theme.fontSizes[2]};
     }
 
+    .video-desc {
+      font-size: ${({ theme }) => theme.fontSizes[1]};
+    }
+
     @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
       grid-template-columns: repeat(2, 1fr);
 
@@ -36,6 +40,10 @@ const Grid = ({ children, ...props }) => {
 
         .video-title {
           font-size: ${({ theme }) => theme.fontSizes[3]};
+        }
+
+        .video-desc {
+          font-size: ${({ theme }) => theme.fontSizes[2]};
         }
       }
     }

@@ -16,7 +16,7 @@ VideoPreviewTitle.propTypes = {
 }
 
 const VideoPreviewDescription = ({ children, ...props }) => (
-  <Paragraph mt={3} mx="auto" fontSize="1" {...props}>
+  <Paragraph className="video-desc" mt={3} mx="auto" fontSize="1" {...props}>
     {children}
   </Paragraph>
 )
