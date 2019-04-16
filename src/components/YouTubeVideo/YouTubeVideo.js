@@ -115,7 +115,12 @@ const YouTubeVideo = ({
   }
 
   return (
-    <ResponsiveEmbed css={containerStyles} ratio="16:9" {...props}>
+    <ResponsiveEmbed
+      className="youtube-video"
+      css={containerStyles}
+      ratio="16:9"
+      {...props}
+    >
       {thumbnail && (
         <Flex
           css={imageStyles}

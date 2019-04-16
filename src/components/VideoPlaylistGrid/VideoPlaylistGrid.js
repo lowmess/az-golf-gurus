@@ -14,10 +14,19 @@ import unwidow from '../../utils/unwidow'
 const Grid = ({ children, ...props }) => {
   const gridStyles = css`
     position: relative;
-    display: grid;
     grid-row-gap: ${({ theme }) => theme.space[5]};
     grid-column-gap: ${({ theme }) => theme.space[4]};
     max-width: 60rem;
+
+    & > * {
+      width: 100vw;
+      margin-right: calc(50% - 50vw);
+      margin-left: calc(50% - 50vw);
+    }
+
+    & > * + * {
+      margin-top: ${({ theme }) => theme.space[5]};
+    }
 
     .video-title {
       font-size: ${({ theme }) => theme.fontSizes[2]};
@@ -28,10 +37,15 @@ const Grid = ({ children, ...props }) => {
     }
 
     @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
+      display: grid;
       grid-template-columns: repeat(2, 1fr);
 
       & > * {
         order: 2;
+        width: 100%;
+        margin-right: 0;
+        margin-left: 0;
+        margin-top: 0;
       }
 
       .playing {

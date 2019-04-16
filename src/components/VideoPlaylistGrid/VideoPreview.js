@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Card } from 'rebass'
 import { Heading, Paragraph } from '../Typography'
+import Container from '../Container'
 import YouTubeVideo from '../YouTubeVideo'
 
 const VideoPreviewTitle = ({ href, children, ...props }) => (
@@ -37,7 +38,7 @@ const VideoPreview = ({ video, paused, onClick, children, ...props }) => {
         paused={paused}
         onClick={onClick}
       />
-      {children}
+      <Container>{children}</Container>
     </Card>
   )
 }
