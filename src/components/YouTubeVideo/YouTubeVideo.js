@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Img from 'gatsby-image'
 import YouTube from 'react-youtube'
@@ -8,9 +8,29 @@ import ResponsiveEmbed from './ResponsiveEmbed'
 import PlayIcon from './PlayIcon'
 import Spinner from './Spinner'
 
-const YouTubeVideo = ({ title, videoId, thumbnail, ...props }) => {
+const YouTubeVideo = ({
+  title,
+  videoId,
+  thumbnail,
+  paused,
+  onClick,
+  ...props
+}) => {
   const [played, setPlayed] = useState(false)
   const [ready, setReady] = useState(false)
+  const [videoPlayer, setVideoPlayer] = useState(null)
+  const [videoSize, setVideoSize] = useState(0)
+  const playerEl = useRef(null)
+
+  useEffect(() => {
+    if (paused && videoPlayer) {
+      videoPlayer.pauseVideo()
+    }
+
+    if (playerEl.current) {
+      setVideoSize(playerEl.current.getBoundingClientRect().width)
+    }
+  }, [paused, videoPlayer, playerEl])
 
   const options = {
     width: '960',
@@ -73,10 +93,15 @@ const YouTubeVideo = ({ title, videoId, thumbnail, ...props }) => {
     focusElement.focus()
 
     setReady(true)
+    setVideoPlayer(player)
   }
 
   const handleClick = event => {
     setPlayed(true)
+
+    if (onClick) {
+      onClick(videoId)
+    }
   }
 
   const handleKeyDown = event => {
@@ -100,10 +125,11 @@ const YouTubeVideo = ({ title, videoId, thumbnail, ...props }) => {
           onKeyDown={handleKeyDown}
           aria-hidden
           color="white"
+          ref={playerEl}
         >
-          {!played && <PlayIcon title={title} />}
+          {!played && <PlayIcon videoSize={videoSize} title={title} />}
 
-          {played && <Spinner />}
+          {played && <Spinner videoSize={videoSize} />}
 
           <Img fluid={thumbnail.fluid} />
         </Flex>
@@ -122,6 +148,12 @@ YouTubeVideo.propTypes = {
   thumbnail: PropTypes.shape({
     fluid: PropTypes.object.isRequired,
   }),
+  paused: PropTypes.bool.isRequired,
+  onClick: PropTypes.func,
+}
+
+YouTubeVideo.defaultProps = {
+  paused: false,
 }
 
 export default YouTubeVideo

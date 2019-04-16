@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { css, keyframes } from 'styled-components'
 import { Flex, Card } from 'rebass'
 
-const PlayIcon = ({ title, ...props }) => {
+const Spinner = ({ videoSize, ...props }) => {
   const bgStyles = css`
     position: absolute;
     top: 0;
@@ -27,27 +27,30 @@ const PlayIcon = ({ title, ...props }) => {
 
   const spinnerStyles = css`
     position: relative;
-    width: ${({ theme }) => theme.space[5]};
-    height: ${({ theme }) => theme.space[5]};
+    width: ${({ theme }) =>
+      videoSize > 480 ? theme.space[6] : theme.space[5]};
+    height: ${({ theme }) =>
+      videoSize > 480 ? theme.space[6] : theme.space[5]};
     margin: auto;
+    border: ${({ theme }) =>
+      videoSize > 480 ? theme.borders[4] : theme.borders[3]};
     border-left-color: transparent !important;
     animation: ${spinning} 1s linear infinite;
-
-    @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
-      width: ${({ theme }) => theme.space[6]};
-      height: ${({ theme }) => theme.space[6]};
-    }
   `
 
   return (
     <Flex css={bgStyles} {...props}>
-      <Card borderRadius="100%" border={[3, 4]} css={spinnerStyles} />
+      <Card borderRadius="100%" css={spinnerStyles} />
     </Flex>
   )
 }
 
-PlayIcon.propTypes = {
-  title: PropTypes.string.isRequired,
+Spinner.propTypes = {
+  videoSize: PropTypes.number.isRequired,
 }
 
-export default PlayIcon
+Spinner.defaultProps = {
+  videoSize: 0,
+}
+
+export default Spinner
