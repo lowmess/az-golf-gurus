@@ -6,7 +6,12 @@ import { css } from 'styled-components'
 import { Box, Flex, Text, Button } from 'rebass'
 import Container from '../../components/Container'
 import MarkdownContent from '../../components/MarkdownContent'
-import { Heading, Paragraph, Separator } from '../../components/Typography'
+import {
+  Heading,
+  Paragraph,
+  Rule,
+  Separator,
+} from '../../components/Typography'
 import { themeHover } from '../../utils/styles'
 import unwidow from '../../utils/unwidow'
 
@@ -152,6 +157,14 @@ const VideosPage = () => {
           index={index}
         />
       ))}
+
+      <Rule />
+
+      <Text my={4} fontSize={[2, 3]} fontFamily="geomanist" textAlign="center">
+        <Link to="/videos/all" css={themeHover}>
+          View All Videos
+        </Link>
+      </Text>
     </Container>
   )
 }
