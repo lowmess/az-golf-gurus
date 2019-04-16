@@ -30,14 +30,6 @@ const AllVideosPage = () => {
     }
   `)
 
-  const separatorStyles = css`
-    display: none;
-
-    @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
-      display: block;
-    }
-  `
-
   const videos = []
 
   for (const video of allYouTubeVideo.edges) {
@@ -48,6 +40,14 @@ const AllVideosPage = () => {
       thumbnail: video.node.localThumbnail.childImageSharp,
     })
   }
+
+  const separatorStyles = css`
+    display: none;
+
+    @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
+      display: block;
+    }
+  `
 
   return (
     <Container>
