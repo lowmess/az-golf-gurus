@@ -5,13 +5,6 @@ import { Heading, Separator } from '../components/Typography'
 import Container from '../components/Container'
 import { toMoney } from '../utils/price'
 
-const toSnakeCase = str =>
-  str
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, ' ')
-    .trim()
-    .replace(/\s+/g, '-')
-
 const LessonsPage = () => {
   const data = useStaticQuery(graphql`
     query {
