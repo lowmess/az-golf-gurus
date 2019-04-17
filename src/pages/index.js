@@ -24,7 +24,8 @@ const HomePage = ({ data, theme }) => {
       <FeaturedVideo
         video={data.youTubeVideo ? data.youTubeVideo : undefined}
         bg={bg}
-        pt={[5, 6]}
+        mt={[4, 0]}
+        pt={[0, 6]}
       />
 
       <Container mt={[5, 6]}>

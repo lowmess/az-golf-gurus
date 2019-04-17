@@ -20,7 +20,7 @@ ViewAllButton.propTypes = {
   children: PropTypes.string,
 }
 
-const FeaturedVideo = ({ video, bg, theme, ...props }) => {
+const FeaturedVideo = ({ theme, video, bg, ...props }) => {
   const { contentfulHomePageVideo: data } = useStaticQuery(graphql`
     query {
       contentfulHomePageVideo(entryTitle: { ne: "SCHEMA__HomePageVideo" }) {
@@ -34,10 +34,23 @@ const FeaturedVideo = ({ video, bg, theme, ...props }) => {
       }
     }
   `)
+
   const isMobile = !useMediaQuery(`(min-width: ${theme.breakpoints[0]})`)
 
-  const styles = css`
+  const bgStyles = css`
     ${bg && `background-image: linear-gradient(to bottom, ${bg}, transparent)`};
+  `
+
+  const videoStyles = css`
+    width: 100vw;
+    margin-right: calc(50% - 50vw);
+    margin-left: calc(50% - 50vw);
+
+    @media (min-width: ${theme.breakpoints[0]}) {
+      width: 100%;
+      margin-right: 0;
+      margin-left: 0;
+    }
   `
 
   const title = data.videoTitle || video.title
@@ -45,35 +58,40 @@ const FeaturedVideo = ({ video, bg, theme, ...props }) => {
     data.videoDescription && data.videoDescription.content.html
 
   return (
-    <Box css={styles} {...props}>
+    <Box css={bgStyles} {...props}>
       <Container maxWidth="60rem">
-        <Flex
-          flexDirection={['column', 'row']}
-          justifyContent="space-between"
-          alignItems="center"
-          mb={4}
-        >
-          <Heading mr={[0, 4]} fontFamily="geomanist" fontWeight="medium">
-            {unwidow(title)}
-          </Heading>
+        {!isMobile && (
+          <Flex
+            flexDirection={['column', 'row']}
+            justifyContent="space-between"
+            alignItems="center"
+            mb={4}
+          >
+            <Heading>{unwidow(title)}</Heading>
 
-          {!isMobile && (
             <div>
               <ViewAllButton />
             </div>
-          )}
-        </Flex>
+          </Flex>
+        )}
 
         <YouTubeVideo
           title={title}
           videoId={video.videoId}
           thumbnail={video.localThumbnail.childImageSharp}
+          css={videoStyles}
         />
+
+        {isMobile && (
+          <Heading mt={4} fontSize="3" textAlign="center">
+            {unwidow(title)}
+          </Heading>
+        )}
 
         {description && (
           <MarkdownContent
-            mt={[4, 5]}
-            fontSize={[2, 3]}
+            mt={[2, 5]}
+            fontSize={[1, 3]}
             center
             dangerouslySetInnerHTML={{ __html: description }}
           />
@@ -90,13 +108,13 @@ const FeaturedVideo = ({ video, bg, theme, ...props }) => {
 }
 
 FeaturedVideo.propTypes = {
+  theme: PropTypes.object.isRequired,
   video: PropTypes.shape({
     videoId: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     localThumbnail: PropTypes.object.isRequired,
   }),
   bg: PropTypes.string,
-  theme: PropTypes.object.isRequired,
 }
 
 export default withTheme(FeaturedVideo)

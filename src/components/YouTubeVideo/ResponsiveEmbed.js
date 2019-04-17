@@ -8,7 +8,7 @@ const AspectRatio = ({ children, ratio, ...props }) => {
 
   const styles = css`
     position: relative;
-    max-width: 100%;
+    width: 100%;
     height: 0;
     padding-bottom: ${(y / x) * 100}%;
     overflow: hidden;

@@ -26,7 +26,7 @@ const Grid = ({ children, ...props }) => {
     }
 
     .video-title {
-      font-size: ${({ theme }) => theme.fontSizes[2]};
+      font-size: ${({ theme }) => theme.fontSizes[3]};
     }
 
     .video-desc {
@@ -43,6 +43,10 @@ const Grid = ({ children, ...props }) => {
         margin-right: 0;
         margin-left: 0;
         margin-top: 0;
+      }
+
+      .video-title {
+        font-size: ${({ theme }) => theme.fontSizes[2]};
       }
 
       .playing {
@@ -118,7 +122,7 @@ const VideoPlaylistGrid = ({ theme, videos, ...props }) => {
             </Heading>
 
             {video.description && (
-              <Paragraph className="video-desc" mt={3} mx="auto" fontSize="1">
+              <Paragraph className="video-desc" mt={2} mx="auto" fontSize="1">
                 {unwidow(video.description)}
               </Paragraph>
             )}
