@@ -42,4 +42,28 @@ const useMediaQuery = query => {
   return matches
 }
 
-export { useSiteMetadata, useMediaQuery }
+const useWindowWidth = () => {
+  const isClient = typeof window === 'object'
+
+  const getWidth = () => (isClient ? window.innerWidth : undefined)
+
+  const [windowWidth, setWindowWidth] = useState(getWidth())
+
+  useEffect(() => {
+    if (typeof window !== 'object') return false
+
+    const handleResize = () => {
+      setWindowWidth(getWidth())
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
+  return windowWidth
+}
+
+export { useSiteMetadata, useMediaQuery, useWindowWidth }

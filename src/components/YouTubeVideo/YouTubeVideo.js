@@ -7,19 +7,22 @@ import { Flex } from 'rebass'
 import ResponsiveEmbed from './ResponsiveEmbed'
 import PlayIcon from './PlayIcon'
 import Spinner from './Spinner'
+import { useWindowWidth } from '../../utils/hooks'
 
 const YouTubeVideo = ({
   title,
   videoId,
   thumbnail,
   paused,
-  onClick,
+  onPlay,
+  setActiveId,
   ...props
 }) => {
   const [played, setPlayed] = useState(false)
   const [ready, setReady] = useState(false)
   const [videoPlayer, setVideoPlayer] = useState(null)
   const [videoSize, setVideoSize] = useState(0)
+  const windowWidth = useWindowWidth()
   const playerEl = useRef(null)
 
   useEffect(() => {
@@ -30,7 +33,7 @@ const YouTubeVideo = ({
     if (playerEl.current) {
       setVideoSize(playerEl.current.getBoundingClientRect().width)
     }
-  }, [paused, videoPlayer, playerEl])
+  }, [paused, videoPlayer, playerEl, windowWidth])
 
   const options = {
     width: '960',
@@ -84,24 +87,8 @@ const YouTubeVideo = ({
     }
   `
 
-  const onVideoReady = event => {
-    const player = event.target
-    const focusElement =
-      player.getIframe().contentDocument || player.getIframe().contentWindow
-
-    player.playVideo()
-    focusElement.focus()
-
-    setReady(true)
-    setVideoPlayer(player)
-  }
-
   const handleClick = event => {
     setPlayed(true)
-
-    if (onClick) {
-      onClick(videoId)
-    }
   }
 
   const handleKeyDown = event => {
@@ -112,6 +99,25 @@ const YouTubeVideo = ({
     ) {
       setPlayed(true)
     }
+  }
+
+  const handlePlay = event => {
+    if (setActiveId) setActiveId(videoId)
+    if (onPlay) onPlay()
+  }
+
+  const onVideoReady = event => {
+    const player = event.target
+    const focusElement =
+      player.getIframe().contentDocument || player.getIframe().contentWindow
+
+    handlePlay()
+
+    player.playVideo()
+    focusElement.focus()
+
+    setReady(true)
+    setVideoPlayer(player)
   }
 
   return (
@@ -141,7 +147,12 @@ const YouTubeVideo = ({
       )}
 
       {(played || !thumbnail) && (
-        <YouTube videoId={videoId} opts={options} onReady={onVideoReady} />
+        <YouTube
+          videoId={videoId}
+          opts={options}
+          onReady={onVideoReady}
+          onPlay={handlePlay}
+        />
       )}
     </ResponsiveEmbed>
   )
@@ -154,7 +165,8 @@ YouTubeVideo.propTypes = {
     fluid: PropTypes.object.isRequired,
   }),
   paused: PropTypes.bool.isRequired,
-  onClick: PropTypes.func,
+  onPlay: PropTypes.func,
+  setActiveId: PropTypes.func,
 }
 
 YouTubeVideo.defaultProps = {

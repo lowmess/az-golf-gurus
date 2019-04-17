@@ -1,15 +1,12 @@
 import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { css, withTheme } from 'styled-components'
-import { Box } from 'rebass'
-import Container from '../Container'
-import {
-  VideoPreview,
-  VideoPreviewTitle,
-  VideoPreviewDescription,
-} from './VideoPreview'
-import { useMediaQuery } from '../../utils/hooks'
-import unwidow from '../../utils/unwidow'
+import { Box, Text } from 'rebass'
+import { Heading, Paragraph } from './Typography'
+import Container from './Container'
+import YouTubeVideo from './YouTubeVideo'
+import { useMediaQuery } from '../utils/hooks'
+import unwidow from '../utils/unwidow'
 
 const Grid = ({ children, ...props }) => {
   const gridStyles = css`
@@ -91,9 +88,7 @@ const VideoPlaylistGrid = ({ theme, videos, ...props }) => {
   const playlistEl = useRef(null)
   const notMobile = useMediaQuery(`(min-width: ${theme.breakpoints[0]})`)
 
-  const onClick = videoId => {
-    setActiveId(videoId)
-
+  const onPlay = () => {
     if (playlistEl.current && notMobile) playlistEl.current.scrollIntoView()
   }
 
@@ -102,21 +97,33 @@ const VideoPlaylistGrid = ({ theme, videos, ...props }) => {
       <Box ref={playlistEl} css="position: absolute; top: -1rem;" />
 
       {videos.map(video => (
-        <VideoPreview
+        <Text
           key={video.videoId}
-          video={video}
           className={activeId === video.videoId ? 'playing' : ''}
-          paused={activeId !== video.videoId}
-          onClick={onClick}
+          textAlign="center"
         >
-          <VideoPreviewTitle>{unwidow(video.title)}</VideoPreviewTitle>
+          <YouTubeVideo
+            videoId={video.videoId}
+            title={video.title}
+            thumbnail={video.thumbnail}
+            paused={activeId !== video.videoId}
+            onPlay={onPlay}
+            setActiveId={setActiveId}
+            mediaQuery={notMobile}
+          />
 
-          {video.description && (
-            <VideoPreviewDescription>
-              {unwidow(video.description)}
-            </VideoPreviewDescription>
-          )}
-        </VideoPreview>
+          <Container>
+            <Heading className="video-title" mt={4} fontSize={2}>
+              {unwidow(video.title)}
+            </Heading>
+
+            {video.description && (
+              <Paragraph className="video-desc" mt={3} mx="auto" fontSize="1">
+                {unwidow(video.description)}
+              </Paragraph>
+            )}
+          </Container>
+        </Text>
       ))}
     </Grid>
   )
