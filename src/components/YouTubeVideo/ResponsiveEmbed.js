@@ -32,7 +32,7 @@ const AspectRatio = ({ children, ratio, ...props }) => {
 }
 
 AspectRatio.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
   ratio: (props, propName, componentName) => {
     if (typeof props[propName] !== 'string' || !props[propName].includes(':')) {
       return new Error(
