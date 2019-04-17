@@ -5,8 +5,8 @@ import { Text } from 'rebass'
 import { Heading, Paragraph, Separator } from './Typography'
 import MarkdownContent from './MarkdownContent'
 
-const HeaderTitle = ({ children }) => (
-  <Heading as="h1" fontSize={[4, 5]} fontWeight={['medium', 'bold']}>
+const HeaderTitle = ({ children, ...props }) => (
+  <Heading as="h1" fontSize={[4, 5]} fontWeight={['medium', 'bold']} {...props}>
     {children}
   </Heading>
 )
@@ -15,7 +15,7 @@ HeaderTitle.propTypes = {
   children: PropTypes.string.isRequired,
 }
 
-const HeaderDescription = ({ markdown, children }) =>
+const HeaderDescription = ({ markdown, children, ...props }) =>
   markdown ? (
     <MarkdownContent
       mt={4}
@@ -24,9 +24,10 @@ const HeaderDescription = ({ markdown, children }) =>
       dangerouslySetInnerHTML={{
         __html: children,
       }}
+      {...props}
     />
   ) : (
-    <Paragraph mt={4} fontSize={[1, 2]}>
+    <Paragraph mt={4} fontSize={[1, 2]} {...props}>
       {children}
     </Paragraph>
   )
