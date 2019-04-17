@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 
 const useSiteMetadata = () => {
@@ -45,7 +45,10 @@ const useMediaQuery = query => {
 const useWindowWidth = () => {
   const isClient = typeof window === 'object'
 
-  const getWidth = () => (isClient ? window.innerWidth : undefined)
+  const getWidth = useCallback(
+    () => (isClient ? window.innerWidth : undefined),
+    [isClient]
+  )
 
   const [windowWidth, setWindowWidth] = useState(getWidth())
 
@@ -61,7 +64,7 @@ const useWindowWidth = () => {
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, [])
+  }, [getWidth])
 
   return windowWidth
 }
