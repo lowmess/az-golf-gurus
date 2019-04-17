@@ -40,9 +40,10 @@ const LinkList = ({
     @media (min-width: ${theme.breakpoints[0]}) {
       ${themeHover};
       color: ${theme.colors.black};
+      border-bottom: ${theme.borders[3]} transparent;
 
       .active & {
-        border-bottom: ${theme.borders[3]} ${theme.colors.green};
+        border-color: ${theme.colors.green};
       }
     }
   `
