@@ -9,8 +9,8 @@ LessonTemplate.propTypes = {
 }
 
 export const pageQuery = graphql`
-  query LessonByCalendlyUrl($calendlyUrl: String!) {
-    contentfulLesson(calendlyUrl: { eq: $calendlyUrl }) {
+  query LessonById($contentful_id: String!) {
+    contentfulLesson(contentful_id: { eq: $contentful_id }) {
       title
       lesson_category {
         title

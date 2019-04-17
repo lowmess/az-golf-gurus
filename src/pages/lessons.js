@@ -23,7 +23,7 @@ const LessonsPage = () => {
           node {
             title
             lessons {
-              id
+              contentful_id
               title
               price
             }
@@ -46,7 +46,6 @@ const LessonsPage = () => {
       <Box>
         {data.allContentfulLessonCategory.edges.map(edge => {
           const { title, lessons } = edge.node
-          const baseUrl = `/lessons/${toSnakeCase(title)}`
 
           return (
             <Fragment key={edge.node.title}>
@@ -54,11 +53,9 @@ const LessonsPage = () => {
 
               <Box>
                 {lessons.map(lesson => {
-                  const url = `${baseUrl}-${toSnakeCase(lesson.title)}/`
-
                   return (
-                    <p key={lesson.id}>
-                      <Link to={url}>
+                    <p key={lesson.contentful_id}>
+                      <Link to={`/lessons/${lesson.contentful_id}/`}>
                         {lesson.title} - {toMoney(lesson.price)}
                       </Link>
                     </p>

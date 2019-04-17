@@ -3,13 +3,6 @@ const Promise = require('bluebird')
 const _ = require('lodash')
 const fetch = require('node-fetch')
 
-const toSnakeCase = str =>
-  str
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, ' ')
-    .trim()
-    .replace(/\s+/g, '-')
-
 const getFeaturedVideoId = () =>
   fetch(
     `https://cdn.contentful.com/spaces/${
@@ -66,16 +59,10 @@ exports.createPages = ({ graphql, actions }) => {
               }
             }
           }
-          allContentfulLessonCategory(
-            filter: { title: { ne: "SCHEMA__LessonCategory" } }
-          ) {
+          allContentfulLesson(filter: { title: { ne: "SCHEMA__Lesson" } }) {
             edges {
               node {
-                title
-                lessons {
-                  calendlyUrl
-                  title
-                }
+                contentful_id
               }
             }
           }
@@ -86,7 +73,7 @@ exports.createPages = ({ graphql, actions }) => {
           reject(result.errors)
         }
 
-        // Create YouTube playlist pages.
+        // Create YouTube playlist pages
         _.each(result.data.allYouTubePlaylist.edges, edge => {
           createPage({
             path: edge.node.slug,
@@ -95,18 +82,12 @@ exports.createPages = ({ graphql, actions }) => {
           })
         })
 
-        // Create lesson pages.
-        _.each(result.data.allContentfulLessonCategory.edges, edge => {
-          const baseUrl = `/lessons/${toSnakeCase(edge.node.title)}`
-
-          _.each(edge.node.lessons, lesson => {
-            const url = `${baseUrl}-${toSnakeCase(lesson.title)}/`
-
-            createPage({
-              path: url,
-              component: Lesson,
-              context: { calendlyUrl: lesson.calendlyUrl },
-            })
+        // Create lesson pages
+        _.each(result.data.allContentfulLesson.edges, edge => {
+          createPage({
+            path: `/lessons/${edge.node.contentful_id}/`,
+            component: Lesson,
+            context: { contentful_id: edge.node.contentful_id },
           })
         })
       })
