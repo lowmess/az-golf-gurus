@@ -3,6 +3,13 @@ const Promise = require('bluebird')
 const _ = require('lodash')
 const fetch = require('node-fetch')
 
+const toSnakeCase = str =>
+  str
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim()
+    .replace(/\s+/g, '-')
+
 const getFeaturedVideoId = () =>
   fetch(
     `https://cdn.contentful.com/spaces/${
@@ -47,6 +54,7 @@ exports.createPages = ({ graphql, actions }) => {
 
   return new Promise((resolve, reject) => {
     const Playlist = path.resolve('./src/templates/Playlist.js')
+    const Lesson = path.resolve('./src/templates/Lesson.js')
 
     resolve(
       graphql(`
@@ -58,6 +66,19 @@ exports.createPages = ({ graphql, actions }) => {
               }
             }
           }
+          allContentfulLessonCategory(
+            filter: { title: { ne: "SCHEMA__LessonCategory" } }
+          ) {
+            edges {
+              node {
+                title
+                lessons {
+                  calendlyUrl
+                  title
+                }
+              }
+            }
+          }
         }
       `).then(result => {
         if (result.errors) {
@@ -65,12 +86,27 @@ exports.createPages = ({ graphql, actions }) => {
           reject(result.errors)
         }
 
-        // Create blog posts pages.
+        // Create YouTube playlist pages.
         _.each(result.data.allYouTubePlaylist.edges, edge => {
           createPage({
             path: edge.node.slug,
             component: Playlist,
             context: { slug: edge.node.slug },
+          })
+        })
+
+        // Create lesson pages.
+        _.each(result.data.allContentfulLessonCategory.edges, edge => {
+          const baseUrl = `/lessons/${toSnakeCase(edge.node.title)}`
+
+          _.each(edge.node.lessons, lesson => {
+            const url = `${baseUrl}-${toSnakeCase(lesson.title)}/`
+
+            createPage({
+              path: url,
+              component: Lesson,
+              context: { calendlyUrl: lesson.calendlyUrl },
+            })
           })
         })
       })
