@@ -7,7 +7,7 @@ import { Flex } from 'rebass'
 import ResponsiveEmbed from './ResponsiveEmbed'
 import PlayIcon from './PlayIcon'
 import Spinner from './Spinner'
-import { useWindowWidth } from '../../utils/hooks'
+import { useWindowSize } from '../../utils/hooks'
 
 const YouTubeVideo = ({
   title,
@@ -22,7 +22,7 @@ const YouTubeVideo = ({
   const [ready, setReady] = useState(false)
   const [videoPlayer, setVideoPlayer] = useState(null)
   const [videoSize, setVideoSize] = useState(0)
-  const windowWidth = useWindowWidth()
+  const { width } = useWindowSize()
   const playerEl = useRef(null)
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const YouTubeVideo = ({
     if (playerEl.current) {
       setVideoSize(playerEl.current.getBoundingClientRect().width)
     }
-  }, [paused, videoPlayer, playerEl, windowWidth])
+  }, [paused, videoPlayer, playerEl, width])
 
   const options = {
     width: '960',
