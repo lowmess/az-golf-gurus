@@ -6,6 +6,7 @@ import { Heading, List, ListItem } from '../components/Typography'
 import Container from '../components/Container'
 import { Header, HeaderTitle, HeaderDescription } from '../components/Header'
 import { toMoney } from '../utils/price'
+import unwidow from '../utils/unwidow'
 import { themeHover } from '../utils/styles'
 
 const EventsPage = () => {
@@ -56,7 +57,7 @@ const EventsPage = () => {
   return (
     <Container>
       <Header>
-        <HeaderTitle>{pageTitle}</HeaderTitle>
+        <HeaderTitle>{unwidow(pageTitle)}</HeaderTitle>
 
         {hasDescription && (
           <HeaderDescription markdown>
@@ -92,14 +93,14 @@ const EventsPage = () => {
                   <time dateTime={endDate}>{endDateString}</time>
                 </Box>
 
-                <Heading fontSize={[3, 4, 5]}>
+                <Heading fontSize={[3, 4, 5]} fontWeight="bold">
                   <Link to={url} css={themeHover}>
-                    {title}
+                    {unwidow(title)}
                   </Link>
                 </Heading>
 
                 <Box as="p" mt={3} mb={4} fontSize={[1, 2, 3]}>
-                  {location} {'\u2022'} {toMoney(price)}
+                  {unwidow(location)} {'\u2022'} {toMoney(price)}
                 </Box>
 
                 <Button variant="outline" as={Link} to={url} fontSize={[1, 2]}>
