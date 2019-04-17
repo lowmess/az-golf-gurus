@@ -48,6 +48,7 @@ exports.createPages = ({ graphql, actions }) => {
   return new Promise((resolve, reject) => {
     const Playlist = path.resolve('./src/templates/Playlist.js')
     const Lesson = path.resolve('./src/templates/Lesson.js')
+    const Event = path.resolve('./src/templates/Event.js')
 
     resolve(
       graphql(`
@@ -60,6 +61,13 @@ exports.createPages = ({ graphql, actions }) => {
             }
           }
           allContentfulLesson(filter: { title: { ne: "SCHEMA__Lesson" } }) {
+            edges {
+              node {
+                contentful_id
+              }
+            }
+          }
+          allContentfulEvent(filter: { title: { ne: "SCHEMA__Event" } }) {
             edges {
               node {
                 contentful_id
@@ -87,6 +95,15 @@ exports.createPages = ({ graphql, actions }) => {
           createPage({
             path: `/lessons/${edge.node.contentful_id}/`,
             component: Lesson,
+            context: { contentful_id: edge.node.contentful_id },
+          })
+        })
+
+        // Create event pages
+        _.each(result.data.allContentfulEvent.edges, edge => {
+          createPage({
+            path: `/events/${edge.node.contentful_id}/`,
+            component: Event,
             context: { contentful_id: edge.node.contentful_id },
           })
         })
