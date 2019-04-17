@@ -5,13 +5,8 @@ import Img from 'gatsby-image'
 import { css } from 'styled-components'
 import { Box, Flex, Text, Button } from 'rebass'
 import Container from '../../components/Container'
-import MarkdownContent from '../../components/MarkdownContent'
-import {
-  Heading,
-  Paragraph,
-  Rule,
-  Separator,
-} from '../../components/Typography'
+import { Header, HeaderTitle, HeaderDescription } from '../../components/Header'
+import { Heading, Paragraph, Rule } from '../../components/Typography'
 import { themeHover } from '../../utils/styles'
 import unwidow from '../../utils/unwidow'
 
@@ -83,7 +78,7 @@ PlaylistPreview.propTypes = {
 const VideosPage = () => {
   const data = useStaticQuery(graphql`
     query {
-      contentfulVideosPage(entryTitle: { ne: "SCHEMA__VideosPage" }) {
+      contentfulVideosPage(title: { ne: "SCHEMA__VideosPage" }) {
         title
         description {
           content: childMarkdownRemark {
@@ -121,42 +116,27 @@ const VideosPage = () => {
 
   const playlists = data.allYouTubePlaylist.edges
 
-  const separatorStyles = css`
-    display: none;
-
-    @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
-      display: block;
-    }
-  `
-
   return (
     <Container>
-      <Text textAlign="center" pt={5}>
-        <Heading as="h1" fontSize={[4, 5]} fontWeight={['medium', 'bold']}>
-          {pageTitle}
-        </Heading>
+      <Header hideRule>
+        <HeaderTitle>{pageTitle}</HeaderTitle>
 
         {hasDescription && (
-          <MarkdownContent
-            mt={4}
-            fontSize={[1, 2]}
-            center
-            dangerouslySetInnerHTML={{
-              __html: data.contentfulVideosPage.description.content.html,
-            }}
-          />
+          <HeaderDescription markdown>
+            {data.contentfulVideosPage.description.content.html}
+          </HeaderDescription>
         )}
-      </Text>
+      </Header>
 
-      <Separator mt={4} mb={6} mx="auto" css={separatorStyles} />
-
-      {playlists.map((playlist, index) => (
-        <PlaylistPreview
-          key={playlist.node.playlistId}
-          playlist={playlist.node}
-          index={index}
-        />
-      ))}
+      <Box mt={6}>
+        {playlists.map((playlist, index) => (
+          <PlaylistPreview
+            key={playlist.node.playlistId}
+            playlist={playlist.node}
+            index={index}
+          />
+        ))}
+      </Box>
 
       <Rule />
 

@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link, useStaticQuery, graphql } from 'gatsby'
 import { css } from 'styled-components'
-import { Box, Text, Button } from 'rebass'
-import { Heading, List, ListItem, Separator } from '../components/Typography'
+import { Box, Button } from 'rebass'
+import { Heading, List, ListItem } from '../components/Typography'
 import Container from '../components/Container'
-import MarkdownContent from '../components/MarkdownContent'
+import { Header, HeaderTitle, HeaderDescription } from '../components/Header'
 import { toMoney } from '../utils/price'
 import { themeHover } from '../utils/styles'
 
@@ -55,24 +55,15 @@ const EventsPage = () => {
 
   return (
     <Container>
-      <Text textAlign="center" pt={5}>
-        <Heading as="h1" fontSize={[4, 5]} fontWeight={['medium', 'bold']}>
-          {pageTitle}
-        </Heading>
+      <Header>
+        <HeaderTitle>{pageTitle}</HeaderTitle>
 
         {hasDescription && (
-          <MarkdownContent
-            mt={4}
-            fontSize={[1, 2]}
-            center
-            dangerouslySetInnerHTML={{
-              __html: data.contentfulEventsPage.description.content.html,
-            }}
-          />
+          <HeaderDescription markdown>
+            {data.contentfulEventsPage.description.content.html}
+          </HeaderDescription>
         )}
-      </Text>
-
-      <Separator mt={4} mx="auto" />
+      </Header>
 
       <List textAlign="center" py={5}>
         {data.allContentfulEvent.edges.map(edge => {

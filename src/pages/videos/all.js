@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link, useStaticQuery, graphql } from 'gatsby'
-import { css } from 'styled-components'
 import { Text } from 'rebass'
-import { Heading, Rule, Separator } from '../../components/Typography'
+import { Rule } from '../../components/Typography'
 import Container from '../../components/Container'
+import { Header, HeaderTitle } from '../../components/Header'
 import VideoPlaylistGrid from '../../components/VideoPlaylistGrid'
 import { themeHover } from '../../utils/styles'
 
@@ -41,23 +41,11 @@ const AllVideosPage = () => {
     })
   }
 
-  const separatorStyles = css`
-    display: none;
-
-    @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
-      display: block;
-    }
-  `
-
   return (
     <Container>
-      <Text textAlign="center" pt={5}>
-        <Heading as="h1" fontSize={[4, 5]} fontWeight={['medium', 'bold']}>
-          All Videos
-        </Heading>
-      </Text>
-
-      <Separator mt={4} mx="auto" css={separatorStyles} />
+      <Header hideRule>
+        <HeaderTitle>All Videos</HeaderTitle>
+      </Header>
 
       <VideoPlaylistGrid videos={videos} mt={[5, 6]} mb={5} />
 

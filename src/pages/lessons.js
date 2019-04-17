@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react'
 import { Link, useStaticQuery, graphql } from 'gatsby'
-import { Box, Text } from 'rebass'
-import { Heading, Separator } from '../components/Typography'
+import { Box } from 'rebass'
+import { Heading } from '../components/Typography'
 import Container from '../components/Container'
+import { Header, HeaderTitle } from '../components/Header'
 import { toMoney } from '../utils/price'
 
 const LessonsPage = () => {
@@ -28,13 +29,9 @@ const LessonsPage = () => {
 
   return (
     <Container>
-      <Text textAlign="center" pt={5}>
-        <Heading as="h1" fontSize={[4, 5]} fontWeight={['medium', 'bold']}>
-          Lessons
-        </Heading>
-      </Text>
-
-      <Separator mt={4} mx="auto" />
+      <Header>
+        <HeaderTitle>Lessons</HeaderTitle>
+      </Header>
 
       <Box>
         {data.allContentfulLessonCategory.edges.map(edge => {
