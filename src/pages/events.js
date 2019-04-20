@@ -110,7 +110,7 @@ const EventsPage = () => {
                     to={url}
                     fontSize={[1, 2]}
                   >
-                    Sign up
+                    Register
                   </Button>
                 </ListItem>
               )
