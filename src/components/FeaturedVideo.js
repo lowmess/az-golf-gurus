@@ -11,8 +11,9 @@ import { useMediaQuery } from '../utils/hooks'
 import unwidow from '../utils/unwidow'
 
 const Background = styled(Box)`
-  ${({ bg }) =>
-    bg && `background-image: linear-gradient(to bottom, ${bg}, transparent)`};
+  ${({ gradientColor }) =>
+    gradientColor &&
+    `background-image: linear-gradient(to bottom, ${gradientColor}, transparent)`};
 `
 
 const Video = styled(YouTubeVideo)`
@@ -59,7 +60,7 @@ const FeaturedVideo = ({ theme, video, bg, ...props }) => {
     data.videoDescription && data.videoDescription.content.html
 
   return (
-    <Background bg={bg} {...props}>
+    <Background gradientColor={bg} {...props}>
       <Container maxWidth="60rem">
         {!isMobile && (
           <Flex
