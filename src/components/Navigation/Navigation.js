@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
 import noScroll from 'no-scroll'
-import { css, withTheme } from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 import { Flex, Button, Card } from 'rebass'
 import Container from '../Container'
 import SkipNavLink from './SkipNavLink'
@@ -11,21 +11,21 @@ import { Hamburger } from './Icons'
 import { useMediaQuery } from '../../utils/hooks'
 import { themeHover } from '../../utils/styles'
 
+const OpenButton = styled(Button)`
+  position: absolute;
+  left: 0;
+  ${themeHover};
+
+  @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
+    display: none;
+  }
+`
+
 const Navigation = ({ theme }) => {
   const [open, setOpen] = useState(false)
   const openButtonEl = useRef(null)
   const notMobile = useMediaQuery(`(min-width: ${theme.breakpoints[0]})`)
   const menuId = 'navigation-menu'
-
-  const openIconStyles = css`
-    position: absolute;
-    left: 0;
-    ${themeHover};
-
-    @media (min-width: ${theme.breakpoints[0]}) {
-      display: none;
-    }
-  `
 
   const toggleMenu = () => {
     setOpen(!open)
@@ -51,7 +51,7 @@ const Navigation = ({ theme }) => {
           justifyContent={['center', 'space-between']}
         >
           {!notMobile && (
-            <Button
+            <OpenButton
               ref={openButtonEl}
               variant="reset"
               aria-label="Open the menu"
@@ -59,10 +59,9 @@ const Navigation = ({ theme }) => {
               aria-controls={menuId}
               onClick={toggleMenu}
               p={3}
-              css={openIconStyles}
             >
               <Hamburger ariaHidden="true" />
-            </Button>
+            </OpenButton>
           )}
 
           <Logo py={[2, 0]} />

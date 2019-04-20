@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link, useStaticQuery, graphql } from 'gatsby'
-import { css, withTheme } from 'styled-components'
+import styled, { withTheme } from 'styled-components'
 import { Box, Flex, Text, Button } from 'rebass'
 import { Heading } from './Typography'
 import Container from './Container'
@@ -9,6 +9,23 @@ import YouTubeVideo from './YouTubeVideo'
 import MarkdownContent from './MarkdownContent'
 import { useMediaQuery } from '../utils/hooks'
 import unwidow from '../utils/unwidow'
+
+const Background = styled(Box)`
+  ${({ bg }) =>
+    bg && `background-image: linear-gradient(to bottom, ${bg}, transparent)`};
+`
+
+const Video = styled(YouTubeVideo)`
+  width: 100vw;
+  margin-right: calc(50% - 50vw);
+  margin-left: calc(50% - 50vw);
+
+  @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
+    width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+  }
+`
 
 const ViewAllButton = ({ children, ...props }) => (
   <Button as={Link} to="/videos/" variant="outline-small">
@@ -37,28 +54,12 @@ const FeaturedVideo = ({ theme, video, bg, ...props }) => {
 
   const isMobile = !useMediaQuery(`(min-width: ${theme.breakpoints[0]})`)
 
-  const bgStyles = css`
-    ${bg && `background-image: linear-gradient(to bottom, ${bg}, transparent)`};
-  `
-
-  const videoStyles = css`
-    width: 100vw;
-    margin-right: calc(50% - 50vw);
-    margin-left: calc(50% - 50vw);
-
-    @media (min-width: ${theme.breakpoints[0]}) {
-      width: 100%;
-      margin-right: 0;
-      margin-left: 0;
-    }
-  `
-
   const title = data.videoTitle || video.title
   const description =
     data.videoDescription && data.videoDescription.content.html
 
   return (
-    <Box css={bgStyles} {...props}>
+    <Background bg={bg} {...props}>
       <Container maxWidth="60rem">
         {!isMobile && (
           <Flex
@@ -75,11 +76,10 @@ const FeaturedVideo = ({ theme, video, bg, ...props }) => {
           </Flex>
         )}
 
-        <YouTubeVideo
+        <Video
           title={title}
           videoId={video.videoId}
           thumbnail={video.localThumbnail.childImageSharp}
-          css={videoStyles}
         />
 
         {isMobile && (
@@ -103,7 +103,7 @@ const FeaturedVideo = ({ theme, video, bg, ...props }) => {
           </Text>
         )}
       </Container>
-    </Box>
+    </Background>
   )
 }
 

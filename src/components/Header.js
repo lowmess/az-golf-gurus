@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { css } from 'styled-components'
+import styled from 'styled-components'
 import { Text } from 'rebass'
 import { Heading, Paragraph, Separator } from './Typography'
 import Container from './Container'
@@ -42,33 +42,36 @@ HeaderDescription.defaultProps = {
   markdown: false,
 }
 
-const Header = ({ hideRule, children, ...props }) => {
-  const separatorStyles = hideRule
-    ? css`
+const Gradient = styled(Text)`
+  background-image: linear-gradient(
+    to bottom,
+    ${({ theme }) => theme.colors.greens[0]},
+    transparent
+  );
+`
+
+const Rule = styled(Separator)`
+  ${({ theme, hideRule }) =>
+    hideRule
+      ? `
         display: none;
 
-        @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
+        @media (min-width: ${theme.breakpoints[0]}) {
           display: block;
         }
       `
-    : ''
+      : ''}
+`
 
-  const gradient = css`
-    background-image: linear-gradient(
-      to bottom,
-      ${({ theme }) => theme.colors.greens[0]},
-      transparent
-    );
-  `
-
+const Header = ({ hideRule, children, ...props }) => {
   return (
-    <Text textAlign="center" css={gradient} {...props}>
+    <Gradient textAlign="center" {...props}>
       <Container pt={5}>
         {children}
 
-        <Separator mt={5} mx="auto" css={separatorStyles} />
+        <Rule hideRule={hideRule} mt={5} mx="auto" />
       </Container>
-    </Text>
+    </Gradient>
   )
 }
 

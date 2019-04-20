@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link as GatsbyLink, useStaticQuery, graphql } from 'gatsby'
-import { css } from 'styled-components'
+import styled from 'styled-components'
 import { Box, Flex, Link } from 'rebass'
 import { Heading, List, ListItem } from '../Typography'
 import Container from '../Container'
@@ -45,38 +45,44 @@ FooterList.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-const FooterLink = ({ children, to, ...props }) => {
-  const styles = css`
-    text-align: center;
+const FooterListItem = styled(ListItem)`
+  text-align: center;
+
+  & + & {
+    margin-top: ${({ theme }) => theme.space[1]};
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
+    display: inline-block;
+    text-align: initial;
 
     & + & {
-      margin-top: ${({ theme }) => theme.space[1]};
+      margin-top: 0;
+      margin-left: ${({ theme }) => theme.space[3]};
     }
+  }
+`
 
-    @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
-      display: inline-block;
-      text-align: initial;
-
-      & + & {
-        margin-top: 0;
-        margin-left: ${({ theme }) => theme.space[3]};
-      }
-    }
-  `
-
-  return (
-    <ListItem css={styles}>
-      <Link as={GatsbyLink} to={to} css={reverseThemeHover} {...props}>
-        {children}
-      </Link>
-    </ListItem>
-  )
-}
+const FooterLink = ({ children, to, ...props }) => (
+  <FooterListItem>
+    <Link as={GatsbyLink} to={to} css={reverseThemeHover} {...props}>
+      {children}
+    </Link>
+  </FooterListItem>
+)
 
 FooterLink.propTypes = {
   children: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired,
 }
+
+const SocialMediaIcon = styled(ListItem)`
+  display: inline-block;
+
+  & + & {
+    margin-left: ${({ theme }) => theme.space[3]};
+  }
+`
 
 const Footer = props => {
   const { allContentfulSocialMediaAccount: accounts } = useStaticQuery(graphql`
@@ -135,21 +141,14 @@ const Footer = props => {
 
             <List textAlign={['center', 'initial']}>
               {accounts.edges.map(({ node: { network, link } }) => {
-                const ComponentName = Icon[network]
-                const styles = css`
-                  display: inline-block;
-
-                  & + & {
-                    margin-left: ${({ theme }) => theme.space[3]};
-                  }
-                `
+                const IconGlyph = Icon[network]
 
                 return (
-                  <ListItem key={network} css={styles} fontSize={3}>
+                  <SocialMediaIcon key={network} fontSize={3}>
                     <Link href={link} css={reverseThemeHover}>
-                      <ComponentName />
+                      <IconGlyph />
                     </Link>
-                  </ListItem>
+                  </SocialMediaIcon>
                 )
               })}
             </List>

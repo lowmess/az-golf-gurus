@@ -1,21 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { css, keyframes } from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { Flex, Card } from 'rebass'
 
-const Spinner = ({ videoSize, ...props }) => {
-  const bgStyles = css`
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 2;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.25);
-  `
+const Background = styled(Flex)`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.25);
+`
 
+const Spinner = ({ videoSize, ...props }) => {
   const spinning = keyframes`
     from {
       transform: rotateZ(0deg)
@@ -25,7 +25,7 @@ const Spinner = ({ videoSize, ...props }) => {
     }
   `
 
-  const spinnerStyles = css`
+  const Icon = styled(Card)`
     position: relative;
     width: ${({ theme }) =>
       videoSize > 480 ? theme.space[6] : theme.space[5]};
@@ -39,9 +39,9 @@ const Spinner = ({ videoSize, ...props }) => {
   `
 
   return (
-    <Flex css={bgStyles} {...props}>
-      <Card borderRadius="100%" css={spinnerStyles} />
-    </Flex>
+    <Background {...props}>
+      <Icon borderRadius="100%" />
+    </Background>
   )
 }
 

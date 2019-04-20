@@ -1,33 +1,33 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { css } from 'styled-components'
+import styled from 'styled-components'
 import { Box } from 'rebass'
+
+const ResponsiveContainer = styled(Box)`
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: ${({ x, y }) => (y / x) * 100}%;
+  overflow: hidden;
+
+  iframe {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+`
 
 const AspectRatio = ({ children, ratio, ...props }) => {
   const [x, y] = ratio.split(':')
 
-  const styles = css`
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-bottom: ${(y / x) * 100}%;
-    overflow: hidden;
-
-    iframe {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-  `
-
   return (
-    <Box css={styles} {...props}>
+    <ResponsiveContainer x={x} y={y} {...props}>
       {children}
-    </Box>
+    </ResponsiveContainer>
   )
 }
 

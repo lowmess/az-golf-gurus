@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useStaticQuery, graphql } from 'gatsby'
-import { css } from 'styled-components'
+import styled from 'styled-components'
 import { Box, Button } from 'rebass'
 import { Heading, List, ListItem } from '../components/Typography'
 import Container from '../components/Container'
@@ -8,6 +8,14 @@ import { Header, HeaderTitle, HeaderDescription } from '../components/Header'
 import { toMoney } from '../utils/price'
 import unwidow from '../utils/unwidow'
 import { themeHover } from '../utils/styles'
+
+const EventContainer = styled(ListItem)`
+  & + & {
+    margin-top: ${({ theme }) => theme.space[5]};
+    border-top: ${({ theme }) => `${theme.borders[1]} ${theme.colors.green}`};
+    padding-top: ${({ theme }) => theme.space[5]};
+  }
+`
 
 const EventsPage = () => {
   const data = useStaticQuery(graphql`
@@ -43,16 +51,9 @@ const EventsPage = () => {
 
   const pageTitle =
     (data.contentfulEventsPage && data.contentfulEventsPage.title) || 'Events'
+
   const hasDescription =
     data.contentfulEventsPage && data.contentfulEventsPage.description
-
-  const itemStyles = css`
-    & + & {
-      margin-top: ${({ theme }) => theme.space[5]};
-      border-top: ${({ theme }) => `${theme.borders[1]} ${theme.colors.green}`};
-      padding-top: ${({ theme }) => theme.space[5]};
-    }
-  `
 
   return (
     <>
@@ -88,7 +89,7 @@ const EventsPage = () => {
 
             return (
               shouldDisplay && (
-                <ListItem key={contentful_id} css={itemStyles}>
+                <EventContainer key={contentful_id}>
                   <Box as="p" m={0} fontSize={[1, 2]} css="font-style: italic">
                     <time dateTime={startDate}>{startDateString}</time>{' '}
                     {'\u2014'} <time dateTime={endDate}>{endDateString}</time>
@@ -112,7 +113,7 @@ const EventsPage = () => {
                   >
                     Register
                   </Button>
-                </ListItem>
+                </EventContainer>
               )
             )
           })}

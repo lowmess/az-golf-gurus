@@ -1,26 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { css } from 'styled-components'
+import styled from 'styled-components'
 import { Flex, Card } from 'rebass'
 
+const Background = styled(Flex)`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+`
+
 const PlayIcon = ({ title, videoSize, ...props }) => {
-  const bgStyles = css`
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 2;
-    width: 100%;
-    height: 100%;
-    transition: background-color 0.3s ease;
-
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.25);
-    }
-  `
-
-  const iconStyles = css`
+  const Icon = styled(Card)`
     display: flex;
     position: relative;
     width: ${({ theme }) =>
@@ -47,8 +47,8 @@ const PlayIcon = ({ title, videoSize, ...props }) => {
   `
 
   return (
-    <Flex css={bgStyles} {...props}>
-      <Card borderRadius="100%" css={iconStyles}>
+    <Background {...props}>
+      <Icon borderRadius="100%">
         <title>Play &ldquo;{title}&rdquo; video</title>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -58,8 +58,8 @@ const PlayIcon = ({ title, videoSize, ...props }) => {
         >
           <path d="M4 4l24 12L4 28z" />
         </svg>
-      </Card>
-    </Flex>
+      </Icon>
+    </Background>
   )
 }
 

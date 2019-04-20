@@ -2,12 +2,58 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useStaticQuery, graphql } from 'gatsby'
 import Img from 'gatsby-image'
-import { css } from 'styled-components'
+import styled from 'styled-components'
 import { Box, Button } from 'rebass'
 import { Heading } from './Typography'
 import Container from './Container'
 import MarkdownContent from './MarkdownContent'
 import unwidow from '../utils/unwidow'
+
+const PositionRoot = styled(Box)`
+  position: relative;
+`
+
+const Image = styled(Img)`
+  position: absolute !important;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: ${({ theme }) => theme.colors.greens[7]};
+
+  img,
+  picture {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+`
+
+const HeadingContainer = styled(Container)`
+  position: relative;
+
+  /*
+     * For some reason, applying this CSS directly to the <Heading> breaks
+     * rebass/styled-components. I do not know why. Hence the first 3 words.
+     */
+  h1 {
+    text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
+  }
+`
+
+const Content = styled('div')`
+  position: relative;
+  background-image: ${({ bg }) =>
+    `linear-gradient(to bottom, transparent 50%, ${bg} 50%)`};
+`
 
 const Hero = ({ bg }) => {
   const { contentfulHomePageHero: data } = useStaticQuery(graphql`
@@ -33,60 +79,11 @@ const Hero = ({ bg }) => {
   const hasImage = data.heroImage && data.heroImage.fluid
   const hasIntro = data.heroText && data.heroText.content.html
 
-  const heroStyles = css`
-    position: relative;
-  `
-
-  const headingStyles = css`
-    position: relative;
-
-    /*
-     * For some reason, applying this CSS directly to the <Heading> breaks
-     * rebass/styled-components. I do not know why. Hence the first 3 words.
-     */
-    h1 {
-      text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
-    }
-  `
-
-  const imageStyles = css`
-    position: absolute !important;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: ${({ theme }) => theme.colors.greens[7]};
-
-    img,
-    picture {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-    }
-  `
-
-  const contentStyles = css`
-    position: relative;
-    background-image: linear-gradient(to bottom, transparent 50%, ${bg} 50%);
-  `
-
   return (
-    <Box pt={[5, 6]} css={heroStyles}>
-      {hasImage ? (
-        <Img fluid={data.heroImage.fluid} css={imageStyles} />
-      ) : (
-        <Box css={imageStyles} />
-      )}
+    <PositionRoot pt={[5, 6]}>
+      {hasImage ? <Image fluid={data.heroImage.fluid} /> : <Image as="div" />}
 
-      <Container mb={5} css={headingStyles}>
+      <HeadingContainer mb={5}>
         <Heading
           as="h1"
           fontSize={[4, 5]}
@@ -96,9 +93,9 @@ const Hero = ({ bg }) => {
         >
           {unwidow(data.headline)}
         </Heading>
-      </Container>
+      </HeadingContainer>
 
-      <Box css={contentStyles}>
+      <Content bg={bg}>
         <Container
           bg="white"
           py={4}
@@ -120,8 +117,8 @@ const Hero = ({ bg }) => {
             {data.contactButtonLabel || 'Get In Touch'}
           </Button>
         </Container>
-      </Box>
-    </Box>
+      </Content>
+    </PositionRoot>
   )
 }
 
