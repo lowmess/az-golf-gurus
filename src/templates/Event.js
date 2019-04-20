@@ -33,8 +33,8 @@ const EventTemplate = ({ data }) => {
         )}
       </Header>
 
-      <Container>
-        <CalendlyEmbed url={event.calendlyUrl} mt={[5, 6]} mb={5} />
+      <Container mt={[5, 6]} mb={5}>
+        <CalendlyEmbed url={event.calendlyUrl} />
       </Container>
     </>
   )
