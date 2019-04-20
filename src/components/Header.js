@@ -69,7 +69,7 @@ const Header = ({ hideRule, children, ...props }) => {
       <Container pt={5}>
         {children}
 
-        <Rule hideRule={hideRule} mt={5} mx="auto" />
+        <Rule hideRule={hideRule} mt={5} />
       </Container>
     </Gradient>
   )

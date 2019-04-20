@@ -43,7 +43,9 @@ const Separator = props => {
     border: 0;
   `
 
-  return <Box as="hr" mx={0} bg="green" css={styles} {...props} />
+  return (
+    <Box as="hr" mt={0} mx="auto" mb={0} bg="green" css={styles} {...props} />
+  )
 }
 
 const Rule = props => {
@@ -52,7 +54,7 @@ const Rule = props => {
     border: 0;
   `
 
-  return <Box as="hr" mx={0} bg="green" css={styles} {...props} />
+  return <Box as="hr" m={0} bg="green" css={styles} {...props} />
 }
 
 const List = ({ children, ...props }) => (

@@ -29,7 +29,7 @@ const HomePage = ({ data, theme }) => {
       />
 
       <Container mt={[5, 6]}>
-        <Separator mx="auto" />
+        <Separator />
       </Container>
 
       <Container id="contact" mt={[4, 5]} mb={5} pt={3} maxWidth="48rem">
