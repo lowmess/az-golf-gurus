@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Box, Card } from 'rebass'
+import { Card } from 'rebass'
 import { Paragraph } from './Typography'
 import { useScript } from '../utils/hooks'
 
@@ -41,10 +41,12 @@ const CalendlyEmbed = ({ url, ...props }) => {
   }
 
   return (
-    <Box
+    <Card
       className="calendly-inline-widget"
       data-url={url}
       style={{ minWidth: '20rem', height: '40rem' }}
+      border={1}
+      borderColor="grays.2"
       {...props}
     />
   )
