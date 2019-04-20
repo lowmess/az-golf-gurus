@@ -1,18 +1,11 @@
 import React from 'react'
 import { Link as GatsbyLink } from 'gatsby'
 import styled from 'styled-components'
-import { Box, Link, Button } from 'rebass'
+import { Link, Button } from 'rebass'
 import { Heading, Paragraph } from '../components/Typography'
 import Container from '../components/Container'
+import { Header, HeaderTitle } from '../components/Header'
 import { themeHover } from '../utils/styles'
-
-const Background = styled(Box)`
-  background-image: linear-gradient(
-    to bottom,
-    ${({ theme }) => theme.colors.greens[0]},
-    transparent
-  );
-`
 
 const ErrorLink = styled(Link)`
   text-decoration: underline;
@@ -21,16 +14,18 @@ const ErrorLink = styled(Link)`
 `
 
 const ErrorPage = () => (
-  <Background py={5}>
-    <Container css="text-align: center;">
-      <Heading as="h1" mb={[2, 1, 0]}>
+  <>
+    <Header>
+      <HeaderTitle mb={[2, 1, 0]} fontSize={[3, 4]} fontWeight="medium">
         Error 404
-      </Heading>
+      </HeaderTitle>
 
-      <Heading mb={5} fontSize={[4, 5, 6]} fontWeight="bold">
+      <Heading fontSize={[4, 5, 6]} fontWeight="bold">
         Requested Page Not&nbsp;Found
       </Heading>
+    </Header>
 
+    <Container my={5} css="text-align: center;">
       <Paragraph mx="auto" mb={5} fontSize={[2, 3]}>
         Looks like we&rsquo;ve misplaced the page you were looking for. Sorry
         about that. We&rsquo;ll get to looking for it straight away&mdash;if you
@@ -45,7 +40,7 @@ const ErrorPage = () => (
         Go to the home page
       </Button>
     </Container>
-  </Background>
+  </>
 )
 
 export default ErrorPage
