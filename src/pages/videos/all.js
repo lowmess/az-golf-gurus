@@ -42,21 +42,28 @@ const AllVideosPage = () => {
   }
 
   return (
-    <Container>
+    <>
       <Header hideRule>
         <HeaderTitle>All Videos</HeaderTitle>
       </Header>
 
-      <VideoPlaylistGrid videos={videos} mt={[5, 6]} mb={5} />
+      <Container mt={[4, 5]}>
+        <VideoPlaylistGrid videos={videos} mb={5} />
 
-      <Rule />
+        <Rule />
 
-      <Text my={4} fontSize={[2, 3]} fontFamily="geomanist" textAlign="center">
-        <Link to="/videos/" css={themeHover}>
-          View Video Playlists
-        </Link>
-      </Text>
-    </Container>
+        <Text
+          my={4}
+          fontSize={[2, 3]}
+          fontFamily="geomanist"
+          textAlign="center"
+        >
+          <Link to="/videos/" css={themeHover}>
+            View Video Playlists
+          </Link>
+        </Text>
+      </Container>
+    </>
   )
 }
 

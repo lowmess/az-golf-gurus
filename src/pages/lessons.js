@@ -28,35 +28,37 @@ const LessonsPage = () => {
   `)
 
   return (
-    <Container>
+    <>
       <Header>
         <HeaderTitle>Lessons</HeaderTitle>
       </Header>
 
-      <Box>
-        {data.allContentfulLessonCategory.edges.map(edge => {
-          const { title, lessons } = edge.node
+      <Container>
+        <Box>
+          {data.allContentfulLessonCategory.edges.map(edge => {
+            const { title, lessons } = edge.node
 
-          return (
-            <Fragment key={edge.node.title}>
-              <Heading>{title}</Heading>
+            return (
+              <Fragment key={edge.node.title}>
+                <Heading>{title}</Heading>
 
-              <Box>
-                {lessons.map(lesson => {
-                  return (
-                    <p key={lesson.contentful_id}>
-                      <Link to={`/lessons/${lesson.contentful_id}/`}>
-                        {lesson.title} - {toMoney(lesson.price)}
-                      </Link>
-                    </p>
-                  )
-                })}
-              </Box>
-            </Fragment>
-          )
-        })}
-      </Box>
-    </Container>
+                <Box>
+                  {lessons.map(lesson => {
+                    return (
+                      <p key={lesson.contentful_id}>
+                        <Link to={`/lessons/${lesson.contentful_id}/`}>
+                          {lesson.title} - {toMoney(lesson.price)}
+                        </Link>
+                      </p>
+                    )
+                  })}
+                </Box>
+              </Fragment>
+            )
+          })}
+        </Box>
+      </Container>
+    </>
   )
 }
 

@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link, graphql } from 'gatsby'
-import { css } from 'styled-components'
 import { Text } from 'rebass'
-import { Heading, Paragraph, Rule, Separator } from '../components/Typography'
+import { Rule } from '../components/Typography'
 import Container from '../components/Container'
+import { Header, HeaderTitle, HeaderDescription } from '../components/Header'
 import VideoPlaylistGrid from '../components/VideoPlaylistGrid'
 import { themeHover } from '../utils/styles'
 import unwidow from '../utils/unwidow'
@@ -23,40 +23,33 @@ const PlaylistTemplate = ({ data }) => {
     })
   }
 
-  const separatorStyles = css`
-    display: none;
-
-    @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
-      display: block;
-    }
-  `
-
   return (
-    <Container>
-      <Text textAlign="center" pt={5}>
-        <Heading as="h1" fontSize={[4, 5]} fontWeight={['medium', 'bold']}>
-          {unwidow(title)}
-        </Heading>
+    <>
+      <Header hideRule>
+        <HeaderTitle>{unwidow(title)}</HeaderTitle>
 
         {description && (
-          <Paragraph mt={4} fontSize={[1, 2]}>
-            {unwidow(description)}
-          </Paragraph>
+          <HeaderDescription>{unwidow(description)}</HeaderDescription>
         )}
-      </Text>
+      </Header>
 
-      <Separator mt={4} mx="auto" css={separatorStyles} />
+      <Container mt={[4, 5]}>
+        <VideoPlaylistGrid videos={videos} mb={5} />
 
-      <VideoPlaylistGrid videos={videos} mt={[5, 6]} mb={5} />
+        <Rule />
 
-      <Rule />
-
-      <Text my={4} fontSize={[2, 3]} fontFamily="geomanist" textAlign="center">
-        <Link to="/videos/" css={themeHover}>
-          View Video Playlists
-        </Link>
-      </Text>
-    </Container>
+        <Text
+          my={4}
+          fontSize={[2, 3]}
+          fontFamily="geomanist"
+          textAlign="center"
+        >
+          <Link to="/videos/" css={themeHover}>
+            View Video Playlists
+          </Link>
+        </Text>
+      </Container>
+    </>
   )
 }
 

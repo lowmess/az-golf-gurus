@@ -13,7 +13,7 @@ const EventTemplate = ({ data }) => {
   const description = event.description && event.description.content.html
 
   return (
-    <Container>
+    <>
       <Header>
         <Box as="p" m={0} fontSize={[1, 2]} css="font-style: italic">
           <time dateTime={event.startDate}>{event.startDateString}</time>{' '}
@@ -33,8 +33,10 @@ const EventTemplate = ({ data }) => {
         )}
       </Header>
 
-      <CalendlyEmbed url={event.calendlyUrl} mt={[5, 6]} mb={5} />
-    </Container>
+      <Container>
+        <CalendlyEmbed url={event.calendlyUrl} mt={[5, 6]} mb={5} />
+      </Container>
+    </>
   )
 }
 

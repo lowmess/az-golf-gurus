@@ -117,7 +117,7 @@ const VideosPage = () => {
   const playlists = data.allYouTubePlaylist.edges
 
   return (
-    <Container>
+    <>
       <Header hideRule>
         <HeaderTitle>{pageTitle}</HeaderTitle>
 
@@ -128,24 +128,31 @@ const VideosPage = () => {
         )}
       </Header>
 
-      <Box mt={6}>
-        {playlists.map((playlist, index) => (
-          <PlaylistPreview
-            key={playlist.node.playlistId}
-            playlist={playlist.node}
-            index={index}
-          />
-        ))}
-      </Box>
+      <Container mt={[4, 5]}>
+        <Box>
+          {playlists.map((playlist, index) => (
+            <PlaylistPreview
+              key={playlist.node.playlistId}
+              playlist={playlist.node}
+              index={index}
+            />
+          ))}
+        </Box>
 
-      <Rule />
+        <Rule />
 
-      <Text my={4} fontSize={[2, 3]} fontFamily="geomanist" textAlign="center">
-        <Link to="/videos/all" css={themeHover}>
-          View All Videos
-        </Link>
-      </Text>
-    </Container>
+        <Text
+          my={4}
+          fontSize={[2, 3]}
+          fontFamily="geomanist"
+          textAlign="center"
+        >
+          <Link to="/videos/all" css={themeHover}>
+            View All Videos
+          </Link>
+        </Text>
+      </Container>
+    </>
   )
 }
 

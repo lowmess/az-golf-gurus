@@ -55,7 +55,7 @@ const EventsPage = () => {
   `
 
   return (
-    <Container>
+    <>
       <Header>
         <HeaderTitle>{unwidow(pageTitle)}</HeaderTitle>
 
@@ -66,52 +66,59 @@ const EventsPage = () => {
         )}
       </Header>
 
-      <List textAlign="center" py={5}>
-        {data.allContentfulEvent.edges.map(edge => {
-          const {
-            contentful_id,
-            title,
-            price,
-            location,
-            startDateTime,
-            startDate,
-            startDateString,
-            endDate,
-            endDateString,
-          } = edge.node
+      <Container>
+        <List textAlign="center" py={5}>
+          {data.allContentfulEvent.edges.map(edge => {
+            const {
+              contentful_id,
+              title,
+              price,
+              location,
+              startDateTime,
+              startDate,
+              startDateString,
+              endDate,
+              endDateString,
+            } = edge.node
 
-          const today = new Date()
-          const shouldDisplay = today.getTime() < startDateTime
+            const today = new Date()
+            const shouldDisplay = today.getTime() < startDateTime
 
-          const url = `/events/${contentful_id}/`
+            const url = `/events/${contentful_id}/`
 
-          return (
-            shouldDisplay && (
-              <ListItem key={contentful_id} css={itemStyles}>
-                <Box as="p" m={0} fontSize={[1, 2]} css="font-style: italic">
-                  <time dateTime={startDate}>{startDateString}</time> {'\u2014'}{' '}
-                  <time dateTime={endDate}>{endDateString}</time>
-                </Box>
+            return (
+              shouldDisplay && (
+                <ListItem key={contentful_id} css={itemStyles}>
+                  <Box as="p" m={0} fontSize={[1, 2]} css="font-style: italic">
+                    <time dateTime={startDate}>{startDateString}</time>{' '}
+                    {'\u2014'} <time dateTime={endDate}>{endDateString}</time>
+                  </Box>
 
-                <Heading fontSize={[3, 4, 5]} fontWeight="bold">
-                  <Link to={url} css={themeHover}>
-                    {unwidow(title)}
-                  </Link>
-                </Heading>
+                  <Heading fontSize={[3, 4, 5]} fontWeight="bold">
+                    <Link to={url} css={themeHover}>
+                      {unwidow(title)}
+                    </Link>
+                  </Heading>
 
-                <Box as="p" mt={3} mb={4} fontSize={[1, 2, 3]}>
-                  {unwidow(location)} {'\u2022'} {toMoney(price)}
-                </Box>
+                  <Box as="p" mt={3} mb={4} fontSize={[1, 2, 3]}>
+                    {unwidow(location)} {'\u2022'} {toMoney(price)}
+                  </Box>
 
-                <Button variant="outline" as={Link} to={url} fontSize={[1, 2]}>
-                  Sign up
-                </Button>
-              </ListItem>
+                  <Button
+                    variant="outline"
+                    as={Link}
+                    to={url}
+                    fontSize={[1, 2]}
+                  >
+                    Sign up
+                  </Button>
+                </ListItem>
+              )
             )
-          )
-        })}
-      </List>
-    </Container>
+          })}
+        </List>
+      </Container>
+    </>
   )
 }
 

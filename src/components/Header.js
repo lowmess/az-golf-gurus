@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { css } from 'styled-components'
 import { Text } from 'rebass'
 import { Heading, Paragraph, Separator } from './Typography'
+import Container from './Container'
 import MarkdownContent from './MarkdownContent'
 
 const HeaderTitle = ({ children, ...props }) => (
@@ -52,14 +53,22 @@ const Header = ({ hideRule, children, ...props }) => {
       `
     : ''
 
-  return (
-    <>
-      <Text textAlign="center" pt={5} {...props}>
-        {children}
-      </Text>
+  const gradient = css`
+    background-image: linear-gradient(
+      to bottom,
+      ${({ theme }) => theme.colors.greens[0]},
+      transparent
+    );
+  `
 
-      <Separator mt={4} mx="auto" css={separatorStyles} />
-    </>
+  return (
+    <Text textAlign="center" css={gradient} {...props}>
+      <Container pt={5}>
+        {children}
+
+        <Separator mt={[5, 4]} mx="auto" css={separatorStyles} />
+      </Container>
+    </Text>
   )
 }
 
