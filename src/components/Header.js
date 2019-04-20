@@ -66,7 +66,7 @@ const Header = ({ hideRule, children, ...props }) => {
       <Container pt={5}>
         {children}
 
-        <Separator mt={[5, 4]} mx="auto" css={separatorStyles} />
+        <Separator mt={5} mx="auto" css={separatorStyles} />
       </Container>
     </Text>
   )
