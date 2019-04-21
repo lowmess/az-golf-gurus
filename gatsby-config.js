@@ -71,6 +71,7 @@ module.exports = {
       },
     },
     'gatsby-transformer-sharp',
+    'gatsby-plugin-catch-links',
     'gatsby-plugin-layout',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-sharp',
