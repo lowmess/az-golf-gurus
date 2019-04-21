@@ -132,6 +132,8 @@ const MarkdownContent = styled(Text)`
 
   a {
     ${themeHover};
+    text-decoration: underline;
+    text-decoration-color: ${({ theme }) => theme.colors.green};
 
     @media print {
       &:after {
