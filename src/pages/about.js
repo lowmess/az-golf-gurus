@@ -54,21 +54,8 @@ const AboutPage = () => {
           }
         }
         teamMembersHeading
-        teamMembers {
-          photo {
-            fixed(width: 96, height: 96) {
-              ...GatsbyContentfulFixed
-            }
-          }
-          name
-          title
-          bio {
-            content: childMarkdownRemark {
-              html
-            }
-          }
-        }
       }
+
       allContentfulTeamMember(filter: { name: { ne: "SCHEMA__TeamMember" } }) {
         edges {
           node {
