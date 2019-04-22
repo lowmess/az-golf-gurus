@@ -1,14 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
+import Helmet from 'react-helmet'
 import { Box } from 'rebass'
 import Container from '../components/Container'
 import { Header, HeaderTitle, HeaderDescription } from '../components/Header'
 import CalendlyEmbed from '../components/CalendlyEmbed'
+import { useSiteMetadata } from '../utils/hooks'
 import unwidow from '../utils/unwidow'
 import { toMoney } from '../utils/price'
 
 const LessonTemplate = ({ data }) => {
+  const { title: siteTitle } = useSiteMetadata()
   const {
     calendlyUrl,
     title,
@@ -19,6 +22,12 @@ const LessonTemplate = ({ data }) => {
 
   return (
     <>
+      <Helmet>
+        <title>
+          {lesson_category[0].title} - {title} | {siteTitle}
+        </title>
+      </Helmet>
+
       <Header>
         <HeaderTitle>{unwidow(lesson_category[0].title)}</HeaderTitle>
 

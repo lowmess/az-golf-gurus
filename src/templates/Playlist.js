@@ -1,15 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link, graphql } from 'gatsby'
+import Helmet from 'react-helmet'
 import { Text } from 'rebass'
 import { Rule } from '../components/Typography'
 import Container from '../components/Container'
 import { Header, HeaderTitle, HeaderDescription } from '../components/Header'
 import VideoPlaylistGrid from '../components/VideoPlaylistGrid'
+import { useSiteMetadata } from '../utils/hooks'
 import { themeHover } from '../utils/styles'
 import unwidow from '../utils/unwidow'
 
 const PlaylistTemplate = ({ data }) => {
+  const { title: siteTitle } = useSiteMetadata()
   const { title, description, videos: playlistVideos } = data.youTubePlaylist
 
   const videos = []
@@ -25,6 +28,12 @@ const PlaylistTemplate = ({ data }) => {
 
   return (
     <>
+      <Helmet>
+        <title>
+          {title} Videos | {siteTitle}
+        </title>
+      </Helmet>
+
       <Header hideRule>
         <HeaderTitle>{unwidow(title)}</HeaderTitle>
 

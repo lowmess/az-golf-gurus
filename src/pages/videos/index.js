@@ -1,12 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link, useStaticQuery, graphql } from 'gatsby'
+import Helmet from 'react-helmet'
 import Img from 'gatsby-image'
 import styled from 'styled-components'
 import { Box, Flex, Text, Button } from 'rebass'
 import Container from '../../components/Container'
 import { Header, HeaderTitle, HeaderDescription } from '../../components/Header'
 import { Heading, Paragraph, Rule } from '../../components/Typography'
+import { useSiteMetadata } from '../../utils/hooks'
 import { themeHover } from '../../utils/styles'
 import unwidow from '../../utils/unwidow'
 
@@ -108,6 +110,7 @@ const VideosPage = () => {
       }
     }
   `)
+  const { title: siteTitle } = useSiteMetadata()
 
   const pageTitle =
     (data.contentfulVideosPage && data.contentfulVideosPage.title) || 'Videos'
@@ -119,6 +122,12 @@ const VideosPage = () => {
 
   return (
     <>
+      <Helmet>
+        <title>
+          {pageTitle} | {siteTitle}
+        </title>
+      </Helmet>
+
       <Header hideRule>
         <HeaderTitle>{pageTitle}</HeaderTitle>
 

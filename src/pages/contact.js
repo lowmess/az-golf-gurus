@@ -1,8 +1,10 @@
 import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
+import Helmet from 'react-helmet'
 import Container from '../components/Container'
 import { Header, HeaderTitle, HeaderDescription } from '../components/Header'
 import ContactForm from '../components/ContactForm'
+import { useSiteMetadata } from '../utils/hooks'
 import unwidow from '../utils/unwidow'
 
 const ContactPage = () => {
@@ -18,6 +20,7 @@ const ContactPage = () => {
       }
     }
   `)
+  const { title: siteTitle } = useSiteMetadata()
 
   const pageTitle =
     (data.contentfulContactPage && data.contentfulContactPage.title) ||
@@ -28,6 +31,12 @@ const ContactPage = () => {
 
   return (
     <>
+      <Helmet>
+        <title>
+          {pageTitle} | {siteTitle}
+        </title>
+      </Helmet>
+
       <Header>
         <HeaderTitle>{unwidow(pageTitle)}</HeaderTitle>
 

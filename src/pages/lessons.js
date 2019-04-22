@@ -1,10 +1,12 @@
 import React from 'react'
 import { Link, useStaticQuery, graphql } from 'gatsby'
+import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import { Box, Flex, Text, Button } from 'rebass'
 import { Heading, Paragraph } from '../components/Typography'
 import Container from '../components/Container'
 import { Header, HeaderTitle, HeaderDescription } from '../components/Header'
+import { useSiteMetadata } from '../utils/hooks'
 import { toMoney } from '../utils/price'
 import { themeHover } from '../utils/styles'
 import unwidow from '../utils/unwidow'
@@ -56,6 +58,7 @@ const LessonsPage = () => {
       }
     }
   `)
+  const { title: siteTitle } = useSiteMetadata()
 
   const pageTitle =
     (data.contentfulLessonsPage && data.contentfulLessonsPage.title) ||
@@ -65,6 +68,12 @@ const LessonsPage = () => {
 
   return (
     <>
+      <Helmet>
+        <title>
+          {pageTitle} | {siteTitle}
+        </title>
+      </Helmet>
+
       <Header>
         <HeaderTitle>{pageTitle}</HeaderTitle>
 

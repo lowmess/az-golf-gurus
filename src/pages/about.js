@@ -1,5 +1,6 @@
 import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
+import Helmet from 'react-helmet'
 import Img from 'gatsby-image'
 import styled from 'styled-components'
 import { Text, Card } from 'rebass'
@@ -7,6 +8,7 @@ import { Heading, List, ListItem } from '../components/Typography'
 import Container from '../components/Container'
 import { Header, HeaderTitle } from '../components/Header'
 import MarkdownContent from '../components/MarkdownContent'
+import { useSiteMetadata } from '../utils/hooks'
 import unwidow from '../utils/unwidow'
 
 const TeamMember = styled(Card)`
@@ -76,6 +78,7 @@ const AboutPage = () => {
       }
     }
   `)
+  const { title: siteTitle } = useSiteMetadata()
 
   const pageTitle =
     (contentfulAboutPage && contentfulAboutPage.title) || 'About Us'
@@ -91,6 +94,12 @@ const AboutPage = () => {
 
   return (
     <>
+      <Helmet>
+        <title>
+          {pageTitle} | {siteTitle}
+        </title>
+      </Helmet>
+
       <Header>
         <HeaderTitle>{unwidow(pageTitle)}</HeaderTitle>
       </Header>

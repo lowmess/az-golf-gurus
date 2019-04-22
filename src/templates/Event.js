@@ -1,19 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
+import Helmet from 'react-helmet'
 import { Box } from 'rebass'
 import Container from '../components/Container'
 import { Header, HeaderTitle, HeaderDescription } from '../components/Header'
 import CalendlyEmbed from '../components/CalendlyEmbed'
+import { useSiteMetadata } from '../utils/hooks'
 import { toMoney } from '../utils/price'
 import unwidow from '../utils/unwidow'
 
 const EventTemplate = ({ data }) => {
+  const { title: siteTitle } = useSiteMetadata()
   const event = data.contentfulEvent
   const description = event.description && event.description.content.html
 
   return (
     <>
+      <Helmet>
+        <title>
+          {event.title} | {siteTitle}
+        </title>
+      </Helmet>
+
       <Header>
         <Box as="p" m={0} fontSize={[1, 2]} css="font-style: italic">
           <time dateTime={event.startDate}>{event.startDateString}</time>{' '}

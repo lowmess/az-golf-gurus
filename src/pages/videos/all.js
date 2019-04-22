@@ -1,10 +1,12 @@
 import React from 'react'
 import { Link, useStaticQuery, graphql } from 'gatsby'
+import Helmet from 'react-helmet'
 import { Text } from 'rebass'
 import { Rule } from '../../components/Typography'
 import Container from '../../components/Container'
 import { Header, HeaderTitle } from '../../components/Header'
 import VideoPlaylistGrid from '../../components/VideoPlaylistGrid'
+import { useSiteMetadata } from '../../utils/hooks'
 import { themeHover } from '../../utils/styles'
 
 const AllVideosPage = () => {
@@ -29,6 +31,7 @@ const AllVideosPage = () => {
       }
     }
   `)
+  const { title: siteTitle } = useSiteMetadata()
 
   const videos = []
 
@@ -43,6 +46,10 @@ const AllVideosPage = () => {
 
   return (
     <>
+      <Helmet>
+        <title>All Videos | {siteTitle}</title>
+      </Helmet>
+
       <Header hideRule>
         <HeaderTitle>All Videos</HeaderTitle>
       </Header>

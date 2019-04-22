@@ -1,10 +1,12 @@
 import React from 'react'
 import { Link, useStaticQuery, graphql } from 'gatsby'
+import Helmet from 'react-helmet'
 import { Button } from 'rebass'
 import { Heading } from '../components/Typography'
 import Container from '../components/Container'
 import { Header, HeaderTitle } from '../components/Header'
 import MarkdownContent from '../components/MarkdownContent'
+import { useSiteMetadata } from '../utils/hooks'
 import unwidow from '../utils/unwidow'
 
 const ErrorPage = () => {
@@ -20,6 +22,7 @@ const ErrorPage = () => {
       }
     }
   `)
+  const { title: siteTitle } = useSiteMetadata()
 
   const title =
     (contentfulErrorPage && contentfulErrorPage.title) ||
@@ -29,6 +32,12 @@ const ErrorPage = () => {
 
   return (
     <>
+      <Helmet>
+        <title>
+          {title} | {siteTitle}
+        </title>
+      </Helmet>
+
       <Header>
         <HeaderTitle mb={[2, 1, 0]} fontSize={[3, 4]} fontWeight="medium">
           Error 404
