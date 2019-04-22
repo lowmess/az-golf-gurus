@@ -1,6 +1,11 @@
 const path = require('path')
 const fetch = require('node-fetch')
 
+// Used to only display events that take place in the future. Since we rebuild
+// the site every day with a webhook, we can just create a new `Date` object
+// on every build instead of filtering on the client.
+const today = new Date().toISOString()
+
 const getFeaturedVideoId = () =>
   fetch(
     `https://cdn.contentful.com/spaces/${
@@ -38,6 +43,17 @@ exports.onCreatePage = async ({ page, actions }) => {
       },
     })
   }
+
+  if (page.path === '/events/') {
+    deletePage(page)
+
+    createPage({
+      ...page,
+      context: {
+        today,
+      },
+    })
+  }
 }
 
 exports.createPages = async ({ graphql, actions }) => {
@@ -46,33 +62,38 @@ exports.createPages = async ({ graphql, actions }) => {
   const Lesson = path.resolve('./src/templates/Lesson.js')
   const Event = path.resolve('./src/templates/Event.js')
 
-  const result = await graphql(`
-    query {
-      allYouTubePlaylist {
-        edges {
-          node {
-            slug
+  const result = await graphql(
+    `
+      query createPages($today: Date) {
+        allYouTubePlaylist {
+          edges {
+            node {
+              slug
+            }
           }
         }
-      }
 
-      allContentfulLesson(filter: { title: { ne: "SCHEMA__Lesson" } }) {
-        edges {
-          node {
-            contentful_id
+        allContentfulLesson(filter: { title: { ne: "SCHEMA__Lesson" } }) {
+          edges {
+            node {
+              contentful_id
+            }
           }
         }
-      }
 
-      allContentfulEvent(filter: { title: { ne: "SCHEMA__Event" } }) {
-        edges {
-          node {
-            contentful_id
+        allContentfulEvent(
+          filter: { title: { ne: "SCHEMA__Event" }, startDate: { gt: $today } }
+        ) {
+          edges {
+            node {
+              contentful_id
+            }
           }
         }
       }
-    }
-  `)
+    `,
+    { today }
+  )
 
   if (result.errors) {
     console.error(result.errors)

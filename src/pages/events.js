@@ -1,5 +1,6 @@
 import React from 'react'
-import { Link, useStaticQuery, graphql } from 'gatsby'
+import PropTypes from 'prop-types'
+import { Link, graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import { Box, Button } from 'rebass'
@@ -19,37 +20,7 @@ const EventContainer = styled(ListItem)`
   }
 `
 
-const EventsPage = () => {
-  const data = useStaticQuery(graphql`
-    query {
-      contentfulEventsPage(title: { ne: "SCHEMA__EventsPage" }) {
-        title
-        description {
-          content: childMarkdownRemark {
-            html
-          }
-        }
-      }
-      allContentfulEvent(
-        filter: { title: { ne: "SCHEMA__Event" } }
-        sort: { order: ASC, fields: [startDate] }
-      ) {
-        edges {
-          node {
-            contentful_id
-            title
-            price
-            location
-            startDate
-            startDateTime: startDate(formatString: "x")
-            startDateString: startDate(formatString: "MMMM Do")
-            endDate
-            endDateString: endDate(formatString: "MMMM Do")
-          }
-        }
-      }
-    }
-  `)
+const EventsPage = ({ data }) => {
   const { title: siteTitle } = useSiteMetadata()
 
   const pageTitle =
@@ -84,46 +55,35 @@ const EventsPage = () => {
               title,
               price,
               location,
-              startDateTime,
               startDate,
               startDateString,
               endDate,
               endDateString,
             } = edge.node
 
-            const today = new Date()
-            const shouldDisplay = today.getTime() < startDateTime
-
             const url = `/events/${contentful_id}/`
 
             return (
-              shouldDisplay && (
-                <EventContainer key={contentful_id}>
-                  <Box as="p" m={0} fontSize={[1, 2]} css="font-style: italic">
-                    <time dateTime={startDate}>{startDateString}</time>{' '}
-                    {'\u2014'} <time dateTime={endDate}>{endDateString}</time>
-                  </Box>
+              <EventContainer key={contentful_id}>
+                <Box as="p" m={0} fontSize={[1, 2]} css="font-style: italic">
+                  <time dateTime={startDate}>{startDateString}</time> {'\u2014'}{' '}
+                  <time dateTime={endDate}>{endDateString}</time>
+                </Box>
 
-                  <Heading fontSize={[3, 4, 5]} fontWeight="bold">
-                    <Link to={url} css={themeHover}>
-                      {unwidow(title)}
-                    </Link>
-                  </Heading>
+                <Heading fontSize={[3, 4, 5]} fontWeight="bold">
+                  <Link to={url} css={themeHover}>
+                    {unwidow(title)}
+                  </Link>
+                </Heading>
 
-                  <Box as="p" mt={3} mb={4} fontSize={[1, 2, 3]}>
-                    {unwidow(location)} {'\u2022'} {toMoney(price)}
-                  </Box>
+                <Box as="p" mt={3} mb={4} fontSize={[1, 2, 3]}>
+                  {unwidow(location)} {'\u2022'} {toMoney(price)}
+                </Box>
 
-                  <Button
-                    variant="outline"
-                    as={Link}
-                    to={url}
-                    fontSize={[1, 2]}
-                  >
-                    Register
-                  </Button>
-                </EventContainer>
-              )
+                <Button variant="outline" as={Link} to={url} fontSize={[1, 2]}>
+                  Register
+                </Button>
+              </EventContainer>
             )
           })}
         </List>
@@ -131,5 +91,40 @@ const EventsPage = () => {
     </>
   )
 }
+
+EventsPage.propTypes = {
+  data: PropTypes.object.isRequired,
+}
+
+export const pageQuery = graphql`
+  query EventsPageQuery($today: Date) {
+    contentfulEventsPage(title: { ne: "SCHEMA__EventsPage" }) {
+      title
+      description {
+        content: childMarkdownRemark {
+          html
+        }
+      }
+    }
+
+    allContentfulEvent(
+      filter: { title: { ne: "SCHEMA__Event" }, startDate: { gt: $today } }
+      sort: { order: ASC, fields: [startDate] }
+    ) {
+      edges {
+        node {
+          contentful_id
+          title
+          price
+          location
+          startDate
+          startDateString: startDate(formatString: "MMMM Do")
+          endDate
+          endDateString: endDate(formatString: "MMMM Do")
+        }
+      }
+    }
+  }
+`
 
 export default EventsPage
