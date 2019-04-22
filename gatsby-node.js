@@ -1,6 +1,4 @@
 const path = require('path')
-const Promise = require('bluebird')
-const _ = require('lodash')
 const fetch = require('node-fetch')
 
 const getFeaturedVideoId = () =>
@@ -42,72 +40,67 @@ exports.onCreatePage = async ({ page, actions }) => {
   }
 }
 
-exports.createPages = ({ graphql, actions }) => {
+exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
+  const Playlist = path.resolve('./src/templates/Playlist.js')
+  const Lesson = path.resolve('./src/templates/Lesson.js')
+  const Event = path.resolve('./src/templates/Event.js')
 
-  return new Promise((resolve, reject) => {
-    const Playlist = path.resolve('./src/templates/Playlist.js')
-    const Lesson = path.resolve('./src/templates/Lesson.js')
-    const Event = path.resolve('./src/templates/Event.js')
-
-    resolve(
-      graphql(`
-        {
-          allYouTubePlaylist {
-            edges {
-              node {
-                slug
-              }
-            }
-          }
-          allContentfulLesson(filter: { title: { ne: "SCHEMA__Lesson" } }) {
-            edges {
-              node {
-                contentful_id
-              }
-            }
-          }
-          allContentfulEvent(filter: { title: { ne: "SCHEMA__Event" } }) {
-            edges {
-              node {
-                contentful_id
-              }
-            }
+  const result = await graphql`
+    {
+      allYouTubePlaylist {
+        edges {
+          node {
+            slug
           }
         }
-      `).then(result => {
-        if (result.errors) {
-          console.error(result.errors)
-          reject(result.errors)
+      }
+      allContentfulLesson(filter: { title: { ne: "SCHEMA__Lesson" } }) {
+        edges {
+          node {
+            contentful_id
+          }
         }
+      }
+      allContentfulEvent(filter: { title: { ne: "SCHEMA__Event" } }) {
+        edges {
+          node {
+            contentful_id
+          }
+        }
+      }
+    }
+  `
 
-        // Create YouTube playlist pages
-        _.each(result.data.allYouTubePlaylist.edges, edge => {
-          createPage({
-            path: edge.node.slug,
-            component: Playlist,
-            context: { slug: edge.node.slug },
-          })
-        })
+  if (result.errors) {
+    console.error(result.errors)
+    return false
+  }
 
-        // Create lesson pages
-        _.each(result.data.allContentfulLesson.edges, edge => {
-          createPage({
-            path: `/lessons/${edge.node.contentful_id}/`,
-            component: Lesson,
-            context: { contentful_id: edge.node.contentful_id },
-          })
-        })
+  // Create YouTube playlist pages
+  result.data.allYouTubePlaylist.edges.forEach(edge => {
+    createPage({
+      path: edge.node.slug,
+      component: Playlist,
+      context: { slug: edge.node.slug },
+    })
+  })
 
-        // Create event pages
-        _.each(result.data.allContentfulEvent.edges, edge => {
-          createPage({
-            path: `/events/${edge.node.contentful_id}/`,
-            component: Event,
-            context: { contentful_id: edge.node.contentful_id },
-          })
-        })
-      })
-    )
+  // Create lesson pages
+  result.data.allContentfulLesson.edges.forEach(edge => {
+    createPage({
+      path: `/lessons/${edge.node.contentful_id}/`,
+      component: Lesson,
+      context: { contentful_id: edge.node.contentful_id },
+    })
+  })
+
+  // Create event pages
+  result.data.allContentfulEvent.edges.forEach(edge => {
+    createPage({
+      path: `/events/${edge.node.contentful_id}/`,
+      component: Event,
+      context: { contentful_id: edge.node.contentful_id },
+    })
   })
 }
