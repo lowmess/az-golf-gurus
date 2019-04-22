@@ -46,8 +46,8 @@ exports.createPages = async ({ graphql, actions }) => {
   const Lesson = path.resolve('./src/templates/Lesson.js')
   const Event = path.resolve('./src/templates/Event.js')
 
-  const result = await graphql`
-    {
+  const result = await graphql(`
+    query {
       allYouTubePlaylist {
         edges {
           node {
@@ -55,6 +55,7 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+
       allContentfulLesson(filter: { title: { ne: "SCHEMA__Lesson" } }) {
         edges {
           node {
@@ -62,6 +63,7 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+
       allContentfulEvent(filter: { title: { ne: "SCHEMA__Event" } }) {
         edges {
           node {
@@ -70,7 +72,7 @@ exports.createPages = async ({ graphql, actions }) => {
         }
       }
     }
-  `
+  `)
 
   if (result.errors) {
     console.error(result.errors)
