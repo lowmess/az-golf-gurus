@@ -18,6 +18,7 @@ const Logo = props => (
       xmlns="http://www.w3.org/2000/svg"
       css="width: 100%; height: 100%;"
     >
+      <title>Go to homepage</title>
       <path d="M126 .858h-12.902v82.847H126V.859z" />
       <path
         fillRule="evenodd"
