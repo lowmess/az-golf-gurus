@@ -64,7 +64,11 @@ const Navigation = ({ theme }) => {
             </OpenButton>
           )}
 
-          <Logo py={[2, 0]} />
+          <Logo
+            py={[2, 0]}
+            tabIndex={notMobile ? -1 : 0}
+            aria-hidden={notMobile ? true : undefined}
+          />
 
           <LinkList
             id={menuId}
