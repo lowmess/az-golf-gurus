@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
-import { Text } from 'rebass'
-import { Heading, Paragraph, Separator } from './Typography'
+import { rgba } from 'polished'
+import { Box, Heading } from 'rebass'
+import { Paragraph, Separator } from './Typography'
 import Container from './Container'
 import MarkdownContent from './MarkdownContent'
 
@@ -42,36 +42,28 @@ HeaderDescription.defaultProps = {
   markdown: false,
 }
 
-const Gradient = styled(Text)`
-  background-image: linear-gradient(
-    to bottom,
-    ${({ theme }) => theme.colors.greens[0]},
-    transparent
-  );
-`
-
-const Rule = styled(Separator)`
-  ${({ theme, hideRule }) =>
-    hideRule
-      ? `
-        display: none;
-
-        @media (min-width: ${theme.breakpoints[0]}) {
-          display: block;
-        }
-      `
-      : ''}
-`
-
 const Header = ({ hideRule, children, ...props }) => {
   return (
-    <Gradient textAlign="center" {...props}>
+    <Box
+      sx={{
+        backgroundImage: theme =>
+          `linear-gradient(to bottom, ${theme.colors.greens[0]}, ${rgba(
+            theme.colors.greens[0],
+            0
+          )}`,
+        textAlign: 'center',
+      }}
+      {...props}
+    >
       <Container pt={5}>
         {children}
 
-        <Rule hideRule={hideRule} mt={5} />
+        <Separator
+          sx={{ display: hideRule ? ['none', 'block'] : null }}
+          mt={5}
+        />
       </Container>
-    </Gradient>
+    </Box>
   )
 }
 

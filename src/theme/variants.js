@@ -1,6 +1,51 @@
 import { colors } from './colors'
-import { borders, radii } from './space'
-import { fonts } from './typography'
+import { space, borders, radii } from './space'
+import { fonts, lineHeights } from './typography'
+
+const variants = {
+  link: {
+    color: 'inherit',
+
+    '&:hover': {
+      color: colors.green,
+    },
+  },
+
+  'reverse-link': {
+    color: 'inherit',
+
+    '&:hover': {
+      color: colors['light-green'],
+    },
+  },
+
+  'unstyled-link': {
+    color: 'inherit',
+    textDecoration: 'none',
+  },
+}
+
+const text = {
+  heading: {
+    marginY: space[0],
+    fontFamily: fonts.geomanist,
+    fontSize: [3, 4],
+    lineHeight: lineHeights.title,
+  },
+
+  paragraph: {
+    maxWidth: '33em',
+    marginY: space[0],
+    fontSize: [1, 2],
+    lineHeight: lineHeights.copy,
+  },
+
+  list: {
+    marginY: 0,
+    paddingLeft: 0,
+    listStyleType: 'none',
+  },
+}
 
 const buttonBase = {
   display: 'inline-block',
@@ -95,4 +140,4 @@ const buttons = {
   },
 }
 
-export { buttons }
+export { variants, text, buttons }

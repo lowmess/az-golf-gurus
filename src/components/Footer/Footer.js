@@ -1,14 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link as GatsbyLink, useStaticQuery, graphql } from 'gatsby'
-import styled from 'styled-components'
-import { Box, Flex, Link } from 'rebass'
-import { Heading, List, ListItem } from '../Typography'
+import { Box, Flex, Heading, Link } from 'rebass'
+import { List, ListItem } from '../Typography'
 import Container from '../Container'
 import Wave from './Wave'
 import Logo from './Logo'
 import * as Icon from './SocialMediaIcons'
-import { reverseThemeHover } from '../../utils/styles'
 
 const FooterLinkContainer = ({ children, ...props }) => (
   <Flex
@@ -36,7 +34,7 @@ FooterHeading.propTypes = {
 }
 
 const FooterList = ({ children, ...props }) => (
-  <List fontSize={2} css="display: inline-block" {...props}>
+  <List sx={{ fontSize: 2, display: 'inline-block' }} {...props}>
     {children}
   </List>
 )
@@ -45,30 +43,23 @@ FooterList.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-const FooterListItem = styled(ListItem)`
-  text-align: center;
-
-  & + & {
-    margin-top: ${({ theme }) => theme.space[1]};
-  }
-
-  @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
-    display: inline-block;
-    text-align: initial;
-
-    & + & {
-      margin-top: 0;
-      margin-left: ${({ theme }) => theme.space[3]};
-    }
-  }
-`
-
 const FooterLink = ({ children, to, ...props }) => (
-  <FooterListItem>
-    <Link as={GatsbyLink} to={to} css={reverseThemeHover} {...props}>
+  <ListItem
+    sx={{
+      // eslint-disable-next-line no-sparse-arrays
+      display: [, 'inline-block'],
+      textAlign: ['center', 'initial'],
+
+      '& + &': {
+        marginTop: [1, 0],
+        marginLeft: [0, 3],
+      },
+    }}
+  >
+    <Link as={GatsbyLink} to={to} variant="reverse-link" {...props}>
       {children}
     </Link>
-  </FooterListItem>
+  </ListItem>
 )
 
 FooterLink.propTypes = {
@@ -76,13 +67,27 @@ FooterLink.propTypes = {
   to: PropTypes.string.isRequired,
 }
 
-const SocialMediaIcon = styled(ListItem)`
-  display: inline-block;
+const SocialMediaIcon = ({ sx, children, ...props }) => (
+  <ListItem
+    sx={{
+      display: 'inline-block',
 
-  & + & {
-    margin-left: ${({ theme }) => theme.space[3]};
-  }
-`
+      '& + &': {
+        marginLeft: 3,
+      },
+
+      ...sx,
+    }}
+    {...props}
+  >
+    {children}
+  </ListItem>
+)
+
+SocialMediaIcon.propTypes = {
+  sx: PropTypes.object,
+  children: PropTypes.node.isRequired,
+}
 
 const Footer = props => {
   const { allContentfulSocialMediaAccount: accounts } = useStaticQuery(graphql`
@@ -141,11 +146,12 @@ const Footer = props => {
 
             <List textAlign={['center', 'initial']}>
               {accounts.edges.map(({ node: { network, link } }) => {
+                // eslint-disable-next-line import/namespace
                 const IconGlyph = Icon[network]
 
                 return (
                   <SocialMediaIcon key={network} fontSize={3}>
-                    <Link href={link} css={reverseThemeHover}>
+                    <Link href={link} variant="reverse-link">
                       <IconGlyph />
                     </Link>
                   </SocialMediaIcon>

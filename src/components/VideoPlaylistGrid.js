@@ -1,13 +1,15 @@
 import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
-import styled, { withTheme } from 'styled-components'
-import { Box, Text } from 'rebass'
-import { Heading, Paragraph } from './Typography'
+import styled from '@emotion/styled'
+import { useTheme } from 'emotion-theming'
+import { Box, Text, Heading } from 'rebass'
+import { Paragraph } from './Typography'
 import Container from './Container'
 import YouTubeVideo from './YouTubeVideo'
 import { useMediaQuery } from '../utils/hooks'
 import unwidow from '../utils/unwidow'
 
+// Leaving this a styled cause of selector complication
 const Grid = styled(Container)`
   position: relative;
   grid-row-gap: ${({ theme }) => theme.space[5]};
@@ -75,9 +77,10 @@ const Grid = styled(Container)`
   }
 `
 
-const VideoPlaylistGrid = ({ theme, videos, ...props }) => {
+const VideoPlaylistGrid = ({ videos, ...props }) => {
   const [activeId, setActiveId] = useState(videos[0].videoId)
   const playlistEl = useRef(null)
+  const theme = useTheme()
   const notMobile = useMediaQuery(`(min-width: ${theme.breakpoints[0]})`)
 
   const onPlay = () => {
@@ -85,7 +88,7 @@ const VideoPlaylistGrid = ({ theme, videos, ...props }) => {
   }
 
   return (
-    <Grid {...props}>
+    <Grid theme={theme} {...props}>
       <Box ref={playlistEl} css="position: absolute; top: -1rem;" />
 
       {videos.map(video => (
@@ -122,7 +125,6 @@ const VideoPlaylistGrid = ({ theme, videos, ...props }) => {
 }
 
 VideoPlaylistGrid.propTypes = {
-  theme: PropTypes.object.isRequired,
   videos: PropTypes.arrayOf(
     PropTypes.shape({
       videoId: PropTypes.string.isRequired,
@@ -134,4 +136,4 @@ VideoPlaylistGrid.propTypes = {
   ).isRequired,
 }
 
-export default withTheme(VideoPlaylistGrid)
+export default VideoPlaylistGrid

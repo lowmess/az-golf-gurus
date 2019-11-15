@@ -2,53 +2,49 @@ import React, { useState, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Img from 'gatsby-image'
 import YouTube from 'react-youtube'
-import styled from 'styled-components'
 import { Flex } from 'rebass'
 import ResponsiveEmbed from './ResponsiveEmbed'
 import PlayIcon from './PlayIcon'
 import Spinner from './Spinner'
 import { useWindowSize } from '../../utils/hooks'
 
-const VideoContainer = styled(ResponsiveEmbed)`
-  &:focus-within {
-    outline: -webkit-focus-ring-color auto 5px;
-  }
-`
+const videoContainerStyles = {
+  '&:focus-within': {
+    outline: '-webkit-focus-ring-color auto 5px',
+  },
+}
 
-const ThumbnailContainer = styled(Flex)`
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  opacity: ${({ ready }) => (ready ? 0 : 1)};
-  pointer-events: ${({ ready }) => (ready ? 'none' : 'auto')};
-  transition: opacity 0.3s ease;
+const thumbnailContainerStyles = {
+  position: 'absolute',
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+  zIndex: 1,
+  width: '100%',
+  height: '100%',
+  color: 'white',
+  opacity: 1,
+  pointerEvents: 'auto',
+  transiiton: 'opacity 0.3s ease',
 
-  &:focus {
-    border-radius: 100%;
-  }
+  '.gatsby-image-wrapper': {
+    position: 'absolute !important',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+  },
 
-  .gatsby-image-wrapper {
-    position: absolute !important;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
-`
+  img: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    objectPosition: 'center',
+  },
+}
 
 const YouTubeVideo = ({
   title,
@@ -57,6 +53,7 @@ const YouTubeVideo = ({
   paused,
   onPlay,
   setActiveId,
+  sx,
   ...props
 }) => {
   const [played, setPlayed] = useState(false)
@@ -121,16 +118,22 @@ const YouTubeVideo = ({
   }
 
   return (
-    <VideoContainer className="youtube-video" ratio="16:9" {...props}>
+    <ResponsiveEmbed
+      ratio="16:9"
+      className="youtube-video"
+      sx={{ ...videoContainerStyles, ...sx }}
+      {...props}
+    >
       {thumbnail && (
-        <ThumbnailContainer
+        <Flex
           ready={ready}
           role="button"
           tabIndex={played ? -1 : 0}
           onClick={handleClick}
           onKeyDown={handleKeyDown}
           aria-hidden
-          color="white"
+          className={ready ? 'is-ready' : null}
+          sx={thumbnailContainerStyles}
           ref={playerEl}
         >
           {!played && <PlayIcon videoSize={videoSize} title={title} />}
@@ -138,7 +141,7 @@ const YouTubeVideo = ({
           {played && <Spinner videoSize={videoSize} />}
 
           <Img fluid={thumbnail.fluid} />
-        </ThumbnailContainer>
+        </Flex>
       )}
 
       {(played || !thumbnail) && (
@@ -149,7 +152,7 @@ const YouTubeVideo = ({
           onPlay={handlePlay}
         />
       )}
-    </VideoContainer>
+    </ResponsiveEmbed>
   )
 }
 
@@ -162,6 +165,7 @@ YouTubeVideo.propTypes = {
   paused: PropTypes.bool.isRequired,
   onPlay: PropTypes.func,
   setActiveId: PropTypes.func,
+  sx: PropTypes.object,
 }
 
 YouTubeVideo.defaultProps = {

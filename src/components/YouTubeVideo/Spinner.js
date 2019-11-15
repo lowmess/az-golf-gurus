@@ -1,52 +1,55 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled, { keyframes } from 'styled-components'
-import { Flex, Card } from 'rebass'
+import { keyframes } from '@emotion/core'
+import { Box, Flex } from 'rebass'
 
-const Background = styled(Flex)`
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.25);
+const backdropStyles = {
+  position: 'absolute',
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+  zIndex: 2,
+  width: '100%',
+  height: '100%',
+  backgroundColor: 'rgba(0, 0, 0, 0.25)',
+}
+
+const spinning = keyframes`
+  from {
+    transform: rotateZ(0deg)
+  }
+  to {
+    transform: rotateZ(359deg)
+  }
 `
 
-const Spinner = ({ videoSize, ...props }) => {
-  const spinning = keyframes`
-    from {
-      transform: rotateZ(0deg)
-    }
-    to {
-      transform: rotateZ(359deg)
-    }
-  `
+const iconStyles = {
+  position: 'relative',
+  width: theme => theme.space[5],
+  height: theme => theme.space[5],
+  margin: 'auto',
+  border: 3,
+  borderLeftColor: 'transparent !important',
+  borderRadius: '100%',
+  animation: `${spinning} 1s linear infinite`,
 
-  const Icon = styled(Card)`
-    position: relative;
-    width: ${({ theme }) =>
-      videoSize > 480 ? theme.space[6] : theme.space[5]};
-    height: ${({ theme }) =>
-      videoSize > 480 ? theme.space[6] : theme.space[5]};
-    margin: auto;
-    border: ${({ theme }) =>
-      videoSize > 480 ? theme.borders[4] : theme.borders[3]};
-    border-left-color: transparent !important;
-    animation: ${spinning} 1s linear infinite;
-  `
-
-  return (
-    <Background {...props}>
-      <Icon borderRadius="100%" />
-    </Background>
-  )
+  '&.is-wide': {
+    width: theme => theme.space[6],
+    height: theme => theme.space[6],
+    border: 4,
+  },
 }
+
+const Spinner = ({ videoSize, sx, ...props }) => (
+  <Flex sx={{ ...backdropStyles, ...sx }} {...props}>
+    <Box className={videoSize > 480 ? 'is-wide' : null} sx={iconStyles} />
+  </Flex>
+)
 
 Spinner.propTypes = {
   videoSize: PropTypes.number.isRequired,
+  sx: PropTypes.object,
 }
 
 Spinner.defaultProps = {

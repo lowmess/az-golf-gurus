@@ -1,33 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { css } from 'styled-components'
-import { Box, Text, Heading as H } from 'rebass'
-
-const Heading = ({ children, ...props }) => (
-  <H
-    fontSize={[3, 4]}
-    fontFamily="geomanist"
-    fontWeight="medium"
-    lineHeight="title"
-    {...props}
-  >
-    {children}
-  </H>
-)
-
-Heading.propTypes = {
-  children: PropTypes.node.isRequired,
-}
+import { Box, Text } from 'rebass'
 
 const Paragraph = ({ children, ...props }) => (
-  <Text
-    as="p"
-    m={0}
-    fontSize={[1, 2]}
-    lineHeight="copy"
-    css="max-width: 33em"
-    {...props}
-  >
+  <Text as="p" variant="paragraph" {...props}>
     {children}
   </Text>
 )
@@ -36,29 +12,36 @@ Paragraph.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-const Separator = props => {
-  const styles = css`
-    height: ${({ theme }) => theme.space[3]};
-    max-width: 40rem;
-    border: 0;
-  `
+const Separator = props => (
+  <Box
+    as="hr"
+    sx={{
+      height: theme => theme.space[3],
+      maxWidth: '40rem',
+      marginY: 0,
+      marginX: 'auto',
+      border: 0,
+      backgroundColor: 'green',
+    }}
+    {...props}
+  />
+)
 
-  return (
-    <Box as="hr" mt={0} mx="auto" mb={0} bg="green" css={styles} {...props} />
-  )
-}
-
-const Rule = props => {
-  const styles = css`
-    height: 1px;
-    border: 0;
-  `
-
-  return <Box as="hr" m={0} bg="green" css={styles} {...props} />
-}
+const Rule = props => (
+  <Box
+    as="hr"
+    sx={{
+      height: '1px',
+      margin: 0,
+      border: 0,
+      backgroundColor: 'green',
+    }}
+    {...props}
+  />
+)
 
 const List = ({ children, ...props }) => (
-  <Text as="ul" m={0} p={0} css="list-style-type: none" {...props}>
+  <Text as="ul" variant="list" {...props}>
     {children}
   </Text>
 )
@@ -77,4 +60,4 @@ ListItem.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export { Heading, Paragraph, Separator, Rule, List, ListItem }
+export { Paragraph, Separator, Rule, List, ListItem }

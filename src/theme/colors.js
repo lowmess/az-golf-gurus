@@ -1,6 +1,7 @@
 // more colors at https://palx.jxnblk.com/15ab3d.json
 const colors = {
   green: '#15ab3d',
+  'light-green': '#a7dfb6',
   greens: [
     '#e4f5e9',
     '#c8ebd1',

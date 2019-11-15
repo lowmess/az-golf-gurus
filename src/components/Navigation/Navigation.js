@@ -1,29 +1,29 @@
 import React, { useState, useRef } from 'react'
-import PropTypes from 'prop-types'
 import noScroll from 'no-scroll'
-import styled, { withTheme } from 'styled-components'
-import { Flex, Button, Card } from 'rebass'
+import { useTheme } from 'emotion-theming'
+import { Box, Flex, Button } from 'rebass'
 import Container from '../Container'
 import SkipNavLink from './SkipNavLink'
 import Logo from './Logo'
 import LinkList from './LinkList'
 import { Hamburger } from './Icons'
 import { useMediaQuery } from '../../utils/hooks'
-import { themeHover } from '../../utils/styles'
 
-const OpenButton = styled(Button)`
-  position: absolute;
-  left: 0;
-  ${themeHover};
+const openButtonStyles = {
+  // eslint-disable-next-line no-sparse-arrays
+  display: [, 'none'],
+  position: 'absolute',
+  left: 0,
 
-  @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
-    display: none;
-  }
-`
+  '&:hover': {
+    color: 'green',
+  },
+}
 
-const Navigation = ({ theme }) => {
+const Navigation = () => {
   const [open, setOpen] = useState(false)
   const openButtonEl = useRef(null)
+  const theme = useTheme()
   const notMobile = useMediaQuery(`(min-width: ${theme.breakpoints[0]})`)
   const menuId = 'navigation-menu'
 
@@ -37,10 +37,12 @@ const Navigation = ({ theme }) => {
   }
 
   return (
-    <Card
+    <Box
       as="header"
-      boxShadow="0 -0.25rem 0.5rem 0.125rem rgba(0, 0, 0, 0.25)"
-      css="position: relative"
+      sx={{
+        position: 'relative',
+        boxShadow: '0 -0.25rem 0.5rem 0.125rem rgba(0, 0, 0, 0.25)',
+      }}
     >
       <SkipNavLink />
 
@@ -51,17 +53,17 @@ const Navigation = ({ theme }) => {
           justifyContent={['center', 'space-between']}
         >
           {!notMobile && (
-            <OpenButton
+            <Button
               ref={openButtonEl}
               variant="reset"
               aria-label="Open the menu"
               aria-expanded={open}
               aria-controls={menuId}
               onClick={toggleMenu}
-              p={3}
+              sx={openButtonStyles}
             >
               <Hamburger ariaHidden="true" />
-            </OpenButton>
+            </Button>
           )}
 
           <Logo
@@ -79,12 +81,8 @@ const Navigation = ({ theme }) => {
           />
         </Flex>
       </Container>
-    </Card>
+    </Box>
   )
 }
 
-Navigation.propTypes = {
-  theme: PropTypes.object.isRequired,
-}
-
-export default withTheme(Navigation)
+export default Navigation

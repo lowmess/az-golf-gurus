@@ -1,192 +1,172 @@
-import styled from 'styled-components'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { Text } from 'rebass'
-import { themeHover } from '../utils/styles.js'
 
-const MarkdownContent = styled(Text)`
-  text-align: ${({ center }) => (center ? 'center' : 'left')};
-  /* Vertical Rhythm */
-  & > * {
-    /* reset all margins */
-    margin-top: 0;
-    margin-bottom: 0;
+const MarkdownContent = ({ center, sx, children, ...props }) => (
+  <Text
+    sx={{
+      textAlign: center ? 'center' : 'left',
 
-    /* margin top to all child elements */
-    & + * {
-      margin-top: ${({ theme }) => theme.space[3]};
-    }
+      // Vertical rhythm
+      '& > *': {
+        // reset all margins
+        marginTop: 0,
+        marginBottom: 0,
 
-    /* bigger margin top on headers */
-    & + h1,
-    & + h2 {
-      margin-top: ${({ theme }) => theme.space[5]};
-    }
+        // margin top to all child elements
+        '& + *': {
+          marginTop: 3,
+        },
 
-    & + h3,
-    & + h4 {
-      margin-top: ${({ theme }) => theme.space[4]};
-    }
-  }
+        // bigger margin top on headers
+        '& + h1, & + h2': {
+          marginTop: 5,
+        },
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    line-height: ${({ theme }) => theme.lineHeights.title};
-  }
+        '& + h3, & + h4': {
+          marginTop: 5,
+        },
+      },
 
-  p,
-  ul,
-  ol,
-  dl,
-  address {
-    max-width: 33em;
-    margin-right: ${({ center }) => (center ? 'auto' : 0)};
-    margin-left: ${({ center }) => (center ? 'auto' : 0)};
-  }
+      'h1, h2, h3, h4, h5, h6': {
+        lineHeight: 'title',
+      },
 
-  /* Headers */
-  h1 {
-    font-size: ${({ theme }) => theme.fontSizes[3]};
-    font-weight: 700;
+      'p, ul, ol, dl, address': {
+        maxWidth: '33em',
+        marginRight: center ? 'auto' : 0,
+        marginLeft: center ? 'auto' : 0,
+      },
 
-    @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
-      font-size: ${({ theme }) => theme.fontSizes[4]};
-    }
-  }
+      // Headers
+      h1: {
+        fontSize: [3, 4],
+        fontWeight: 'bold',
+      },
 
-  h2 {
-    font-size: ${({ theme }) => theme.fontSizes[2]};
-    font-weight: 500;
+      h2: {
+        fontSize: [2, 3],
+        fontWeight: 'medium',
+      },
 
-    @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
-      font-size: ${({ theme }) => theme.fontSizes[3]};
-    }
-  }
+      h3: {
+        fontSize: [1, 2],
+        fontWeight: 'medium',
+      },
 
-  h3 {
-    font-size: ${({ theme }) => theme.fontSizes[1]};
-    font-weight: 500;
+      'h4, h5, h6': {
+        fontSize: [0, 1],
+        fontWeight: 'medium',
+        textTransform: 'uppercase',
+      },
 
-    @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
-      font-size: ${({ theme }) => theme.fontSizes[2]};
-    }
-  }
+      // Typographic Elements
+      hr: {
+        height: theme => theme.space[3],
+        maxWidth: '40rem',
+        marginRight: center ? 'auto' : 0,
+        marginLeft: center ? 'auto' : 0,
+        border: 0,
+        backgroundColor: 'green',
+      },
 
-  h4,
-  h5,
-  h6 {
-    font-size: ${({ theme }) => theme.fontSizes[0]};
-    font-weight: 500;
-    text-transform: uppercase;
+      'ul, ol, dl': {
+        paddingLeft: 4,
+      },
 
-    @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
-      font-size: ${({ theme }) => theme.fontSizes[1]};
-    }
-  }
+      'ul ul, ol ol, ul ol, ol ul': {
+        marginTop: 0,
+        marginBottom: 0,
+      },
 
-  /* Type Elements */
+      'b, strong, em, small, code': {
+        lineHeight: 1,
+      },
 
-  hr {
-    height: ${({ theme }) => theme.space[3]};
-    max-width: 40rem;
-    margin-right: ${({ center }) => (center ? 'auto' : 0)};
-    margin-left: ${({ center }) => (center ? 'auto' : 0)};
-    border: 0;
-    background-color: ${({ theme }) => theme.colors.green};
-  }
+      'sup, sub': {
+        verticalAlign: 'baseline',
+        position: 'relative',
+        top: '-0.4em',
+      },
 
-  ul,
-  ol,
-  dl {
-    padding-left: ${({ theme }) => theme.space[4]};
-  }
+      sub: {
+        top: '0.4em',
+      },
 
-  ul ul,
-  ol ol,
-  ul ol,
-  ol ul {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
+      'blockquote, details': {
+        marginY: 4,
+        marginX: 0,
+        borderLeft: 4,
+        borderColor: 'green',
+        borderRadius: 1,
+        padding: 3,
+        backgroundColor: 'grays.2',
 
-  b,
-  strong,
-  em,
-  small,
-  code {
-    line-height: 1;
-  }
+        p: {
+          maxWidth: '30em',
+        },
 
-  sup,
-  sub {
-    vertical-align: baseline;
-    position: relative;
-    top: -0.4em;
-  }
+        '> :first-child': {
+          marginTop: 0,
+        },
 
-  sub {
-    top: 0.4em;
-  }
+        '> :last-child': {
+          marginBottom: 0,
+        },
+      },
 
-  a {
-    ${themeHover};
-    text-decoration: underline;
-    text-decoration-color: ${({ theme }) => theme.colors.green};
+      // Links
+      a: {
+        color: 'inherit',
+        textDecoration: 'underline',
+        textDecorationColor: theme => theme.colors.green,
 
-    @media print {
-      &:after {
-        content: ' (' attr(href) ')';
-        font-size: 0.875em;
-      }
-      &[href^='/']:after {
-        content: ' (https://azgolfgurus.com' attr(href) ')';
-      }
-      &[href^='#'] {
-        text-decoration: none;
+        '&:hover': {
+          color: 'green',
+        },
 
-        &:after {
-          content: '';
-        }
-      }
-    }
-  }
+        '@media print': {
+          '&:after': {
+            content: `' (' attr(href) ')'`,
+            fontSize: '0.875em',
+          },
 
-  blockquote,
-  details {
-    margin-top: ${({ theme }) => theme.space[4]};
-    margin-right: 0;
-    margin-bottom: ${({ theme }) => theme.space[4]};
-    margin-left: 0;
-    border-left: ${({ theme }) => theme.borders[4]}
-      ${({ theme }) => theme.colors.green};
-    border-radius: ${({ theme }) => theme.radii[1]};
-    padding: ${({ theme }) => theme.space[3]};
-    background-color: ${({ theme }) => theme.colors.nearWhite};
+          "&[href^='/']::after": {
+            content: `' (https://azgolfgurus.com' attr(href) ')'`,
+          },
 
-    p {
-      max-width: 30em;
-    }
+          "&[href^='#']": {
+            textDecoration: 'none',
 
-    > :first-child {
-      margin-top: 0;
-    }
-    > :last-child {
-      margin-bottom: 0;
-    }
-  }
+            '&:after': {
+              content: `''`,
+            },
+          },
+        },
+      },
 
-  img {
-    display: block;
-    width: 100%;
-    max-width: 48rem;
-    margin-top: ${({ theme }) => theme.space[4]};
-    margin-right: ${({ center }) => (center ? 'auto' : 0)};
-    margin-bottom: ${({ theme }) => theme.space[4]};
-    margin-left: ${({ center }) => (center ? 'auto' : 0)};
-    border-radius: ${({ theme }) => theme.radii[1]};
-  }
-`
+      // Images
+      img: {
+        display: 'block',
+        width: '100%',
+        maxWidth: '48rem',
+        marginY: 4,
+        marginX: center ? 'auto' : 0,
+        borderRadius: 1,
+      },
+
+      ...sx,
+    }}
+    {...props}
+  >
+    {children}
+  </Text>
+)
+
+MarkdownContent.propTypes = {
+  center: PropTypes.boolean,
+  sx: PropTypes.object,
+  children: PropTypes.node.isRequired,
+}
 
 export default MarkdownContent

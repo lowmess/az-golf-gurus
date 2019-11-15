@@ -1,7 +1,7 @@
 import { colors } from './colors'
 import { space, borders, radii } from './space'
 import { fonts, fontSizes, fontWeights, lineHeights } from './typography'
-import { buttons } from './buttons'
+import { variants, text, buttons } from './variants'
 
 const breakpoints = ['48em', '64em']
 
@@ -15,5 +15,7 @@ export default {
   fontSizes,
   fontWeights,
   lineHeights,
+  variants,
+  text,
   buttons,
 }

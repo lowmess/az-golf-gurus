@@ -1,30 +1,33 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { css } from 'styled-components'
 import { Text } from 'rebass'
 
-const inputSharedStyles = css`
-  display: block;
-  width: 100%;
-  border: 1px solid;
-  border-color: ${({ theme }) => theme.colors.grays[4]};
-  border-radius: ${({ theme }) => theme.radii[1]};
-  padding: ${({ theme }) => theme.space[2]} ${({ theme }) => theme.space[3]};
+const inputSharedStyles = {
+  display: 'block',
+  width: '100%',
+  border: 1,
+  borderColor: 'grays.4',
+  borderRadius: 1,
+  paddingY: 2,
+  paddingX: 3,
 
-  &::placeholder {
-    color: ${({ theme }) => theme.colors.grays[6]};
-    opacity: 1;
-  }
-`
+  '&::placeholder': {
+    color: 'grays.6',
+    opacity: 1,
+  },
+}
 
-const Label = ({ children, ...props }) => (
+const Label = ({ sx, children, ...props }) => (
   <Text
     as="label"
-    fontSize={2}
-    fontFamily="geomanist"
-    fontWeight="medium"
-    mb={2}
-    css="display: block"
+    sx={{
+      display: 'block',
+      marginBottom: 2,
+      fontSize: 2,
+      fontFamily: 'geomanist',
+      fontWeight: 'medium',
+      ...sx,
+    }}
     {...props}
   >
     {children}
@@ -32,18 +35,33 @@ const Label = ({ children, ...props }) => (
 )
 
 Label.propTypes = {
+  sx: PropTypes.object,
   children: PropTypes.node.isRequired,
 }
 
-const Input = props => <Text as="input" css={inputSharedStyles} {...props} />
+const Input = ({ sx, ...props }) => (
+  <Text as="input" sx={{ ...inputSharedStyles, ...sx }} {...props} />
+)
 
-const Textarea = props => {
-  const styles = css`
-    resize: vertical;
-    ${inputSharedStyles}
-  `
+Input.propTypes = {
+  sx: PropTypes.obejct,
+}
 
-  return <Text as="textarea" rows="4" css={styles} {...props} />
+const Textarea = ({ sx, ...props }) => (
+  <Text
+    as="textarea"
+    rows="4"
+    sx={{
+      resize: 'vertical',
+      ...inputSharedStyles,
+      ...sx,
+    }}
+    {...props}
+  />
+)
+
+Textarea.propTypes = {
+  sx: PropTypes.obejct,
 }
 
 export { Label, Input, Textarea }

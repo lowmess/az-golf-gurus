@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Card } from 'rebass'
+import { Box } from 'rebass'
 import { Paragraph } from './Typography'
 import { useScript } from '../utils/hooks'
 
@@ -21,32 +21,36 @@ const CalendlyEmbed = ({ url, ...props }) => {
 
   if (error) {
     return (
-      <Card
-        bg="reds.0"
-        border="1"
-        borderColor="reds.3"
-        borderRadius="2"
-        py={2}
-        px={3}
-        color="reds.8"
-        css="text-align: center;"
+      <Box
+        sx={{
+          border: 1,
+          borderRadius: 2,
+          paddingY: 2,
+          paddingX: 3,
+          backgroundColor: 'reds.0',
+          color: 'reds.8',
+          textAlign: 'center',
+        }}
         {...props}
       >
         <Paragraph mx="auto">
           There was an error loading the scheduling widget. Please try
           again&nbsp;later.
         </Paragraph>
-      </Card>
+      </Box>
     )
   }
 
   return (
-    <Card
+    <Box
       className="calendly-inline-widget"
       data-url={url}
-      style={{ minWidth: '20rem', height: '40rem' }}
-      border={1}
-      borderColor="grays.2"
+      sx={{
+        minWidth: '20rem',
+        height: '40rem',
+        border: 1,
+        borderColor: 'grays.2',
+      }}
       {...props}
     />
   )

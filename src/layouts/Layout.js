@@ -53,7 +53,7 @@ const Layout = ({ children }) => {
 
       <GlobalStyles />
 
-      <Flex flexDirection="column" sx={{ minHeight: '100vh' }}>
+      <Flex sx={{ flexDirection: 'column', minHeight: '100vh' }}>
         <Navigation />
 
         <Box as="main" id="main-content" flex="1">

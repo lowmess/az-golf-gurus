@@ -2,81 +2,79 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link as GatsbyLink } from 'gatsby'
 import FocusTrap from 'focus-trap-react'
-import styled, { withTheme } from 'styled-components'
 import { rgba } from 'polished'
 import { Flex, Text, Link, Button } from 'rebass'
 import { List, ListItem } from '../Typography'
 import { Close } from './Icons'
-import { themeHover, reverseThemeHover } from '../../utils/styles'
 
-const NavListItem = styled(ListItem)`
-  & + & {
-    border-top: ${({ theme }) =>
-      `${theme.borders[2]} ${theme.colors.greens[6]}`};
-  }
+const navLinkItemStyles = {
+  display: ['list-item', 'inline-block'],
+  width: [1, 'auto'],
+  fontFamily: 'geomanist',
+  textAlign: 'center',
 
-  @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
-    display: inline-block;
+  '& + &': {
+    borderTop: [2, 0],
+    borderColor: 'greens.6',
+  },
+}
 
-    & + & {
-      border-top: 0;
-    }
-  }
-`
+const navLinkTextStyles = {
+  display: 'inline-block',
+  color: ['white', 'black'],
+  borderBottom: [0, 3],
+  borderColor: 'transparent',
+  paddingY: 3,
+  paddingX: 2,
 
-const NavLinkText = styled(Text)`
-  display: inline-block;
-  ${reverseThemeHover};
-  color: ${({ theme }) => theme.colors.white};
+  '&:hover': {
+    color: ['light-green', 'green'],
+  },
 
-  @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
-    ${themeHover};
-    color: ${({ theme }) => theme.colors.black};
-    border-bottom: ${({ theme }) => theme.borders[3]} transparent;
+  '.active &': {
+    borderColor: ['transparent', 'green'],
+  },
+}
 
-    .active & {
-      border-color: ${({ theme }) => theme.colors.green};
-    }
-  }
-`
+const menuStyles = {
+  alignItems: 'center',
+  justifyContent: 'center',
+  display: ['block', 'contents'],
+  position: 'fixed',
+  top: '0',
+  right: '0',
+  bottom: '0',
+  left: '0',
+  zIndex: '999',
+  padding: 4,
+  backgroundColor: theme => rgba(theme.colors.greens[7], 0.95),
+  color: ['white', 'black'],
+  opacity: 1,
+  overflowY: 'scroll',
+  pointerEvents: 'auto',
+  transition: 'opacity 0.3s ease, transform 0.35s ease',
 
-const Menu = styled(Flex)`
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 999;
-  background-color: ${({ theme }) => rgba(theme.colors.greens[7], 0.95)};
-  transform: translateY(
-    ${({ theme, open, notMobile }) =>
-      open || notMobile ? 0 : `-${theme.space[4]}`}
-  );
-  opacity: ${({ open, notMobile }) => (open || notMobile ? 1 : 0)};
-  overflow-y: scroll;
-  pointer-events: ${({ open, notMobile }) =>
-    open || notMobile ? 'auto' : 'none'};
-  transition: opacity 0.3s ease, transform 0.35s ease;
+  '&.is-closed': {
+    opacity: 0,
+    pointerEvents: 'none',
+  },
+}
 
-  @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
-    display: contents;
-  }
-`
+const closeButtonStyles = {
+  // eslint-disable-next-line no-sparse-arrays
+  display: [, 'none'],
+  position: 'absolute',
+  top: theme => theme.space[1],
+  left: 0,
+  padding: 3,
+  color: 'white',
 
-const CloseButton = styled(Button)`
-  position: absolute;
-  top: ${({ theme }) => theme.space[1]};
-  left: 0;
-  color: ${({ theme }) => theme.colors.white};
-  ${reverseThemeHover};
-
-  @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
-    display: none;
-  }
-`
+  '&:hover': {
+    color: 'light-green',
+  },
+}
 
 const LinkList = ({
-  theme,
   id,
   open,
   toggleMenu,
@@ -103,7 +101,8 @@ const LinkList = ({
     // with `@reach/router` without overriding `styled-components`, uhh, styles.
     // So we have to have a nested span. Pretty cool.
     return (
-      <NavListItem
+      <ListItem
+        sx={navLinkItemStyles}
         width={[1, 'auto']}
         fontFamily="geomanist"
         textAlign="center"
@@ -117,11 +116,11 @@ const LinkList = ({
           getProps={isActive}
           style={{ display: 'inline-block' }}
         >
-          <NavLinkText as="span" py={3} px={2}>
+          <Text as="span" sx={navLinkTextStyles}>
             {children}
-          </NavLinkText>
+          </Text>
         </Link>
-      </NavListItem>
+      </ListItem>
     )
   }
 
@@ -144,40 +143,40 @@ const LinkList = ({
       pause={notMobile}
       focusTrapOptions={{ onDeactivate: focusOpenButton }}
     >
-      <Menu
+      <Flex
         open={open}
         notMobile={notMobile}
         role={notMobile ? undefined : 'dialog'}
         id={notMobile ? undefined : id}
         aria-label={notMobile ? undefined : 'Navigation Menu'}
         onKeyDown={notMobile ? undefined : handleEscape}
-        alignItems="center"
-        justifyContent="center"
-        p={4}
-        color={['white', 'black']}
+        className={open || notMobile ? 'is-closed' : null}
+        sx={menuStyles}
       >
         {!notMobile && (
-          <CloseButton
+          <Button
             variant="reset"
             aria-label="Close the menu"
             aria-expanded={open}
             aria-controls={id}
             onClick={notMobile ? undefined : toggleMenu}
             tabIndex={open ? 0 : -1}
-            p={3}
+            sx={closeButtonStyles}
           >
             <Close ariaHidden="true" />
-          </CloseButton>
+          </Button>
         )}
 
         <Flex
           as={List}
-          flexDirection={['column', 'row']}
-          alignItems={['center', 'baseline']}
-          justifyContent="center"
-          fontSize={[3, 1]}
-          fontWeight={['medium', 'normal']}
-          css="height: 100%"
+          sx={{
+            flexDirection: ['column', 'row'],
+            alignItems: ['center', 'baseline'],
+            justifyContent: 'center',
+            height: '100%',
+            fontSize: [3, 1],
+            fontWeight: ['medium', 'normal'],
+          }}
           {...props}
         >
           <NavLink to="/" mr={[0, 2]}>
@@ -205,13 +204,12 @@ const LinkList = ({
             </Button>
           </ListItem>
         </Flex>
-      </Menu>
+      </Flex>
     </FocusTrap>
   )
 }
 
 LinkList.propTypes = {
-  theme: PropTypes.object.isRequired,
   id: PropTypes.string.isRequired,
   open: PropTypes.bool.isRequired,
   toggleMenu: PropTypes.func.isRequired,
@@ -219,4 +217,4 @@ LinkList.propTypes = {
   notMobile: PropTypes.bool.isRequired,
 }
 
-export default withTheme(LinkList)
+export default LinkList

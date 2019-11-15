@@ -1,32 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link, useStaticQuery, graphql } from 'gatsby'
-import styled, { withTheme } from 'styled-components'
-import { Box, Flex, Text, Button } from 'rebass'
-import { Heading } from './Typography'
+import { useTheme } from 'emotion-theming'
+import { rgba } from 'polished'
+import { Box, Flex, Text, Heading, Button } from 'rebass'
 import Container from './Container'
 import YouTubeVideo from './YouTubeVideo'
 import MarkdownContent from './MarkdownContent'
 import { useMediaQuery } from '../utils/hooks'
 import unwidow from '../utils/unwidow'
-
-const Background = styled(Box)`
-  ${({ gradientColor }) =>
-    gradientColor &&
-    `background-image: linear-gradient(to bottom, ${gradientColor}, transparent)`};
-`
-
-const Video = styled(YouTubeVideo)`
-  width: 100vw;
-  margin-right: calc(50% - 50vw);
-  margin-left: calc(50% - 50vw);
-
-  @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
-    width: 100%;
-    margin-right: 0;
-    margin-left: 0;
-  }
-`
 
 const ViewAllButton = ({ children, ...props }) => (
   <Button as={Link} to="/videos/" variant="outline-small">
@@ -38,7 +20,7 @@ ViewAllButton.propTypes = {
   children: PropTypes.string,
 }
 
-const FeaturedVideo = ({ theme, video, bg, ...props }) => {
+const FeaturedVideo = ({ video, bg, sx, ...props }) => {
   const { contentfulHomePageVideo: data } = useStaticQuery(graphql`
     query {
       contentfulHomePageVideo(entryTitle: { ne: "SCHEMA__HomePageVideo" }) {
@@ -52,7 +34,7 @@ const FeaturedVideo = ({ theme, video, bg, ...props }) => {
       }
     }
   `)
-
+  const theme = useTheme()
   const isMobile = !useMediaQuery(`(min-width: ${theme.breakpoints[0]})`)
 
   const title = data.videoTitle || video.title
@@ -60,7 +42,15 @@ const FeaturedVideo = ({ theme, video, bg, ...props }) => {
     data.videoDescription && data.videoDescription.content.html
 
   return (
-    <Background gradientColor={bg} {...props}>
+    <Box
+      sx={{
+        backgroundImage: bg
+          ? `linear-gradient(to bottom, ${bg}, ${rgba(bg, 0)})`
+          : null,
+        ...sx,
+      }}
+      {...props}
+    >
       <Container maxWidth="60rem">
         {!isMobile && (
           <Flex
@@ -77,10 +67,15 @@ const FeaturedVideo = ({ theme, video, bg, ...props }) => {
           </Flex>
         )}
 
-        <Video
+        <YouTubeVideo
           title={title}
           videoId={video.videoId}
           thumbnail={video.localThumbnail.childImageSharp}
+          sx={{
+            width: ['100vw', '100%'],
+            marginRight: ['calc(50% - 50vw)', 0],
+            marginLeft: ['calc(50% - 50vw)', 0],
+          }}
         />
 
         {isMobile && (
@@ -104,18 +99,18 @@ const FeaturedVideo = ({ theme, video, bg, ...props }) => {
           </Text>
         )}
       </Container>
-    </Background>
+    </Box>
   )
 }
 
 FeaturedVideo.propTypes = {
-  theme: PropTypes.object.isRequired,
   video: PropTypes.shape({
     videoId: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     localThumbnail: PropTypes.object.isRequired,
   }),
   bg: PropTypes.string,
+  sx: PropTypes.object,
 }
 
-export default withTheme(FeaturedVideo)
+export default FeaturedVideo
