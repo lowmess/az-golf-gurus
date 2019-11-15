@@ -6,7 +6,6 @@
     "start": "gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
-    "precommit": "lint-staged",
     "prebuild": "cd plugins/gatsby-source-youtube-playlists && npm ci && cd -"
   },
   "author": "Alec Lomas <alec@lowmess.com>",
@@ -60,8 +59,18 @@
     "prettier": "^1.18.2",
     "prettier-config-lowmess": "^0.1.1"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "lint-staged": {
-    "*.{js,jsx,json,css,md}": [
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.{json,css,md}": [
       "prettier --write",
       "git add"
     ]
