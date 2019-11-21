@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
 import Helmet from 'react-helmet'
-import { Box } from 'rebass'
+import { Text } from 'rebass'
 import Container from '../components/Container'
 import { Header, HeaderTitle, HeaderDescription } from '../components/Header'
 import CalendlyEmbed from '../components/CalendlyEmbed'
@@ -24,16 +24,16 @@ const EventTemplate = ({ data }) => {
       </Helmet>
 
       <Header>
-        <Box as="p" m={0} fontSize={[1, 2]} css="font-style: italic">
+        <Text as="p" m={0} fontSize={[1, 2]} sx={{ fontStyle: 'italic' }}>
           <time dateTime={event.startDate}>{event.startDateString}</time>{' '}
           {'\u2014'} <time dateTime={event.endDate}>{event.endDateString}</time>
-        </Box>
+        </Text>
 
         <HeaderTitle>{unwidow(event.title)}</HeaderTitle>
 
-        <Box as="p" mt={3} fontSize={[1, 2, 3]}>
+        <Text as="p" mt={3} fontSize={[1, 2, 3]}>
           {unwidow(event.location)} {'\u2022'} {toMoney(event.price)}
-        </Box>
+        </Text>
 
         {description && (
           <HeaderDescription mt={5} markdown>

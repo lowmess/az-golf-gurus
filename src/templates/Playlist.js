@@ -8,7 +8,6 @@ import Container from '../components/Container'
 import { Header, HeaderTitle, HeaderDescription } from '../components/Header'
 import VideoPlaylistGrid from '../components/VideoPlaylistGrid'
 import { useSiteMetadata } from '../utils/hooks'
-import { themeHover } from '../utils/styles'
 import unwidow from '../utils/unwidow'
 
 const PlaylistTemplate = ({ data }) => {
@@ -53,7 +52,7 @@ const PlaylistTemplate = ({ data }) => {
           fontFamily="geomanist"
           textAlign="center"
         >
-          <Link to="/videos/" css={themeHover}>
+          <Link variant="ui-link" to="/videos/">
             View Video Playlists
           </Link>
         </Text>
