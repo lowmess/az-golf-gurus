@@ -1,8 +1,7 @@
 import React from 'react'
 import { Link, useStaticQuery, graphql } from 'gatsby'
 import Helmet from 'react-helmet'
-import { Button } from 'rebass'
-import { Heading } from '../components/Typography'
+import { Heading, Button } from 'rebass'
 import Container from '../components/Container'
 import { Header, HeaderTitle } from '../components/Header'
 import MarkdownContent from '../components/MarkdownContent'
@@ -48,7 +47,7 @@ const ErrorPage = () => {
         </Heading>
       </Header>
 
-      <Container my={5} css="text-align: center;">
+      <Container my={5} sx={{ textAlign: 'center' }}>
         {hasDescription && (
           <MarkdownContent
             mb={5}

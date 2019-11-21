@@ -1,24 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link, graphql } from 'gatsby'
+import { Link as GatsbyLink, graphql } from 'gatsby'
 import Helmet from 'react-helmet'
-import styled from 'styled-components'
-import { Box, Button } from 'rebass'
-import { Heading, List, ListItem } from '../components/Typography'
+import { Text, Heading, Link, Button } from 'rebass'
+import { List, ListItem } from '../components/Typography'
 import Container from '../components/Container'
 import { Header, HeaderTitle, HeaderDescription } from '../components/Header'
 import { useSiteMetadata } from '../utils/hooks'
 import { toMoney } from '../utils/price'
 import unwidow from '../utils/unwidow'
-import { themeHover } from '../utils/styles'
-
-const EventContainer = styled(ListItem)`
-  & + & {
-    margin-top: ${({ theme }) => theme.space[5]};
-    border-top: ${({ theme }) => `${theme.borders[1]} ${theme.colors.green}`};
-    padding-top: ${({ theme }) => theme.space[5]};
-  }
-`
 
 const EventsPage = ({ data }) => {
   const { title: siteTitle } = useSiteMetadata()
@@ -64,26 +54,46 @@ const EventsPage = ({ data }) => {
             const url = `/events/${contentful_id}/`
 
             return (
-              <EventContainer key={contentful_id}>
-                <Box as="p" m={0} fontSize={[1, 2]} css="font-style: italic">
+              <ListItem
+                sx={{
+                  '& + &': {
+                    marginTop: 5,
+                    borderTop: 1,
+                    borderColor: 'green',
+                    paddingTop: 5,
+                  },
+                }}
+                key={contentful_id}
+              >
+                <Text
+                  as="p"
+                  m={0}
+                  fontSize={[1, 2]}
+                  sx={{ fontStyle: 'italic' }}
+                >
                   <time dateTime={startDate}>{startDateString}</time> {'\u2014'}{' '}
                   <time dateTime={endDate}>{endDateString}</time>
-                </Box>
+                </Text>
 
                 <Heading fontSize={[3, 4, 5]} fontWeight="bold">
-                  <Link to={url} css={themeHover}>
+                  <Link variant="ui-link" as={GatsbyLink} to={url}>
                     {unwidow(title)}
                   </Link>
                 </Heading>
 
-                <Box as="p" mt={3} mb={4} fontSize={[1, 2, 3]}>
+                <Text as="p" mt={3} mb={4} fontSize={[1, 2, 3]}>
                   {unwidow(location)} {'\u2022'} {toMoney(price)}
-                </Box>
+                </Text>
 
-                <Button variant="outline" as={Link} to={url} fontSize={[1, 2]}>
+                <Button
+                  variant="outline"
+                  as={GatsbyLink}
+                  to={url}
+                  fontSize={[1, 2]}
+                >
                   Register
                 </Button>
-              </EventContainer>
+              </ListItem>
             )
           })}
         </List>

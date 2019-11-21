@@ -7,7 +7,6 @@ import Container from '../../components/Container'
 import { Header, HeaderTitle } from '../../components/Header'
 import VideoPlaylistGrid from '../../components/VideoPlaylistGrid'
 import { useSiteMetadata } from '../../utils/hooks'
-import { themeHover } from '../../utils/styles'
 
 const AllVideosPage = () => {
   const { allYouTubeVideo } = useStaticQuery(graphql`
@@ -65,7 +64,7 @@ const AllVideosPage = () => {
           fontFamily="geomanist"
           textAlign="center"
         >
-          <Link to="/videos/" css={themeHover}>
+          <Link variant="ui-link" to="/videos/">
             View Video Playlists
           </Link>
         </Text>

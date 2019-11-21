@@ -3,37 +3,49 @@ import PropTypes from 'prop-types'
 import { Link, useStaticQuery, graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 import Img from 'gatsby-image'
-import styled from 'styled-components'
-import { Box, Flex, Text, Button } from 'rebass'
+import { Box, Flex, Text, Heading, Button } from 'rebass'
 import Container from '../../components/Container'
 import { Header, HeaderTitle, HeaderDescription } from '../../components/Header'
-import { Heading, Paragraph, Rule } from '../../components/Typography'
+import { Paragraph, Rule } from '../../components/Typography'
 import { useSiteMetadata } from '../../utils/hooks'
-import { themeHover } from '../../utils/styles'
 import unwidow from '../../utils/unwidow'
 
-const PlaylistText = styled(Text)`
-  text-align: center;
+const PlaylistText = ({ shouldFlip, sx, children, ...props }) => (
+  <Text
+    sx={{
+      textAlign: ['center', shouldFlip ? 'right' : 'left'],
+      ...sx,
+    }}
+    {...props}
+  >
+    {children}
+  </Text>
+)
 
-  @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
-    text-align: ${({ shouldFlip }) => (shouldFlip ? 'right' : 'left')};
-  }
-`
+PlaylistText.propTypes = {
+  shouldFlip: PropTypes.bool,
+  sx: PropTypes.object,
+  children: PropTypes.node.isRequired,
+}
 
-const PlaylistImage = styled(Img)`
-  width: 100vw;
-  margin-right: calc(50vw - 50%);
-  margin-left: calc(50vw - 50%);
+const PlaylistImage = ({ shouldFlip, sx, ...props }) => (
+  <Box
+    as={Img}
+    sx={{
+      order: [null, shouldFlip ? 1 : 0],
+      width: ['100vw', '50%'],
+      marginRight: ['calc(50vw - 50%)', shouldFlip ? 0 : 4],
+      marginLeft: ['calc(50vw - 50%)', shouldFlip ? 4 : 0],
+      ...sx,
+    }}
+    {...props}
+  />
+)
 
-  @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
-    order: ${({ shouldFlip }) => (shouldFlip ? 1 : 0)};
-    width: 50%;
-    margin-right: ${({ theme, shouldFlip }) =>
-      shouldFlip ? 0 : theme.space[4]};
-    margin-left: ${({ theme, shouldFlip }) =>
-      shouldFlip ? theme.space[4] : 0};
-  }
-`
+PlaylistImage.propTypes = {
+  shouldFlip: PropTypes.bool,
+  sx: PropTypes.object,
+}
 
 const PlaylistPreview = ({ playlist, index, ...props }) => {
   const { playlistId, title, description, slug, localThumbnail } = playlist
@@ -54,7 +66,7 @@ const PlaylistPreview = ({ playlist, index, ...props }) => {
 
       <PlaylistText shouldFlip={shouldFlip} flex="1" mt={[4, 0]}>
         <Heading mb={3} fontSize={3}>
-          <Link to={slug} css={themeHover}>
+          <Link variant="ui-link" to={slug}>
             {unwidow(title)}
           </Link>
         </Heading>
@@ -157,7 +169,7 @@ const VideosPage = () => {
           fontFamily="geomanist"
           textAlign="center"
         >
-          <Link to="/videos/all" css={themeHover}>
+          <Link variant="ui-link" to="/videos/all">
             View All Videos
           </Link>
         </Text>

@@ -1,34 +1,13 @@
 import React from 'react'
 import { Link, useStaticQuery, graphql } from 'gatsby'
 import Helmet from 'react-helmet'
-import styled from 'styled-components'
-import { Box, Flex, Text, Button } from 'rebass'
-import { Heading, Paragraph } from '../components/Typography'
+import { Box, Flex, Text, Heading, Button } from 'rebass'
+import { Paragraph } from '../components/Typography'
 import Container from '../components/Container'
 import { Header, HeaderTitle, HeaderDescription } from '../components/Header'
 import { useSiteMetadata } from '../utils/hooks'
 import { toMoney } from '../utils/price'
-import { themeHover } from '../utils/styles'
 import unwidow from '../utils/unwidow'
-
-const LessonGroup = styled(Box)`
-  & + & {
-    margin-top: ${({ theme }) => theme.space[5]};
-    border-top: ${({ theme }) => `${theme.borders[1]} ${theme.colors.green}`};
-    padding-top: ${({ theme }) => theme.space[5]};
-  }
-`
-
-const Lesson = styled(Box)`
-  & + & {
-    margin-top: ${({ theme }) => theme.space[5]};
-
-    @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
-      margin-top: 0;
-      margin-left: ${({ theme }) => theme.space[6]};
-    }
-  }
-`
 
 const LessonsPage = () => {
   const data = useStaticQuery(graphql`
@@ -84,12 +63,22 @@ const LessonsPage = () => {
         )}
       </Header>
 
-      <Container my={5} css="text-align: center;">
+      <Container my={5} sx={{ textAlign: 'center' }}>
         {data.allContentfulLessonCategory.edges.map(edge => {
           const { title, lessons } = edge.node
 
           return (
-            <LessonGroup key={edge.node.title}>
+            <Box
+              sx={{
+                '& + &': {
+                  marginTop: 5,
+                  borderTop: 1,
+                  borderColor: 'green',
+                  paddingTop: 5,
+                },
+              }}
+              key={edge.node.title}
+            >
               <Heading mb={[5, 4]} fontSize={[5, 6]}>
                 {unwidow(title)}
               </Heading>
@@ -101,11 +90,19 @@ const LessonsPage = () => {
               >
                 {lessons.map(lesson => {
                   return (
-                    <Lesson key={lesson.contentful_id}>
+                    <Box
+                      sx={{
+                        '& + &': {
+                          marginTop: [5, 0],
+                          marginLeft: [null, 6],
+                        },
+                      }}
+                      key={lesson.contentful_id}
+                    >
                       <Paragraph mt={0} mx="auto" mb={3} fontSize={[3, 4]}>
                         <Link
+                          variant="ui-link"
                           to={`/lessons/${lesson.contentful_id}/`}
-                          css={themeHover}
                         >
                           <Text
                             as="span"
@@ -125,11 +122,11 @@ const LessonsPage = () => {
                       >
                         Book
                       </Button>
-                    </Lesson>
+                    </Box>
                   )
                 })}
               </Flex>
-            </LessonGroup>
+            </Box>
           )
         })}
       </Container>

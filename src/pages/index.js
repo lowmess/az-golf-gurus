@@ -1,19 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
-import { withTheme } from 'styled-components'
+import { useTheme } from 'emotion-theming'
+import { Heading } from 'rebass'
 import Container from '../components/Container'
-import { Heading, Separator } from '../components/Typography'
+import { Separator } from '../components/Typography'
 import MarkdownContent from '../components/MarkdownContent'
 import Hero from '../components/Hero'
 import FeaturedVideo from '../components/FeaturedVideo'
 import ContactForm from '../components/ContactForm'
 import unwidow from '../utils/unwidow'
 
-const HomePage = ({ data, theme }) => {
+const HomePage = ({ data }) => {
   const contentfulData = data.contentfulHomePageContact || {}
   const title = contentfulData.title || 'Get in Touch'
   const hasIntro = contentfulData && contentfulData.introText
+  const theme = useTheme()
 
   const bg = theme.colors.greens[0]
 
@@ -54,7 +56,6 @@ const HomePage = ({ data, theme }) => {
 
 HomePage.propTypes = {
   data: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
 }
 
 export const pageQuery = graphql`
@@ -83,4 +84,4 @@ export const pageQuery = graphql`
   }
 `
 
-export default withTheme(HomePage)
+export default HomePage

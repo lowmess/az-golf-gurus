@@ -1,46 +1,76 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useStaticQuery, graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 import Img from 'gatsby-image'
-import styled from 'styled-components'
-import { Text, Card } from 'rebass'
-import { Heading, List, ListItem } from '../components/Typography'
+import { Flex, Text, Heading } from 'rebass'
+import { List, ListItem } from '../components/Typography'
 import Container from '../components/Container'
 import { Header, HeaderTitle } from '../components/Header'
 import MarkdownContent from '../components/MarkdownContent'
 import { useSiteMetadata } from '../utils/hooks'
 import unwidow from '../utils/unwidow'
 
-const TeamMember = styled(Card)`
-  --photo-size: 6rem;
+const TeamMember = ({ sx, children, ...props }) => (
+  <ListItem
+    sx={{
+      '--photo-size': '6rem',
+      position: 'relative',
+      borderRadius: 3,
+      paddingTop: theme => `calc((var(--photo-size) * 0.5) + ${theme.space[3]}`,
+      paddingX: 3,
+      paddingBottom: [4, 5],
+      boxShadow: '0 1.75rem 4rem 0.5rem rgba(0, 0, 0, 0.25)',
 
-  position: relative;
-  padding-top: calc(
-    (var(--photo-size) * 0.5) + ${({ theme }) => theme.space[3]}
-  );
-  box-shadow: 0 1.75rem 4rem 0.5rem rgba(0, 0, 0, 0.25);
+      '& + &': {
+        marginTop: 6,
+      },
 
-  & + & {
-    margin-top: ${({ theme }) => theme.space[6]};
-  }
-`
+      ...sx,
+    }}
+    {...props}
+  >
+    {children}
+  </ListItem>
+)
 
-const TeamMemberPhoto = styled(Card)`
-  display: flex;
-  position: absolute;
-  top: calc((var(--photo-size) * -0.5));
-  right: calc(50% - (var(--photo-size) * 0.5));
-  left: calc(50% - (var(--photo-size) * 0.5));
-  width: calc(var(--photo-size) + ${({ theme }) => theme.space[2]});
-  height: calc(var(--photo-size) + ${({ theme }) => theme.space[2]});
-  box-shadow: 0 0 1rem 0.125rem rgba(0, 0, 0, 0.125);
-  overflow: hidden;
+TeamMember.propTypes = {
+  sx: PropTypes.object,
+  children: PropTypes.node.isRequired,
+}
 
-  .gatsby-image-wrapper {
-    margin: auto;
-    border-radius: 100%;
-  }
-`
+const TeamMemberPhoto = ({ sx, children, ...props }) => (
+  <Flex
+    sx={{
+      position: 'absolute',
+      top: 'calc((var(--photo-size) * -0.5))',
+      right: 'calc(50% - (var(--photo-size) * 0.5))',
+      left: 'calc(50% - (var(--photo-size) * 0.5))',
+      width: theme => `calc(var(--photo-size) + ${theme.space[2]})`,
+      height: theme => `calc(var(--photo-size) + ${theme.space[2]})`,
+      borderColor: 'grays.2',
+      borderRadius: '100%',
+      backgroundColor: 'white',
+      boxShadow: '0 0 1rem 0.125rem rgba(0, 0, 0, 0.125)',
+      overflow: 'hidden',
+
+      '.gatsby-image-wrapper': {
+        margin: 'auto',
+        borderRadius: '100%',
+      },
+
+      ...sx,
+    }}
+    {...props}
+  >
+    {children}
+  </Flex>
+)
+
+TeamMemberPhoto.propTypes = {
+  sx: PropTypes.object,
+  children: PropTypes.node.isRequired,
+}
 
 const AboutPage = () => {
   const {
@@ -104,7 +134,7 @@ const AboutPage = () => {
         <HeaderTitle>{unwidow(pageTitle)}</HeaderTitle>
       </Header>
 
-      <Container my={5} css="text-align: center;">
+      <Container my={5} sx={{ textAlign: 'center' }}>
         {hasDescription && (
           <MarkdownContent
             fontSize={[2, 3]}
@@ -126,19 +156,8 @@ const AboutPage = () => {
                 const { photo, name, title, bio } = edge.node
 
                 return (
-                  <TeamMember
-                    as={ListItem}
-                    key={name}
-                    borderRadius="3"
-                    px={3}
-                    pb={[4, 5]}
-                  >
-                    <TeamMemberPhoto
-                      bg="white"
-                      border="1"
-                      borderColor="grays.2"
-                      borderRadius="100%"
-                    >
+                  <TeamMember key={name}>
+                    <TeamMemberPhoto>
                       <Img fixed={photo.fixed} />
                     </TeamMemberPhoto>
 
