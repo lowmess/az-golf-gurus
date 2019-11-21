@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "AZ Golf Gurus website",
   "scripts": {
+    "prestart": "cd plugins/gatsby-source-youtube-playlists && npm ci && cd -",
     "start": "gatsby develop",
+    "prebuild": "cd plugins/gatsby-source-youtube-playlists && npm ci && cd -",
     "build": "gatsby build",
-    "serve": "gatsby serve",
-    "prebuild": "cd plugins/gatsby-source-youtube-playlists && npm ci && cd -"
+    "serve": "gatsby serve"
   },
   "author": "Alec Lomas <alec@lowmess.com>",
   "license": "MIT",
