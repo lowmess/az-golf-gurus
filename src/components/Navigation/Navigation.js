@@ -10,8 +10,7 @@ import { Hamburger } from './Icons'
 import { useMediaQuery } from '../../utils/hooks'
 
 const openButtonStyles = {
-  // eslint-disable-next-line no-sparse-arrays
-  display: [, 'none'],
+  display: [null, 'none'],
   position: 'absolute',
   left: 0,
 

@@ -61,8 +61,7 @@ const menuStyles = {
 }
 
 const closeButtonStyles = {
-  // eslint-disable-next-line no-sparse-arrays
-  display: [, 'none'],
+  display: [null, 'none'],
   position: 'absolute',
   top: theme => theme.space[1],
   left: 0,

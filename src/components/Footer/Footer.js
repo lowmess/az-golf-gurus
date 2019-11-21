@@ -46,8 +46,7 @@ FooterList.propTypes = {
 const FooterLink = ({ children, to, ...props }) => (
   <ListItem
     sx={{
-      // eslint-disable-next-line no-sparse-arrays
-      display: [, 'inline-block'],
+      display: [null, 'inline-block'],
       textAlign: ['center', 'initial'],
 
       '& + &': {
