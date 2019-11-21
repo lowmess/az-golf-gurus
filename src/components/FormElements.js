@@ -44,7 +44,7 @@ const Input = ({ sx, ...props }) => (
 )
 
 Input.propTypes = {
-  sx: PropTypes.obejct,
+  sx: PropTypes.object,
 }
 
 const Textarea = ({ sx, ...props }) => (
@@ -61,7 +61,7 @@ const Textarea = ({ sx, ...props }) => (
 )
 
 Textarea.propTypes = {
-  sx: PropTypes.obejct,
+  sx: PropTypes.object,
 }
 
 export { Label, Input, Textarea }
