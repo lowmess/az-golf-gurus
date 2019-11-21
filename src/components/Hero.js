@@ -17,6 +17,16 @@ const heroImageStyles = {
   height: '100%',
   backgroundColor: 'greens.7',
 
+  '.gatsby-image-wrapper': {
+    position: 'absolute !important',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+  },
+
   'img, picture': {
     position: 'absolute',
     top: 0,
@@ -56,11 +66,9 @@ const Hero = ({ bg }) => {
 
   return (
     <Box sx={{ position: 'relative', paddingTop: [5, 6] }}>
-      {hasImage ? (
-        <Box as={Img} fluid={data.heroImage.fluid} sx={heroImageStyles} />
-      ) : (
-        <Box sx={heroImageStyles} />
-      )}
+      <Box sx={heroImageStyles}>
+        {hasImage && <Img fluid={data.heroImage.fluid} />}
+      </Box>
 
       <Container
         sx={{
@@ -94,7 +102,7 @@ const Hero = ({ bg }) => {
           borderRadius={[0, 1]}
           boxShadow={['', '0 0.5rem 4rem 0.5rem rgba(0, 0, 0, 0.25)']}
           maxWidth="48rem"
-          css="text-align: center"
+          sx={{ textAlign: 'center' }}
         >
           {hasIntro && (
             <MarkdownContent
