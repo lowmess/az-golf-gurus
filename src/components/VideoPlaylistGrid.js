@@ -89,7 +89,7 @@ const VideoPlaylistGrid = ({ videos, ...props }) => {
 
   return (
     <Grid theme={theme} {...props}>
-      <Box ref={playlistEl} css="position: absolute; top: -1rem;" />
+      <Box ref={playlistEl} sx={{ position: 'absolute', top: '-3' }} />
 
       {videos.map(video => (
         <Text
