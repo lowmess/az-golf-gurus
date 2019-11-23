@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { rgba } from 'polished'
 import { Box, Heading } from 'rebass'
-import { Paragraph, Separator } from './Typography'
+import Paragraph from './Paragraph'
 import Container from './Container'
 import MarkdownContent from './MarkdownContent'
 
@@ -58,7 +58,8 @@ const Header = ({ hideRule, children, ...props }) => {
       <Container pt={5}>
         {children}
 
-        <Separator
+        <Box
+          variant="separator"
           sx={{ display: hideRule ? ['none', 'block'] : null }}
           mt={5}
         />

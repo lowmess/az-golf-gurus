@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Link as GatsbyLink, graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 import { Text, Heading, Link, Button } from 'rebass'
-import { List, ListItem } from '../components/Typography'
+import List from '../components/List'
 import Container from '../components/Container'
 import Header from '../components/Header'
 import { useSiteMetadata } from '../utils/hooks'
@@ -54,7 +54,7 @@ const EventsPage = ({ data }) => {
             const url = `/events/${contentful_id}/`
 
             return (
-              <ListItem
+              <List.Item
                 sx={{
                   '& + &': {
                     marginTop: 5,
@@ -93,7 +93,7 @@ const EventsPage = ({ data }) => {
                 >
                   Register
                 </Button>
-              </ListItem>
+              </List.Item>
             )
           })}
         </List>

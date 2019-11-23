@@ -4,7 +4,7 @@ import { Link } from 'gatsby'
 import FocusTrap from 'focus-trap-react'
 import { rgba } from 'polished'
 import { Flex, Text, Button } from 'rebass'
-import { List, ListItem } from '../Typography'
+import List from '../List'
 import { Close } from './Icons'
 
 const navLinkItemStyles = {
@@ -103,7 +103,7 @@ const LinkList = ({
     // with `@reach/router` without overriding `styled-components`, uhh, styles.
     // So we have to have a nested span. Pretty cool.
     return (
-      <ListItem
+      <List.Item
         sx={navLinkItemStyles}
         width={[1, 'auto']}
         fontFamily="geomanist"
@@ -121,7 +121,7 @@ const LinkList = ({
             {children}
           </Text>
         </Link>
-      </ListItem>
+      </List.Item>
     )
   }
 
@@ -186,7 +186,7 @@ const LinkList = ({
 
           <NavLink to="/events/">Events</NavLink>
 
-          <ListItem marginLeft={[0, 3]}>
+          <List.Item marginLeft={[0, 3]}>
             <Button
               variant={notMobile ? 'primary-small' : 'outline-reverse'}
               as={Link}
@@ -197,7 +197,7 @@ const LinkList = ({
             >
               Book a Lesson
             </Button>
-          </ListItem>
+          </List.Item>
         </Flex>
       </Flex>
     </FocusTrap>

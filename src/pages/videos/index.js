@@ -6,7 +6,8 @@ import Img from 'gatsby-image'
 import { Box, Flex, Text, Heading, Button } from 'rebass'
 import Container from '../../components/Container'
 import Header from '../../components/Header'
-import { Paragraph, Rule } from '../../components/Typography'
+import Paragraph from '../../components/Paragraph'
+import HorizontalRule from '../../components/HorizontalRule'
 import { useSiteMetadata } from '../../utils/hooks'
 import unwidow from '../../utils/unwidow'
 
@@ -166,7 +167,7 @@ const VideosPage = () => {
           ))}
         </Box>
 
-        <Rule />
+        <HorizontalRule />
 
         <Text
           my={4}

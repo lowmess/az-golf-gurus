@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Link, graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 import { Text } from 'rebass'
-import { Rule } from '../components/Typography'
+import HorizontalRule from '../components/HorizontalRule'
 import Container from '../components/Container'
 import Header from '../components/Header'
 import VideoPlaylistGrid from '../components/VideoPlaylistGrid'
@@ -44,7 +44,7 @@ const PlaylistTemplate = ({ data }) => {
       <Container mt={[4, 5]}>
         <VideoPlaylistGrid videos={videos} mb={5} />
 
-        <Rule />
+        <HorizontalRule />
 
         <Text
           my={4}

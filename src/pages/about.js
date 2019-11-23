@@ -4,7 +4,7 @@ import { useStaticQuery, graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 import Img from 'gatsby-image'
 import { Flex, Text, Heading } from 'rebass'
-import { List, ListItem } from '../components/Typography'
+import List from '../components/List'
 import Container from '../components/Container'
 import Header from '../components/Header'
 import MarkdownContent from '../components/MarkdownContent'
@@ -12,7 +12,7 @@ import { useSiteMetadata } from '../utils/hooks'
 import unwidow from '../utils/unwidow'
 
 const TeamMember = ({ sx, children, ...props }) => (
-  <ListItem
+  <List.Item
     sx={{
       '--photo-size': '6rem',
       position: 'relative',
@@ -31,7 +31,7 @@ const TeamMember = ({ sx, children, ...props }) => (
     {...props}
   >
     {children}
-  </ListItem>
+  </List.Item>
 )
 
 TeamMember.propTypes = {

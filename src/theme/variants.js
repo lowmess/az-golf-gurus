@@ -23,6 +23,15 @@ const variants = {
     color: 'inherit',
     textDecoration: 'none',
   },
+
+  separator: {
+    height: space[3],
+    maxWidth: '40rem',
+    marginY: 0,
+    marginX: 'auto',
+    border: 0,
+    backgroundColor: colors.green,
+  },
 }
 
 const text = {
@@ -34,7 +43,7 @@ const text = {
   },
 
   paragraph: {
-    maxWidth: '33em',
+    maxWidth: '60ch',
     marginY: space[0],
     fontSize: [1, 2],
     lineHeight: lineHeights.copy,

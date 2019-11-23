@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link as GatsbyLink, useStaticQuery, graphql } from 'gatsby'
 import { Box, Flex, Heading, Link } from 'rebass'
-import { List, ListItem } from '../Typography'
 import Container from '../Container'
+import List from '../List'
 import Wave from './Wave'
 import Logo from './Logo'
 import * as Icon from './SocialMediaIcons'
@@ -44,7 +44,7 @@ FooterList.propTypes = {
 }
 
 const FooterLink = ({ children, to, ...props }) => (
-  <ListItem
+  <List.Item
     sx={{
       display: [null, 'inline-block'],
       textAlign: ['center', 'initial'],
@@ -58,7 +58,7 @@ const FooterLink = ({ children, to, ...props }) => (
     <Link as={GatsbyLink} to={to} variant="reverse-link" {...props}>
       {children}
     </Link>
-  </ListItem>
+  </List.Item>
 )
 
 FooterLink.propTypes = {
@@ -67,7 +67,7 @@ FooterLink.propTypes = {
 }
 
 const SocialMediaIcon = ({ sx, children, ...props }) => (
-  <ListItem
+  <List.Item
     sx={{
       display: 'inline-block',
 
@@ -80,7 +80,7 @@ const SocialMediaIcon = ({ sx, children, ...props }) => (
     {...props}
   >
     {children}
-  </ListItem>
+  </List.Item>
 )
 
 SocialMediaIcon.propTypes = {

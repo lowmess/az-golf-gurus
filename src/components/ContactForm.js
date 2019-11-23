@@ -2,7 +2,7 @@ import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
 import NetlifyForm from 'react-netlify-form'
 import { Box, Flex, Text, Button, Card } from 'rebass'
-import { Paragraph } from './Typography'
+import Paragraph from './Paragraph'
 import { Label, Input, Textarea } from './FormElements'
 import unwidow from '../utils/unwidow'
 

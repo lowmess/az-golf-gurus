@@ -2,9 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
 import { useTheme } from 'emotion-theming'
-import { Heading } from 'rebass'
+import { Box, Heading } from 'rebass'
 import Container from '../components/Container'
-import { Separator } from '../components/Typography'
 import MarkdownContent from '../components/MarkdownContent'
 import Hero from '../components/Hero'
 import FeaturedVideo from '../components/FeaturedVideo'
@@ -31,7 +30,7 @@ const HomePage = ({ data }) => {
       />
 
       <Container mt={[5, 6]}>
-        <Separator />
+        <Box variant="separator" />
       </Container>
 
       <Container id="contact" mt={[4, 5]} mb={5} pt={3} maxWidth="48rem">
