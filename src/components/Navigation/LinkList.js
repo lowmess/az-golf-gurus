@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link as GatsbyLink } from 'gatsby'
+import { Link } from 'gatsby'
 import FocusTrap from 'focus-trap-react'
 import { rgba } from 'polished'
-import { Flex, Text, Link, Button } from 'rebass'
+import { Flex, Text, Button } from 'rebass'
 import { List, ListItem } from '../Typography'
 import { Close } from './Icons'
 
@@ -14,6 +14,7 @@ const navLinkItemStyles = {
   textAlign: 'center',
 
   '& + &': {
+    marginLeft: [0, 2],
     borderTop: [2, 0],
     borderColor: 'greens.6',
   },
@@ -22,8 +23,8 @@ const navLinkItemStyles = {
 const navLinkTextStyles = {
   display: 'inline-block',
   color: ['white', 'black'],
-  borderBottom: [0, 3],
-  borderColor: 'transparent',
+  borderBottom: [null, 3],
+  borderColor: [null, 'transparent'],
   paddingY: 3,
   paddingX: 2,
 
@@ -32,7 +33,7 @@ const navLinkTextStyles = {
   },
 
   '.active &': {
-    borderColor: ['transparent', 'green'],
+    borderColor: [null, 'green'],
   },
 }
 
@@ -50,12 +51,14 @@ const menuStyles = {
   backgroundColor: theme => rgba(theme.colors.greens[7], 0.95),
   color: ['white', 'black'],
   opacity: 1,
+  transform: 'translateY(0)',
   overflowY: 'scroll',
   pointerEvents: 'auto',
   transition: 'opacity 0.3s ease, transform 0.35s ease',
 
   '&.is-closed': {
     opacity: 0,
+    transform: theme => `translateY(-${theme.space[4]})`,
     pointerEvents: 'none',
   },
 }
@@ -63,7 +66,7 @@ const menuStyles = {
 const closeButtonStyles = {
   display: [null, 'none'],
   position: 'absolute',
-  top: theme => theme.space[1],
+  top: 1,
   left: 0,
   padding: 3,
   color: 'white',
@@ -108,7 +111,6 @@ const LinkList = ({
         {...linkProps}
       >
         <Link
-          as={GatsbyLink}
           to={to}
           onClick={notMobile ? undefined : toggleMenu}
           tabIndex={open || notMobile ? 0 : -1}
@@ -149,7 +151,7 @@ const LinkList = ({
         id={notMobile ? undefined : id}
         aria-label={notMobile ? undefined : 'Navigation Menu'}
         onKeyDown={notMobile ? undefined : handleEscape}
-        className={open || notMobile ? 'is-closed' : null}
+        className={!open && !notMobile ? 'is-closed' : null}
         sx={menuStyles}
       >
         {!notMobile && (
@@ -178,22 +180,16 @@ const LinkList = ({
           }}
           {...props}
         >
-          <NavLink to="/" mr={[0, 2]}>
-            Home
-          </NavLink>
+          <NavLink to="/">Home</NavLink>
 
-          <NavLink to="/videos/" mr={[0, 2]}>
-            Videos
-          </NavLink>
+          <NavLink to="/videos/">Videos</NavLink>
 
-          <NavLink to="/events/" mr={[0, 3]}>
-            Events
-          </NavLink>
+          <NavLink to="/events/">Events</NavLink>
 
-          <ListItem>
+          <ListItem marginLeft={[0, 3]}>
             <Button
               variant={notMobile ? 'primary-small' : 'outline-reverse'}
-              as={GatsbyLink}
+              as={Link}
               to="/lessons/"
               mt={[4, 0]}
               onClick={notMobile ? undefined : toggleMenu}

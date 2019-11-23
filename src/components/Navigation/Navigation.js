@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import noScroll from 'no-scroll'
 import { useTheme } from 'emotion-theming'
 import { Box, Flex, Button } from 'rebass'
@@ -34,6 +34,18 @@ const Navigation = () => {
   const focusOpenButton = () => {
     if (openButtonEl.current) openButtonEl.current.focus()
   }
+
+  useEffect(() => {
+    if (notMobile) {
+      noScroll.off()
+    } else if (open && !notMobile) {
+      noScroll.on()
+    }
+
+    return () => {
+      noScroll.off()
+    }
+  }, [open, notMobile])
 
   return (
     <Box
