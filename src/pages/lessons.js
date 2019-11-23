@@ -4,7 +4,7 @@ import Helmet from 'react-helmet'
 import { Box, Flex, Text, Heading, Button } from 'rebass'
 import { Paragraph } from '../components/Typography'
 import Container from '../components/Container'
-import { Header, HeaderTitle, HeaderDescription } from '../components/Header'
+import Header from '../components/Header'
 import { useSiteMetadata } from '../utils/hooks'
 import { toMoney } from '../utils/price'
 import unwidow from '../utils/unwidow'
@@ -54,12 +54,12 @@ const LessonsPage = () => {
       </Helmet>
 
       <Header>
-        <HeaderTitle>{pageTitle}</HeaderTitle>
+        <Header.Title>{pageTitle}</Header.Title>
 
         {hasDescription && (
-          <HeaderDescription markdown>
+          <Header.Description markdown>
             {data.contentfulLessonsPage.description.content.html}
-          </HeaderDescription>
+          </Header.Description>
         )}
       </Header>
 

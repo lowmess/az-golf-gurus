@@ -12,7 +12,7 @@ Paragraph.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-const Separator = props => (
+const Separator = ({ sx, ...props }) => (
   <Box
     as="hr"
     sx={{
@@ -22,10 +22,15 @@ const Separator = props => (
       marginX: 'auto',
       border: 0,
       backgroundColor: 'green',
+      ...sx,
     }}
     {...props}
   />
 )
+
+Separator.propTypes = {
+  sx: PropTypes.object,
+}
 
 const Rule = props => (
   <Box

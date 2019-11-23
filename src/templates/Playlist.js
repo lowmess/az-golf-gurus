@@ -5,7 +5,7 @@ import Helmet from 'react-helmet'
 import { Text } from 'rebass'
 import { Rule } from '../components/Typography'
 import Container from '../components/Container'
-import { Header, HeaderTitle, HeaderDescription } from '../components/Header'
+import Header from '../components/Header'
 import VideoPlaylistGrid from '../components/VideoPlaylistGrid'
 import { useSiteMetadata } from '../utils/hooks'
 import unwidow from '../utils/unwidow'
@@ -34,10 +34,10 @@ const PlaylistTemplate = ({ data }) => {
       </Helmet>
 
       <Header hideRule>
-        <HeaderTitle>{unwidow(title)}</HeaderTitle>
+        <Header.Title>{unwidow(title)}</Header.Title>
 
         {description && (
-          <HeaderDescription>{unwidow(description)}</HeaderDescription>
+          <Header.Description>{unwidow(description)}</Header.Description>
         )}
       </Header>
 

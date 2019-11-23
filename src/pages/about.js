@@ -6,7 +6,7 @@ import Img from 'gatsby-image'
 import { Flex, Text, Heading } from 'rebass'
 import { List, ListItem } from '../components/Typography'
 import Container from '../components/Container'
-import { Header, HeaderTitle } from '../components/Header'
+import Header from '../components/Header'
 import MarkdownContent from '../components/MarkdownContent'
 import { useSiteMetadata } from '../utils/hooks'
 import unwidow from '../utils/unwidow'
@@ -131,7 +131,7 @@ const AboutPage = () => {
       </Helmet>
 
       <Header>
-        <HeaderTitle>{unwidow(pageTitle)}</HeaderTitle>
+        <Header.Title>{unwidow(pageTitle)}</Header.Title>
       </Header>
 
       <Container my={5} sx={{ textAlign: 'center' }}>

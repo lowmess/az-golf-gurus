@@ -4,7 +4,7 @@ import Helmet from 'react-helmet'
 import { Text } from 'rebass'
 import { Rule } from '../../components/Typography'
 import Container from '../../components/Container'
-import { Header, HeaderTitle } from '../../components/Header'
+import Header from '../../components/Header'
 import VideoPlaylistGrid from '../../components/VideoPlaylistGrid'
 import { useSiteMetadata } from '../../utils/hooks'
 
@@ -50,7 +50,7 @@ const AllVideosPage = () => {
       </Helmet>
 
       <Header hideRule>
-        <HeaderTitle>All Videos</HeaderTitle>
+        <Header.Title>All Videos</Header.Title>
       </Header>
 
       <Container mt={[4, 5]}>

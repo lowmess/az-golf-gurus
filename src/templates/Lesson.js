@@ -4,7 +4,7 @@ import { graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 import { Box } from 'rebass'
 import Container from '../components/Container'
-import { Header, HeaderTitle, HeaderDescription } from '../components/Header'
+import Header from '../components/Header'
 import CalendlyEmbed from '../components/CalendlyEmbed'
 import { useSiteMetadata } from '../utils/hooks'
 import unwidow from '../utils/unwidow'
@@ -29,16 +29,16 @@ const LessonTemplate = ({ data }) => {
       </Helmet>
 
       <Header>
-        <HeaderTitle>{unwidow(lesson_category[0].title)}</HeaderTitle>
+        <Header.Title>{unwidow(lesson_category[0].title)}</Header.Title>
 
         <Box as="p" mt={3} fontSize={[1, 2, 3]}>
           {unwidow(title)} {'\u2022'} {toMoney(price)}
         </Box>
 
         {description && (
-          <HeaderDescription markdown>
+          <Header.Description markdown>
             {description.content.html}
-          </HeaderDescription>
+          </Header.Description>
         )}
       </Header>
 

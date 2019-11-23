@@ -4,7 +4,7 @@ import { graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 import { Text } from 'rebass'
 import Container from '../components/Container'
-import { Header, HeaderTitle, HeaderDescription } from '../components/Header'
+import Header from '../components/Header'
 import CalendlyEmbed from '../components/CalendlyEmbed'
 import { useSiteMetadata } from '../utils/hooks'
 import { toMoney } from '../utils/price'
@@ -29,16 +29,16 @@ const EventTemplate = ({ data }) => {
           {'\u2014'} <time dateTime={event.endDate}>{event.endDateString}</time>
         </Text>
 
-        <HeaderTitle>{unwidow(event.title)}</HeaderTitle>
+        <Header.Title>{unwidow(event.title)}</Header.Title>
 
         <Text as="p" mt={3} fontSize={[1, 2, 3]}>
           {unwidow(event.location)} {'\u2022'} {toMoney(event.price)}
         </Text>
 
         {description && (
-          <HeaderDescription mt={5} markdown>
+          <Header.Description mt={5} markdown>
             {description}
-          </HeaderDescription>
+          </Header.Description>
         )}
       </Header>
 

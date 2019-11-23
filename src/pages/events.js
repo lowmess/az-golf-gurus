@@ -5,7 +5,7 @@ import Helmet from 'react-helmet'
 import { Text, Heading, Link, Button } from 'rebass'
 import { List, ListItem } from '../components/Typography'
 import Container from '../components/Container'
-import { Header, HeaderTitle, HeaderDescription } from '../components/Header'
+import Header from '../components/Header'
 import { useSiteMetadata } from '../utils/hooks'
 import { toMoney } from '../utils/price'
 import unwidow from '../utils/unwidow'
@@ -28,12 +28,12 @@ const EventsPage = ({ data }) => {
       </Helmet>
 
       <Header>
-        <HeaderTitle>{unwidow(pageTitle)}</HeaderTitle>
+        <Header.Title>{unwidow(pageTitle)}</Header.Title>
 
         {hasDescription && (
-          <HeaderDescription markdown>
+          <Header.Description markdown>
             {data.contentfulEventsPage.description.content.html}
-          </HeaderDescription>
+          </Header.Description>
         )}
       </Header>
 

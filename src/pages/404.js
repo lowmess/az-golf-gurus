@@ -3,7 +3,7 @@ import { Link, useStaticQuery, graphql } from 'gatsby'
 import Helmet from 'react-helmet'
 import { Heading, Button } from 'rebass'
 import Container from '../components/Container'
-import { Header, HeaderTitle } from '../components/Header'
+import Header from '../components/Header'
 import MarkdownContent from '../components/MarkdownContent'
 import { useSiteMetadata } from '../utils/hooks'
 import unwidow from '../utils/unwidow'
@@ -38,9 +38,9 @@ const ErrorPage = () => {
       </Helmet>
 
       <Header>
-        <HeaderTitle mb={[2, 1, 0]} fontSize={[3, 4]} fontWeight="medium">
+        <Header.Title mb={[2, 1, 0]} fontSize={[3, 4]} fontWeight="medium">
           Error 404
-        </HeaderTitle>
+        </Header.Title>
 
         <Heading fontSize={[4, 5, 6]} fontWeight="bold">
           {unwidow(title)}

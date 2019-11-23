@@ -50,7 +50,7 @@ const Header = ({ hideRule, children, ...props }) => {
           `linear-gradient(to bottom, ${theme.colors.greens[0]}, ${rgba(
             theme.colors.greens[0],
             0
-          )}`,
+          )})`,
         textAlign: 'center',
       }}
       {...props}
@@ -76,4 +76,7 @@ Header.defaultProps = {
   hideRule: false,
 }
 
-export { Header, HeaderTitle, HeaderDescription }
+Header.Title = HeaderTitle
+Header.Description = HeaderDescription
+
+export default Header

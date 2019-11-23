@@ -5,7 +5,7 @@ import Helmet from 'react-helmet'
 import Img from 'gatsby-image'
 import { Box, Flex, Text, Heading, Button } from 'rebass'
 import Container from '../../components/Container'
-import { Header, HeaderTitle, HeaderDescription } from '../../components/Header'
+import Header from '../../components/Header'
 import { Paragraph, Rule } from '../../components/Typography'
 import { useSiteMetadata } from '../../utils/hooks'
 import unwidow from '../../utils/unwidow'
@@ -146,12 +146,12 @@ const VideosPage = () => {
       </Helmet>
 
       <Header hideRule>
-        <HeaderTitle>{pageTitle}</HeaderTitle>
+        <Header.Title>{pageTitle}</Header.Title>
 
         {hasDescription && (
-          <HeaderDescription markdown>
+          <Header.Description markdown>
             {data.contentfulVideosPage.description.content.html}
-          </HeaderDescription>
+          </Header.Description>
         )}
       </Header>
 
