@@ -30,16 +30,20 @@ PlaylistText.propTypes = {
 
 const PlaylistImage = ({ shouldFlip, sx, ...props }) => (
   <Box
-    as={Img}
     sx={{
-      order: [null, shouldFlip ? 1 : 0],
-      width: ['100vw', '50%'],
-      marginRight: ['calc(50vw - 50%)', shouldFlip ? 0 : 4],
-      marginLeft: ['calc(50vw - 50%)', shouldFlip ? 4 : 0],
-      ...sx,
+      display: 'contents',
+
+      '.gatsby-image-wrapper': {
+        order: [null, shouldFlip ? 1 : 0],
+        width: ['100vw', '50%'],
+        marginRight: ['calc(50vw - 50%)', shouldFlip ? 0 : 4],
+        marginLeft: ['calc(50vw - 50%)', shouldFlip ? 4 : 0],
+        ...sx,
+      },
     }}
-    {...props}
-  />
+  >
+    <Img {...props} />
+  </Box>
 )
 
 PlaylistImage.propTypes = {
@@ -58,6 +62,7 @@ const PlaylistPreview = ({ playlist, index, ...props }) => {
       flexDirection={['column', 'row']}
       alignItems="center"
       my={5}
+      {...props}
     >
       <PlaylistImage
         shouldFlip={shouldFlip}
