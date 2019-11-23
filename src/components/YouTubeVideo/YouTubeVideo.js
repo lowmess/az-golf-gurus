@@ -44,6 +44,11 @@ const thumbnailContainerStyles = {
     objectFit: 'cover',
     objectPosition: 'center',
   },
+
+  '&.is-ready': {
+    opacity: 0,
+    pointerEvents: 'none',
+  },
 }
 
 const YouTubeVideo = ({
@@ -121,7 +126,10 @@ const YouTubeVideo = ({
     <ResponsiveEmbed
       ratio="16:9"
       className="youtube-video"
-      sx={{ ...videoContainerStyles, ...sx }}
+      sx={{
+        ...videoContainerStyles,
+        ...sx,
+      }}
       {...props}
     >
       {thumbnail && (
