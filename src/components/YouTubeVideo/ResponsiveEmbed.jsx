@@ -1,26 +1,45 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from '@emotion/styled'
 import { Box } from 'rebass'
 
-// Keeping this a styled component to handle the ratio stuff
-const ResponsiveContainer = styled(Box)`
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-bottom: ${({ x, y }) => (y / x) * 100}%;
-  overflow: hidden;
+const ResponsiveContainer = ({ x, y, sx, children, ...props }) => (
+  <Box
+    sx={{
+      position: 'relative',
+      width: '100%',
+      height: 0,
+      paddingBottom: `${(y / x) * 100}%`,
+      overflow: 'hidden',
 
-  iframe {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-`
+      iframe: {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+      },
+
+      ...sx,
+    }}
+    {...props}
+  >
+    {children}
+  </Box>
+)
+
+ResponsiveContainer.propTypes = {
+  x: PropTypes.number.isRequired,
+  y: PropTypes.number.isRequired,
+  sx: PropTypes.object,
+  children: PropTypes.node.isRequired,
+}
+
+ResponsiveContainer.defaultProps = {
+  x: 16,
+  y: 9,
+}
 
 const AspectRatio = ({ children, ratio, ...props }) => {
   const [x, y] = ratio.split(':')

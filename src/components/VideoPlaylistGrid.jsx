@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react'
 import PropTypes from 'prop-types'
-import styled from '@emotion/styled'
 import { useTheme } from 'emotion-theming'
 import { Box, Text, Heading } from 'rebass'
 import { useMediaQuery } from '../utils/hooks'
@@ -10,72 +9,61 @@ import Container from './Container'
 import YouTubeVideo from './YouTubeVideo'
 
 // Leaving this a styled cause of selector complication
-const Grid = styled(Container)`
-  position: relative;
-  grid-row-gap: ${({ theme }) => theme.space[5]};
-  grid-column-gap: ${({ theme }) => theme.space[4]};
-  max-width: 60rem;
+const Grid = ({ sx, children, ...props }) => (
+  <Container
+    sx={{
+      display: [null, 'grid'],
+      position: 'relative',
+      gridTemplateColumns: [null, 'repeat(2, 1fr)', 'repeat(3, 1fr)'],
+      gridRowGap: [null, theme => theme.space[5]],
+      gridColumnGap: [null, theme => theme.space[4]],
+      maxWidth: '60rem',
 
-  & > * {
-    width: 100vw;
-    margin-right: calc(50% - 50vw);
-    margin-left: calc(50% - 50vw);
-  }
+      '& > *': {
+        order: [null, 2],
+        width: ['100vw', '100%'],
+        marginTop: [null, 0],
+        // `!important` is to override Box default `margin: 0`. kind of annoying
+        marginX: ['calc(50% - 50vw) !important', '0 !important'],
+      },
 
-  & > * + * {
-    margin-top: ${({ theme }) => theme.space[5]};
-  }
+      '& > * + *': {
+        marginTop: 5,
+      },
 
-  .video-title {
-    font-size: ${({ theme }) => theme.fontSizes[3]};
-  }
+      '.video-title': {
+        fontSize: [3, 2],
+      },
 
-  .video-desc {
-    font-size: ${({ theme }) => theme.fontSizes[1]};
-  }
+      '.video-desc': {
+        fontSize: 1,
+      },
 
-  @media (min-width: ${({ theme }) => theme.breakpoints[0]}) {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+      '.playing': {
+        gridColumn: [null, '1 / span 2', '1 / span 3'],
+        order: [null, 1],
 
-    & > * {
-      order: 2;
-      width: 100%;
-      margin-right: 0;
-      margin-left: 0;
-      margin-top: 0;
-    }
+        '.video-title': {
+          fontSize: [null, 3, 4],
+        },
 
-    .video-title {
-      font-size: ${({ theme }) => theme.fontSizes[2]};
-    }
+        '.video-desc': {
+          fontSize: [null, 2],
+        },
+      },
 
-    .playing {
-      grid-column: 1 / span 2;
-      order: 1;
+      ...sx,
+    }}
+    {...props}
+  >
+    {children}
+  </Container>
+)
 
-      .video-title {
-        font-size: ${({ theme }) => theme.fontSizes[3]};
-      }
-
-      .video-desc {
-        font-size: ${({ theme }) => theme.fontSizes[2]};
-      }
-    }
-  }
-
-  @media (min-width: ${({ theme }) => theme.breakpoints[1]}) {
-    grid-template-columns: repeat(3, 1fr);
-
-    .playing {
-      grid-column: 1 / span 3;
-
-      .video-title {
-        font-size: ${({ theme }) => theme.fontSizes[4]};
-      }
-    }
-  }
-`
+Grid.propTypes = {
+  sx: PropTypes.object,
+  children: PropTypes.node.isRequired,
+}
 
 const VideoPlaylistGrid = ({ videos, ...props }) => {
   const [activeId, setActiveId] = useState(videos[0].videoId)
@@ -88,7 +76,7 @@ const VideoPlaylistGrid = ({ videos, ...props }) => {
   }
 
   return (
-    <Grid theme={theme} {...props}>
+    <Grid {...props}>
       <Box ref={playlistEl} sx={{ position: 'absolute', top: '-3' }} />
 
       {videos.map(video => (
