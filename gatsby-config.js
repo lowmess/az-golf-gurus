@@ -72,11 +72,11 @@ module.exports = {
     },
     'gatsby-transformer-sharp',
     'gatsby-plugin-catch-links',
+    'gatsby-plugin-emotion',
     'gatsby-plugin-layout',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-sharp',
     'gatsby-plugin-sitemap',
-    'gatsby-plugin-styled-components',
     // Should always be last plugin:
     'gatsby-plugin-netlify',
   ],
