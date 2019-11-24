@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import Img from 'gatsby-image'
 import YouTube from 'react-youtube'
 import { Flex } from 'rebass'
+import { useWindowSize } from '../../utils/hooks'
 import ResponsiveEmbed from './ResponsiveEmbed'
 import PlayIcon from './PlayIcon'
 import Spinner from './Spinner'
-import { useWindowSize } from '../../utils/hooks'
 
 const videoContainerStyles = {
   '&:focus-within': {

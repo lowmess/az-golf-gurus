@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import styled from '@emotion/styled'
 import { useTheme } from 'emotion-theming'
 import { Box, Text, Heading } from 'rebass'
+import { useMediaQuery } from '../utils/hooks'
+import unwidow from '../utils/unwidow'
 import Paragraph from './Paragraph'
 import Container from './Container'
 import YouTubeVideo from './YouTubeVideo'
-import { useMediaQuery } from '../utils/hooks'
-import unwidow from '../utils/unwidow'
 
 // Leaving this a styled cause of selector complication
 const Grid = styled(Container)`

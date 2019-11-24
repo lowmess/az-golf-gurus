@@ -3,11 +3,11 @@ import noScroll from 'no-scroll'
 import { useTheme } from 'emotion-theming'
 import { Box, Flex, Button } from 'rebass'
 import Container from '../Container'
+import { useMediaQuery } from '../../utils/hooks'
 import SkipNavLink from './SkipNavLink'
 import Logo from './Logo'
 import LinkList from './LinkList'
 import { Hamburger } from './Icons'
-import { useMediaQuery } from '../../utils/hooks'
 
 const openButtonStyles = {
   display: [null, 'none'],

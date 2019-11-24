@@ -3,8 +3,8 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Box } from 'rebass'
-import Paragraph from './Paragraph'
 import { useScript } from '../utils/hooks'
+import Paragraph from './Paragraph'
 
 const CalendlyEmbed = ({ url, ...props }) => {
   const [loaded, error] = useScript(

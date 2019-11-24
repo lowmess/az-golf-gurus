@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { useStaticQuery, graphql } from 'gatsby'
 import Img from 'gatsby-image'
 import { Box, Heading, Button } from 'rebass'
+import unwidow from '../utils/unwidow'
 import Container from './Container'
 import MarkdownContent from './MarkdownContent'
-import unwidow from '../utils/unwidow'
 
 const heroImageStyles = {
   position: 'absolute !important',

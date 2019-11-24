@@ -4,11 +4,11 @@ import { Link, useStaticQuery, graphql } from 'gatsby'
 import { useTheme } from 'emotion-theming'
 import { rgba } from 'polished'
 import { Box, Flex, Text, Heading, Button } from 'rebass'
+import { useMediaQuery } from '../utils/hooks'
+import unwidow from '../utils/unwidow'
 import Container from './Container'
 import YouTubeVideo from './YouTubeVideo'
 import MarkdownContent from './MarkdownContent'
-import { useMediaQuery } from '../utils/hooks'
-import unwidow from '../utils/unwidow'
 
 const ViewAllButton = ({ children, ...props }) => (
   <Button as={Link} to="/videos/" variant="outline-small">

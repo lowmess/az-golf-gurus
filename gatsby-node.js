@@ -8,11 +8,7 @@ const today = new Date().toISOString()
 
 const getFeaturedVideoId = () =>
   fetch(
-    `https://cdn.contentful.com/spaces/${
-      process.env.CONTENTFUL_SPACE_ID
-    }/entries?content_type=homePageVideo&fields.entryTitle[ne]=SCHEMA__HomePageVideo&access_token=${
-      process.env.CONTENTFUL_ACCESS_TOKEN
-    }`
+    `https://cdn.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID}/entries?content_type=homePageVideo&fields.entryTitle[ne]=SCHEMA__HomePageVideo&access_token=${process.env.CONTENTFUL_ACCESS_TOKEN}`
   )
     .then(response => {
       if (!response.ok) {
@@ -58,9 +54,9 @@ exports.onCreatePage = async ({ page, actions }) => {
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
-  const Playlist = path.resolve('./src/templates/Playlist.js')
-  const Lesson = path.resolve('./src/templates/Lesson.js')
-  const Event = path.resolve('./src/templates/Event.js')
+  const Playlist = path.resolve('./src/templates/Playlist.jsx')
+  const Lesson = path.resolve('./src/templates/Lesson.jsx')
+  const Event = path.resolve('./src/templates/Event.jsx')
 
   const result = await graphql(
     `
