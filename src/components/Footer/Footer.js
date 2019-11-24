@@ -114,8 +114,8 @@ const Footer = props => {
         pb={[4, 4, 5]}
         {...props}
       >
-        <Flex
-          as={Container}
+        <Container
+          as={Flex}
           flexDirection={['column', 'row']}
           alignItems="center"
           justifyContent="space-between"
@@ -160,7 +160,7 @@ const Footer = props => {
           </Box>
 
           <Logo width={['4rem', '8rem']} />
-        </Flex>
+        </Container>
       </Box>
     </>
   )
