@@ -97,12 +97,14 @@ const Hero = ({ bg }) => {
         }}
       >
         <Container
-          bg="white"
-          py={4}
-          borderRadius={[0, 1]}
-          boxShadow={['', '0 0.5rem 4rem 0.5rem rgba(0, 0, 0, 0.25)']}
           maxWidth="48rem"
-          sx={{ textAlign: 'center' }}
+          sx={{
+            borderRadius: [0, 1],
+            paddingY: 4,
+            backgroundColor: 'white',
+            textAlign: 'center',
+            boxShadow: [null, '0 0.5rem 4rem 0.5rem rgba(0, 0, 0, 0.25)'],
+          }}
         >
           {hasIntro && (
             <MarkdownContent
