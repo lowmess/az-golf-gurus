@@ -19,6 +19,6 @@
   "dependencies": {
     "abort-controller": "^3.0.0",
     "gatsby-source-filesystem": "^2.1.38",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.1"
   }
 }
