@@ -1,0 +1,36 @@
+---
+import { getSite } from "#api/site";
+
+type Props = {
+	title?: string;
+	description?: string;
+};
+
+const { title, description } = Astro.props;
+
+const { faviconMetaTags, globalSeo } = await getSite();
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const pageTitle = title || globalSeo.fallbackSeo?.title || globalSeo.siteName;
+const pageDescription = description || globalSeo.fallbackSeo?.description;
+---
+
+<!-- Global Metadata -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Primary Meta Tags -->
+<title>{pageTitle}</title>
+<meta name="description" content={pageDescription} />
+
+<!-- Theming -->
+<meta name="color-scheme" content="light" />
+<meta name="theme-color" content="#15ab3d" />
+
+<!-- Favicons -->
+{faviconMetaTags.map((tag) => <link {...tag.attributes} />)}
