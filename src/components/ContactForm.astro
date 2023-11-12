@@ -7,7 +7,7 @@ type Props = HTMLAttributes<"div">;
 
 const props = Astro.props;
 
-const { title, w3formsAccessKey, introText, successText } =
+const { title, web3formsAccessKey, introText, successText } =
 	await getContactForm();
 ---
 
@@ -20,7 +20,7 @@ const { title, w3formsAccessKey, introText, successText } =
 		<form action="https://api.web3forms.com/submit" method="POST">
 			{introText && <div class="intro-text" set:html={introText} />}
 
-			<input type="hidden" name="access_key" value={w3formsAccessKey} />
+			<input type="hidden" name="access_key" value={web3formsAccessKey} />
 			<input type="hidden" name="subject" value="New contact form submission" />
 			<input type="checkbox" name="botcheck" id="" style="display: none;" />
 

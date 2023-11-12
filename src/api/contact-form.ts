@@ -2,7 +2,7 @@ import { request } from "#api/request";
 
 type ContactForm = {
 	title: string;
-	w3formsAccessKey: string;
+	web3formsAccessKey: string;
 	introText?: string;
 	successText?: string;
 };
@@ -11,7 +11,7 @@ const getContactFormQuery = `
 query getContactForm {
   contactForm {
 		title
-    w3formsAccessKey
+    web3formsAccessKey
 		introText
 		successText
   }
