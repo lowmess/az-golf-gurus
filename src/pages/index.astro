@@ -120,10 +120,14 @@ const { title, description, image } = await getHomepage();
 	hr {
 		height: 2px;
 		max-width: var(--size-container);
-		margin-block: var(--space-xxl);
+		margin-block: var(--space-xl);
 		margin-inline: auto;
 		border: 0;
 		padding-inline: var(--space-md);
 		background-color: var(--color-gray-100);
+
+		@media (min-width: 48em) {
+			margin-block: var(--space-xxl);
+		}
 	}
 </style>
