@@ -89,6 +89,10 @@ const { title, description, image } = await getHomepage();
 		margin-block: 0;
 	}
 
+	:global(.description p + p) {
+		margin-block-start: var(--space-md);
+	}
+
 	a {
 		display: inline-block;
 		margin-block-start: var(--space-lg);
