@@ -24,7 +24,7 @@ const { title, web3formsAccessKey, introText, successText } =
 			<input type="hidden" name="subject" value="New contact form submission" />
 			<input type="checkbox" name="botcheck" id="" style="display: none;" />
 
-			<div class="contact">
+			<div class="form-container contact">
 				<div class="contact-field">
 					<label for="name">Name</label>
 					<input id="name" type="text" placeholder="J. Smith" />
@@ -40,10 +40,13 @@ const { title, web3formsAccessKey, introText, successText } =
 				</div>
 			</div>
 
-			<label for="message">Message</label>
-			<textarea
-				id="message"
-				placeholder="I'd like to take two strokes off my golf game."></textarea>
+			<div class="form-container">
+				<label for="message">Message</label>
+				<textarea
+					id="message"
+					placeholder="I'd like to take two strokes off my golf game."
+				></textarea>
+			</div>
 
 			<button>Send message</button>
 		</form>
@@ -111,7 +114,7 @@ const { title, web3formsAccessKey, introText, successText } =
 	}
 
 	.intro-text {
-		margin-block-end: var(--space-xl);
+		margin-block-end: var(--space-lg);
 	}
 
 	.intro-text,
@@ -140,6 +143,11 @@ const { title, web3formsAccessKey, introText, successText } =
 			color: var(--color-gray-500);
 			opacity: 1;
 		}
+	}
+
+	.form-container {
+		max-width: 48rem;
+		margin-inline: auto;
 	}
 
 	.contact {
