@@ -1,0 +1,55 @@
+{
+  "name": "az-golf-gurus",
+  "version": "2.0.0",
+  "description": "AZ Golf Gurus website",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "prepare": "husky install"
+  },
+  "author": "Alec Lomas <alec@lowmess.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lowmess/az-golf-gurus.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lowmess/az-golf-gurus/issues"
+  },
+  "homepage": "https://www.azgolfgurus.com",
+  "dependencies": {
+    "@astrojs/sitemap": "^3.0.3",
+    "astro": "^3.5.3",
+    "sanitize.css": "^13.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.3.1",
+    "@types/node": "^20.9.0",
+    "@typescript-eslint/eslint-plugin": "^6.10.0",
+    "@typescript-eslint/parser": "^6.10.0",
+    "eslint": "^8.53.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-astro": "^0.29.1",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.1.0",
+    "prettier": "^3.0.3",
+    "prettier-config-lowmess": "^0.3.0",
+    "prettier-plugin-astro": "^0.12.1",
+    "typescript": "^5.2.2"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,astro}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.{json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
