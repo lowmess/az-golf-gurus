@@ -1,0 +1,89 @@
+:root {
+	/* palette */
+	--color-green: #15ab3d;
+	--color-light-green: #a7dfb6;
+	--color-green-50: #e4f5e9;
+	--color-green-100: #c8ebd1;
+	--color-green-200: #a7dfb6;
+	--color-green-300: #81d297;
+	--color-green-400: #53c170;
+	--color-green-500: #15ab3d;
+	--color-green-600: #129a37;
+	--color-green-700: #108730;
+	--color-green-800: #0d7027;
+	--color-green-900: #09501c;
+
+	--color-red: #ab3d15;
+	--color-red-50: #f6ebe7;
+	--color-red-100: #edd6cd;
+	--color-red-200: #e2bdb0;
+	--color-red-300: #d5a08c;
+	--color-red-400: #c57a5e;
+	--color-red-500: #ab3d15;
+	--color-red-600: #993612;
+	--color-red-700: #862f10;
+	--color-red-800: #6e270d;
+	--color-red-900: #4d1b09;
+
+	--color-yellow: #efc21f;
+	--color-yellow-50: #fcf6e1;
+	--color-yellow-100: #faeec1;
+	--color-yellow-200: #f8e49f;
+	--color-yellow-300: #f5da79;
+	--color-yellow-400: #f2cf4f;
+	--color-yellow-500: #efc21f;
+	--color-yellow-600: #d8af1c;
+	--color-yellow-700: #be9a18;
+	--color-yellow-800: #9d8014;
+	--color-yellow-900: #725c0e;
+
+	--color-white: #ffffff;
+	--color-gray: #bcc6bf;
+	--color-black: #334237;
+
+	--color-gray-50: #f8f9f8;
+	--color-gray-100: #ebeeec;
+	--color-gray-200: #dde1de;
+	--color-gray-300: #cdd4cf;
+	--color-gray-400: #bcc6bf;
+	--color-gray-500: #aab5ad;
+
+	/* typography */
+	/* @link https://utopia.fyi/type/calculator?c=320,16,1.2,1280,20,1.333,5,1,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,s,2xl,12 */
+	--font-size-sm: clamp(0.8rem, 0.7542rem + 0.2292vw, 0.9375rem);
+	--font-size-md: clamp(1rem, 0.9167rem + 0.4167vw, 1.25rem);
+	--font-size-lg: clamp(1.25rem, 1.1113rem + 0.6938vw, 1.6663rem);
+	--font-size-xl: clamp(1.5625rem, 1.3429rem + 1.0979vw, 2.2213rem);
+	--font-size-xxl: clamp(1.9531rem, 1.6173rem + 1.6792vw, 2.9606rem);
+
+	--line-height-solid: 1;
+	--line-height-heading: 1.25;
+	--line-height-body: 1.5;
+
+	--font-family-heading: Geomanist, Futura, system-ui;
+	--font-family-body: georgia, times, serif;
+
+	/* spacing */
+	--space-none: 0;
+	--space-xs: 4px;
+	--space-sm: 8px;
+	--space-md: 16px;
+	--space-lg: 32px;
+	--space-xl: 64px;
+	--space-xxl: 128px;
+
+	--rlh: calc(
+		var(--font-size-md) * var(--line-height-body)
+	); /* fake it til w3c makes it */
+
+	--rhythm-none: 0;
+	--rhythm-xs: calc(var(--rlh) * 0.25);
+	--rhythm-sm: calc(var(--rlh) * 0.5);
+	--rhythm-md: var(--rlh);
+	--rhythm-lg: calc(var(--rlh) * 2);
+	--rhythm-xl: calc(var(--rlh) * 4);
+	--rhythm-xxl: calc(var(--rlh) * 8);
+
+	/* sizing */
+	--size-container: 64rem;
+}
