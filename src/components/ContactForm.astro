@@ -27,15 +27,23 @@ const { title, web3formsAccessKey, introText, successText } =
 			<div class="form-container contact">
 				<div class="contact-field">
 					<label for="name">Name</label>
-					<input id="name" type="text" placeholder="J. Smith" />
+					<input
+						id="name"
+						name="name"
+						type="text"
+						placeholder="J. Smith"
+						required
+					/>
 				</div>
 
 				<div class="contact-field">
 					<label for="email">Email</label>
 					<input
 						id="email"
+						name="email"
 						type="email"
 						placeholder="jerryc131@jerryboree.com"
+						required
 					/>
 				</div>
 			</div>
@@ -44,8 +52,9 @@ const { title, web3formsAccessKey, introText, successText } =
 				<label for="message">Message</label>
 				<textarea
 					id="message"
+					name="message"
 					placeholder="I'd like to take two strokes off my golf game."
-				></textarea>
+					required></textarea>
 			</div>
 
 			<button>Send message</button>
