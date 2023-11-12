@@ -1,0 +1,180 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { getContactForm } from "#api/contact-form";
+import Container from "#components/Container.astro";
+
+type Props = HTMLAttributes<"div">;
+
+const props = Astro.props;
+
+const { title, w3formsAccessKey, introText, successText } =
+	await getContactForm();
+---
+
+<div {...props}>
+	<Container>
+		<h2>{title || "Contact us"}</h2>
+
+		<hr />
+
+		<form action="https://api.web3forms.com/submit" method="POST">
+			{introText && <div class="intro-text" set:html={introText} />}
+
+			<input type="hidden" name="access_key" value={w3formsAccessKey} />
+			<input type="hidden" name="subject" value="New contact form submission" />
+			<input type="checkbox" name="botcheck" id="" style="display: none;" />
+
+			<div class="contact">
+				<div class="contact-field">
+					<label for="name">Name</label>
+					<input id="name" type="text" placeholder="J. Smith" />
+				</div>
+
+				<div class="contact-field">
+					<label for="email">Email</label>
+					<input
+						id="email"
+						type="email"
+						placeholder="jerryc131@jerryboree.com"
+					/>
+				</div>
+			</div>
+
+			<label for="message">Message</label>
+			<textarea
+				id="message"
+				placeholder="I'd like to take two strokes off my golf game."></textarea>
+
+			<button>Send message</button>
+		</form>
+
+		{
+			successText ? (
+				<div class="success-text" hidden set:html={successText} />
+			) : (
+				<div class="success-text" hidden>
+					Thanks! We&apos;ll get back to you shortly.
+				</div>
+			)
+		}
+	</Container>
+</div>
+
+<script>
+	const form = document.querySelector("form");
+	const submitButton = form?.querySelector("button");
+	const successText = document.querySelector(".success-text");
+
+	form!.addEventListener("submit", async (event) => {
+		event.preventDefault();
+
+		const formData = new FormData(form!);
+		const body = JSON.stringify(Object.fromEntries(formData));
+
+		submitButton!.setAttribute("disabled", "true");
+		submitButton!.innerHTML = "Sending...";
+
+		const res = await fetch("https://api.web3forms.com/submit", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "application/json",
+			},
+			body,
+		});
+
+		if (!res.ok) {
+			alert("Something went wrong. Please try again later.");
+
+			submitButton!.removeAttribute("disabled");
+			submitButton!.innerHTML = "Send message";
+		}
+
+		form!.setAttribute("hidden", "true");
+		successText!.removeAttribute("hidden");
+	});
+</script>
+
+<style>
+	h2 {
+		font-size: var(--font-size-xxl);
+		text-align: center;
+	}
+
+	hr {
+		max-width: 48rem;
+		height: 16px;
+		margin-block-end: var(--space-xl);
+		margin-inline: auto;
+		border: 0;
+		background-color: var(--color-green);
+	}
+
+	.intro-text {
+		margin-block-end: var(--space-xl);
+	}
+
+	.intro-text,
+	.success-text {
+		text-align: center;
+		text-wrap: balance;
+	}
+
+	label {
+		display: block;
+		font-family: var(--font-family-heading);
+		font-weight: 500;
+	}
+
+	input,
+	textarea {
+		display: block;
+		width: 100%;
+		border: 1px solid var(--color-gray-400);
+		border-radius: 4px;
+		padding-block: var(--space-sm);
+		padding-inline: var(--space-md);
+		font: inherit;
+
+		&::placeholder {
+			color: var(--color-gray-500);
+			opacity: 1;
+		}
+	}
+
+	.contact {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-md);
+		margin-block-end: var(--space-md);
+
+		@media (min-width: 48em) {
+			flex-direction: row;
+			gap: var(--space-lg);
+		}
+	}
+
+	.contact-field {
+		flex: 1;
+	}
+
+	button {
+		display: block;
+		margin-block-start: var(--space-lg);
+		margin-inline: auto;
+		border: 0;
+		border-radius: 9999px;
+		padding-block: var(--space-sm);
+		padding-inline: var(--space-md);
+		background-color: var(--color-green);
+		font-family: var(--font-family-heading);
+		font-size: var(--font-size-md);
+		color: var(--color-white);
+		cursor: pointer;
+		transition: background-color 0.2s ease;
+
+		&:hover {
+			background-color: var(--color-green-700);
+		}
+	}
+</style>
