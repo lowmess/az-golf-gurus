@@ -1,1 +1,129 @@
-<h1>hello</h1>
+---
+import { getHomepage } from "#api/homepage";
+import Layout from "#layouts/Global.astro";
+import Container from "#components/Container.astro";
+import Lessons from "#components/Lessons.astro";
+import ContactForm from "#components/ContactForm.astro";
+
+const { title, description, image } = await getHomepage();
+---
+
+<Layout>
+	<header>
+		<Container><h1>{title}</h1></Container>
+
+		{
+			description && (
+				<div class="split-bg">
+					<Container class="description-container">
+						<div class="description">
+							<div class="contents" set:html={description} />
+
+							<a href="#contact">Get in touch</a>
+						</div>
+					</Container>
+				</div>
+			)
+		}
+	</header>
+
+	<div class="page-content">
+		<Lessons id="lessons" />
+
+		<hr />
+
+		<ContactForm id="contact" />
+	</div>
+</Layout>
+
+<style define:vars={{ backgroundImage: `url(${image.url})` }}>
+	header {
+		background-color: var(--color-green-900);
+		background-image: var(--backgroundImage);
+		background-size: cover;
+		background-blend-mode: overlay;
+		padding-block-start: 1px;
+	}
+
+	h1 {
+		margin-block: var(--space-xxl);
+		font-size: var(--font-size-xxl);
+		color: var(--color-white);
+		text-align: center;
+		text-wrap: balance;
+		text-shadow: 0 0.125em 0.25em rgb(0 0 0 / 0.25);
+	}
+
+	.split-bg {
+		background-image: linear-gradient(
+			to bottom,
+			transparent,
+			transparent 37%,
+			var(--color-green-50) 37%,
+			var(--color-green-50)
+		);
+	}
+
+	.description-container {
+		padding-block-end: var(--space-lg);
+	}
+
+	.description {
+		max-width: 65ch;
+		margin-inline: auto;
+		margin-block-end: var(--space-xl);
+		border-radius: var(--space-sm);
+		padding: var(--space-lg);
+		background-color: var(--color-white);
+		font-size: var(--font-size-md);
+		text-align: center;
+		text-wrap: balance;
+		box-shadow: 0 0.5rem 4rem 0.5rem rgba(0, 0, 0, 0.25);
+	}
+
+	.contents {
+		display: contents;
+	}
+
+	:global(.description p) {
+		margin-block: 0;
+	}
+
+	a {
+		display: inline-block;
+		margin-block-start: var(--space-lg);
+		border: 2px solid var(--color-green);
+		border-radius: 9999px;
+		padding-block: var(--space-sm);
+		padding-inline: var(--space-md);
+		font-family: var(--font-family-heading);
+		text-decoration: none;
+		transition:
+			background-color 0.2s ease,
+			color 0.3s ease;
+
+		&:hover {
+			background-color: var(--color-green);
+			color: var(--color-white);
+		}
+	}
+
+	.page-content {
+		padding-block-end: var(--space-xl);
+		background-image: linear-gradient(
+			to bottom,
+			var(--color-green-50),
+			var(--color-white)
+		);
+	}
+
+	hr {
+		height: 2px;
+		max-width: var(--size-container);
+		margin-block: var(--space-xxl);
+		margin-inline: auto;
+		border: 0;
+		padding-inline: var(--space-md);
+		background-color: var(--color-gray-100);
+	}
+</style>
