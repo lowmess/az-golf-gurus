@@ -2,14 +2,6 @@
   "name": "az-golf-gurus",
   "version": "2.0.0",
   "description": "AZ Golf Gurus website",
-  "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "prepare": "husky install"
-  },
   "author": "Alec Lomas <alec@lowmess.com>",
   "license": "MIT",
   "repository": {
@@ -20,6 +12,17 @@
     "url": "https://github.com/lowmess/az-golf-gurus/issues"
   },
   "homepage": "https://www.azgolfgurus.com",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "prepare": "husky install"
+  },
+	"imports": {
+		"#*": "./src/*"
+	},
   "dependencies": {
     "@astrojs/sitemap": "^3.0.3",
     "astro": "^3.5.3",
