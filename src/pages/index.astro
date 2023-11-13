@@ -36,7 +36,11 @@ const { title, description, image } = await getHomepage();
 	</div>
 </Layout>
 
-<style define:vars={{ backgroundImage: `url(${image.url})` }}>
+<style
+	define:vars={{
+		backgroundImage: `url(${image.url}?w=1440&auto=compress)`,
+	}}
+>
 	header {
 		background-color: var(--color-green-900);
 		background-image: var(--backgroundImage);
