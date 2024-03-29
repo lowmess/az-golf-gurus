@@ -1,5 +1,6 @@
 ---
 import type { HTMLAttributes } from "astro/types";
+
 import { getAllLessons } from "#api/lessons";
 import Container from "#components/Container.astro";
 
@@ -51,8 +52,7 @@ const money = new Intl.NumberFormat("en-us", {
 				<p class="subtitle">
 					Interested in getting a lesson on the course?
 					<br />
-					 Reach out using the contact form below and we&apos;ll set something
-					up.
+					Reach out using the contact form below and we&apos;ll set something up.
 				</p>
 
 				<a href="#contact" class="button">Get in touch</a>

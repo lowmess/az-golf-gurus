@@ -1,9 +1,9 @@
 ---
 import { getHomepage } from "#api/homepage";
 import Layout from "#layouts/Global.astro";
-import Container from "#components/Container.astro";
-import Lessons from "#components/Lessons.astro";
+import Booking from "#components/Booking.astro";
 import ContactForm from "#components/ContactForm.astro";
+import Container from "#components/Container.astro";
 
 const { title, description, image } = await getHomepage();
 ---
@@ -28,7 +28,7 @@ const { title, description, image } = await getHomepage();
 	</header>
 
 	<div class="page-content">
-		<Lessons id="lessons" />
+		<Booking id="book-a-lesson" />
 
 		<hr />
 
