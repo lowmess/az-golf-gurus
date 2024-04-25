@@ -72,17 +72,13 @@
 	--space-xl: 64px;
 	--space-xxl: 128px;
 
-	--rlh: calc(
-		var(--font-size-md) * var(--line-height-body)
-	); /* fake it til w3c makes it */
-
 	--rhythm-none: 0;
-	--rhythm-xs: calc(var(--rlh) * 0.25);
-	--rhythm-sm: calc(var(--rlh) * 0.5);
-	--rhythm-md: var(--rlh);
-	--rhythm-lg: calc(var(--rlh) * 2);
-	--rhythm-xl: calc(var(--rlh) * 4);
-	--rhythm-xxl: calc(var(--rlh) * 8);
+	--rhythm-xs: 0.25rlh;
+	--rhythm-sm: 0.5rlh;
+	--rhythm-md: 1rlh;
+	--rhythm-lg: 2rlh;
+	--rhythm-xl: 4rlh;
+	--rhythm-xxl: 8rlh;
 
 	/* sizing */
 	--size-container: 64rem;

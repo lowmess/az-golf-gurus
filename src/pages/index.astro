@@ -1,9 +1,9 @@
 ---
 import { getHomepage } from "#api/homepage";
-import Layout from "#layouts/Global.astro";
 import Booking from "#components/Booking.astro";
 import ContactForm from "#components/ContactForm.astro";
 import Container from "#components/Container.astro";
+import Layout from "#layouts/Global.astro";
 
 const { title, description, image } = await getHomepage();
 ---
@@ -94,7 +94,7 @@ const { title, description, image } = await getHomepage();
 	}
 
 	:global(.description p + p) {
-		margin-block-start: var(--space-md);
+		margin-block-start: var(--rhythm-md);
 	}
 
 	a {
