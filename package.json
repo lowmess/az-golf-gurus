@@ -24,25 +24,26 @@
     "#*": "./src/*"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.1.2",
-    "astro": "^4.5.12",
+    "@astrojs/sitemap": "^3.1.6",
+    "astro": "^4.15.9",
     "sanitize.css": "^13.0.0"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.5.10",
-    "@types/node": "^20.11.30",
-    "@typescript-eslint/eslint-plugin": "^7.4.0",
-    "@typescript-eslint/parser": "^7.4.0",
-    "eslint": "^8.57.0",
+    "@astrojs/check": "^0.9.3",
+    "@eslint/compat": "^1.1.1",
+    "@types/node": "^22.7.4",
+    "@typescript-eslint/eslint-plugin": "^8.8.0",
+    "@typescript-eslint/parser": "^8.8.0",
+    "eslint": "^9.11.1",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-astro": "^0.33.1",
-    "eslint-plugin-jsx-a11y": "^6.8.0",
-    "husky": "^9.0.11",
-    "lint-staged": "^15.2.2",
-    "prettier": "^3.2.5",
+    "eslint-plugin-astro": "^1.2.4",
+    "eslint-plugin-jsx-a11y": "^6.10.0",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3",
     "prettier-config-lowmess": "^0.3.0",
-    "prettier-plugin-astro": "^0.13.0",
-    "typescript": "^5.4.3"
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript": "^5.6.2"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,astro}": [
