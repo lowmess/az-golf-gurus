@@ -1,0 +1,58 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"button"> & {
+	url: string;
+};
+
+const { url, ...props } = Astro.props;
+---
+
+<button data-url={url} {...props}><slot /></button>
+
+<script>
+	// Calendly widget does not have types
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	declare let Calendly: any;
+
+	const buttons: NodeListOf<HTMLButtonElement> =
+		document.querySelectorAll("button[data-url]");
+
+	buttons.forEach((button) => {
+		button.addEventListener("click", () => {
+			const url = button.dataset.url;
+
+			if (!url || !typeof Calendly) {
+				console.warn("Calendly missing");
+				return false;
+			}
+
+			Calendly.initPopupWidget({ url });
+		});
+	});
+</script>
+
+<style>
+	button {
+		display: inline-block;
+		margin-block-start: var(--space-sm);
+		border: 2px solid var(--color-green);
+		border-radius: 9999px;
+		padding-block: var(--space-sm);
+		padding-inline: var(--space-md);
+		background-color: transparent;
+		color: inherit;
+		font-family: var(--font-family-heading);
+		font-size: var(--font-size-lg);
+		text-decoration: none;
+		cursor: pointer;
+		transition:
+			background-color 0.2s ease,
+			color 0.3s ease;
+
+		&:hover {
+			background-color: var(--color-green);
+			color: var(--color-white);
+		}
+	}
+</style>
