@@ -1,0 +1,58 @@
+---
+import type { HTMLTag, Polymorphic } from "astro/types";
+import { getInstructorsSection } from "#api/instructors";
+import Container from "#components/Container.astro";
+import Instructor from "#components/Instructor.astro";
+
+type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }>;
+
+const { as: Tag = "div", class: className, ...props } = Astro.props;
+
+const section = await getInstructorsSection();
+---
+
+<div class="root">
+	<Container as={Tag} class:list={[className, "container"]} {...props}>
+		<h2>{section.title}</h2>
+
+		<hr />
+
+		<div class="instructors">
+			{
+				section.instructors.map((instructor) => (
+					<Instructor instructor={instructor} />
+				))
+			}
+		</div></Container
+	>
+</div>
+
+<style>
+	.root {
+		padding-block-start: 1px;
+	}
+
+	h2 {
+		font-size: var(--font-size-xxl);
+		text-align: center;
+	}
+
+	hr {
+		max-width: 48rem;
+		height: 16px;
+		margin-block-end: var(--space-xl);
+		margin-inline: auto;
+		border: 0;
+		background-color: var(--color-green);
+	}
+
+	.instructors {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-xl);
+
+		@media (min-width: 768px) {
+			gap: calc(var(--space-xl) + var(--space-lg));
+		}
+	}
+</style>

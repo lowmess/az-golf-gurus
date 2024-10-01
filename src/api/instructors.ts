@@ -1,6 +1,6 @@
 import { request } from "#api/request";
 
-type Instructor = {
+export type Instructor = {
 	image?: {
 		url: string;
 		width: number;
