@@ -13,6 +13,7 @@ export type Instructor = {
 
 type InstructorsSection = {
 	title: string;
+	url?: string;
 	instructors: Array<Instructor>;
 };
 
@@ -20,6 +21,7 @@ const getInstructorsSectionQuery = `
 query getInstructorsSection {
 	instructorsSection {
 		title
+		url
 		instructors {
 			image {
 				url
