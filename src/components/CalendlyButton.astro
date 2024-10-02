@@ -1,14 +1,14 @@
 ---
-import type { HTMLAttributes } from "astro/types";
+import Button, { type ButtonProps } from "#components/Button.astro";
 
-type Props = HTMLAttributes<"button"> & {
+type Props = Omit<ButtonProps<"button">, "as"> & {
 	url: string;
 };
 
 const { url, ...props } = Astro.props;
 ---
 
-<button data-url={url} {...props}><slot /></button>
+<Button data-url={url} {...props}><slot /></Button>
 
 <script>
 	// Calendly widget does not have types
@@ -31,28 +31,3 @@ const { url, ...props } = Astro.props;
 		});
 	});
 </script>
-
-<style>
-	button {
-		display: inline-block;
-		margin-block-start: var(--space-sm);
-		border: 2px solid var(--color-green);
-		border-radius: 9999px;
-		padding-block: var(--space-sm);
-		padding-inline: var(--space-md);
-		background-color: transparent;
-		color: inherit;
-		font-family: var(--font-family-heading);
-		font-size: var(--font-size-lg);
-		text-decoration: none;
-		cursor: pointer;
-		transition:
-			background-color 0.2s ease,
-			color 0.3s ease;
-
-		&:hover {
-			background-color: var(--color-green);
-			color: var(--color-white);
-		}
-	}
-</style>

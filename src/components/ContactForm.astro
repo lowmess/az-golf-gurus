@@ -2,6 +2,7 @@
 import type { HTMLAttributes } from "astro/types";
 
 import { getContactForm } from "#api/contact-form";
+import Button from "#components/Button.astro";
 import Container from "#components/Container.astro";
 
 type Props = HTMLAttributes<"div">;
@@ -75,7 +76,7 @@ const { title, web3formsAccessKey, introText, successText } =
 					required></textarea>
 			</div>
 
-			<button>Send message</button>
+			<Button size="lg">Send message</Button>
 		</form>
 
 		{
@@ -205,30 +206,8 @@ const { title, web3formsAccessKey, introText, successText } =
 	}
 
 	button {
-		display: block;
+		display: block !important;
 		margin-block-start: var(--space-lg);
 		margin-inline: auto;
-		border: 1px solid var(--color-green);
-		border-radius: 9999px;
-		padding-block: var(--space-sm);
-		padding-inline: var(--space-md);
-		background-color: var(--color-green);
-		font-family: var(--font-family-heading);
-		font-size: var(--font-size-lg);
-		color: var(--color-white);
-		line-height: var(--line-height-body);
-		cursor: pointer;
-		transition: background-color 0.2s ease;
-
-		&:hover {
-			border-color: var(--color-green-700);
-			background-color: var(--color-green-700);
-		}
-
-		&[disabled] {
-			border-color: var(--color-gray-500);
-			background-color: var(--color-gray-500);
-			cursor: default;
-		}
 	}
 </style>

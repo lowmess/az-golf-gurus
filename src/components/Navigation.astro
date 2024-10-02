@@ -1,4 +1,5 @@
 ---
+import Button from "#components/Button.astro";
 import Container from "#components/Container.astro";
 ---
 
@@ -26,7 +27,12 @@ import Container from "#components/Container.astro";
 
 		<ul>
 			<li>
-				<a href="#our-instructors" class="lesson-button">Book a lesson</a>
+				<Button
+					as="a"
+					href="#our-instructors"
+					class="lesson-button"
+					size="inherit">Book a lesson</Button
+				>
 			</li>
 		</ul>
 	</Container>
@@ -72,19 +78,5 @@ import Container from "#components/Container.astro";
 		display: flex;
 		align-items: center;
 		gap: var(--space-md);
-	}
-
-	ul a {
-		border-radius: 9999px;
-		padding-block: var(--space-sm);
-		padding-inline: var(--space-md);
-		background-color: var(--color-green);
-		color: var(--color-white);
-		text-decoration: none;
-		transition: background-color 0.2s ease;
-
-		&:hover {
-			background-color: var(--color-green-700);
-		}
 	}
 </style>
