@@ -1,0 +1,128 @@
+---
+import type { HTMLTag, Polymorphic } from "astro/types";
+import type { Instructor } from "#api/instructors";
+import CalendlyButton from "#components/CalendlyButton.astro";
+
+type Props<Tag extends HTMLTag> = Polymorphic<{
+	instructor: Instructor;
+
+	as: Tag;
+	HeadingLevel?: HTMLTag;
+}>;
+
+const {
+	instructor,
+	as: Tag = "div",
+	class: className,
+	HeadingLevel = "h3",
+	...props
+} = Astro.props;
+
+const firstName = instructor.name.split(" ").shift();
+---
+
+<Tag class:list={[className, "container"]} {...props}>
+	{
+		instructor.image && (
+			<div class="image">
+				<img
+					src={instructor.image.url}
+					width={instructor.image.width}
+					height={instructor.image.height}
+					alt={`${instructor.name}'s headshot}`}
+				/>
+			</div>
+		)
+	}
+
+	<div class="content">
+		<HeadingLevel>{instructor.name}</HeadingLevel>
+
+		{instructor.bio && <p>{instructor.bio} </p>}
+
+		<div class="actions">
+			<slot />
+
+			{
+				instructor.calendarButton && (
+					<CalendlyButton url={instructor.calendarButton.url}>
+						{instructor.calendarButton.label || `Book with ${firstName}`}
+					</CalendlyButton>
+				)
+			}
+		</div>
+	</div>
+</Tag>
+
+<style>
+	.container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--space-lg);
+
+		@media (min-width: 768px) {
+			flex-direction: row;
+			gap: var(--space-xl);
+
+			&:nth-child(even) {
+				flex-direction: row-reverse;
+			}
+		}
+	}
+
+	.image {
+		flex-shrink: 0;
+		max-width: 196px;
+	}
+
+	img {
+		border-radius: 100%;
+		aspect-ratio: 1;
+		object-fit: cover;
+	}
+
+	.content {
+		display: contents;
+		text-align: center;
+
+		@media (min-width: 768px) {
+			display: flex;
+			flex-direction: column;
+			gap: var(--space-md);
+			text-align: start;
+
+			.container:nth-child(even) & {
+				text-align: end;
+			}
+		}
+	}
+
+	h3 {
+		margin: 0;
+		font-size: var(--font-size-xl);
+		font-weight: 500;
+	}
+
+	p {
+		max-width: 65ch;
+		margin: 0;
+		text-wrap: pretty;
+	}
+
+	.actions {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--space-md);
+
+		@media (min-width: 768px) {
+			flex-direction: row;
+			align-self: start;
+
+			.container:nth-child(even) & {
+				align-self: end;
+			}
+		}
+	}
+</style>

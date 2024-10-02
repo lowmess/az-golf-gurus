@@ -14,10 +14,11 @@ import Logo from "#components/Logo.astro";
 			not sure if this is supported on non-Apple devices:
 			<a href="maps:q=33.55194,-112.09812">1717 W Northern Ave. Suite 204</a>
 		-->
-
-		<a href="https://maps.app.goo.gl/9ofkpkTKow8qjwRw9" rel="noreferrer"
-			>1717 W Northern Ave. Suite 204</a
-		>
+		<address>
+			<a href="https://maps.app.goo.gl/9ofkpkTKow8qjwRw9" rel="noreferrer"
+				>1717 W Northern Ave. Suite 204<br />Phoenix, AZ 85021</a
+			>
+		</address>
 
 		<a href="/" aria-label="Home">
 			<Logo />
@@ -45,6 +46,10 @@ import Logo from "#components/Logo.astro";
 		}
 	}
 
+	address {
+		font-style: normal;
+	}
+
 	a {
 		color: var(--color-white);
 
@@ -60,10 +65,12 @@ import Logo from "#components/Logo.astro";
 		align-items: center;
 		justify-content: space-between;
 		gap: var(--space-lg);
+		text-align: center;
 
 		@media (min-width: 480px) {
 			flex-direction: row;
 			gap: var(--space-xl);
+			text-align: start;
 		}
 	}
 </style>

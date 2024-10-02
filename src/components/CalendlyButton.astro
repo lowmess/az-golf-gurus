@@ -1,0 +1,33 @@
+---
+import Button, { type ButtonProps } from "#components/Button.astro";
+
+type Props = Omit<ButtonProps<"button">, "as"> & {
+	url: string;
+};
+
+const { url, ...props } = Astro.props;
+---
+
+<Button data-url={url} {...props}><slot /></Button>
+
+<script>
+	// Calendly widget does not have types
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	declare let Calendly: any;
+
+	const buttons: NodeListOf<HTMLButtonElement> =
+		document.querySelectorAll("button[data-url]");
+
+	buttons.forEach((button) => {
+		button.addEventListener("click", () => {
+			const url = button.dataset.url;
+
+			if (!url || !typeof Calendly) {
+				console.warn("Calendly missing");
+				return false;
+			}
+
+			Calendly.initPopupWidget({ url });
+		});
+	});
+</script>
