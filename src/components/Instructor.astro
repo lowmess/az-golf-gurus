@@ -5,6 +5,7 @@ import CalendlyButton from "#components/CalendlyButton.astro";
 
 type Props<Tag extends HTMLTag> = Polymorphic<{
 	instructor: Instructor;
+	newStudentUrl?: string;
 
 	as: Tag;
 	HeadingLevel?: HTMLTag;
@@ -12,6 +13,7 @@ type Props<Tag extends HTMLTag> = Polymorphic<{
 
 const {
 	instructor,
+	newStudentUrl,
 	as: Tag = "div",
 	class: className,
 	HeadingLevel = "h3",
@@ -40,13 +42,23 @@ const firstName = instructor.name.split(" ").shift();
 
 		{instructor.bio && <p>{instructor.bio} </p>}
 
-		{
-			instructor.url && (
-				<CalendlyButton url={instructor.url}>
-					Book with {firstName}
-				</CalendlyButton>
-			)
-		}
+		<div class="actions">
+			{
+				newStudentUrl && (
+					<CalendlyButton url={instructor.url} variant="outline">
+						Book with {firstName}
+					</CalendlyButton>
+				)
+			}
+
+			{
+				instructor.url && (
+					<CalendlyButton url={instructor.url}>
+						Book with {firstName}
+					</CalendlyButton>
+				)
+			}
+		</div>
 	</div>
 </Tag>
 
@@ -61,7 +73,7 @@ const firstName = instructor.name.split(" ").shift();
 			flex-direction: row;
 			gap: var(--space-xl);
 
-			button {
+			.actions {
 				align-self: start;
 			}
 
@@ -72,7 +84,7 @@ const firstName = instructor.name.split(" ").shift();
 					text-align: end;
 				}
 
-				button {
+				.actions {
 					align-self: end;
 				}
 			}
@@ -112,5 +124,11 @@ const firstName = instructor.name.split(" ").shift();
 		max-width: 65ch;
 		margin: 0;
 		text-wrap: pretty;
+	}
+
+	.actions {
+		display: flex;
+		align-items: center;
+		gap: var(--space-md);
 	}
 </style>
