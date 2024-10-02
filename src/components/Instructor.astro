@@ -65,20 +65,8 @@ const firstName = instructor.name.split(" ").shift();
 			flex-direction: row;
 			gap: var(--space-xl);
 
-			.actions {
-				align-self: start;
-			}
-
 			&:nth-child(even) {
 				flex-direction: row-reverse;
-
-				.content {
-					text-align: end;
-				}
-
-				.actions {
-					align-self: end;
-				}
 			}
 		}
 	}
@@ -103,6 +91,10 @@ const firstName = instructor.name.split(" ").shift();
 			flex-direction: column;
 			gap: var(--space-md);
 			text-align: start;
+
+			.container:nth-child(even) & {
+				text-align: end;
+			}
 		}
 	}
 
@@ -120,7 +112,17 @@ const firstName = instructor.name.split(" ").shift();
 
 	.actions {
 		display: flex;
+		flex-direction: column;
 		align-items: center;
 		gap: var(--space-md);
+
+		@media (min-width: 768px) {
+			flex-direction: row;
+			align-self: start;
+
+			.container:nth-child(even) & {
+				align-self: end;
+			}
+		}
 	}
 </style>
