@@ -1,6 +1,7 @@
 ---
 import type { HTMLTag, Polymorphic } from "astro/types";
 import { getInstructorsSection } from "#api/instructors";
+import CalendlyButton from "#components/CalendlyButton.astro";
 import Container from "#components/Container.astro";
 import Instructor from "#components/Instructor.astro";
 
@@ -20,7 +21,16 @@ const section = await getInstructorsSection();
 		<div class="instructors">
 			{
 				section.instructors.map((instructor) => (
-					<Instructor instructor={instructor} />
+					<Instructor instructor={instructor}>
+						{section.newStudentCalendarButton && (
+							<CalendlyButton
+								url={section.newStudentCalendarButton.url}
+								variant="outline"
+							>
+								{section.newStudentCalendarButton.label || "Get started"}
+							</CalendlyButton>
+						)}
+					</Instructor>
 				))
 			}
 		</div></Container

@@ -1,5 +1,10 @@
 import { request } from "#api/request";
 
+type CalendarButton = {
+	label: string;
+	url: string;
+};
+
 export type Instructor = {
 	image?: {
 		url: string;
@@ -8,12 +13,12 @@ export type Instructor = {
 	};
 	name: string;
 	bio?: string;
-	url?: string;
+	calendarButton?: CalendarButton;
 };
 
 type InstructorsSection = {
 	title: string;
-	url?: string;
+	newStudentCalendarButton?: CalendarButton;
 	instructors: Array<Instructor>;
 };
 
@@ -21,7 +26,10 @@ const getInstructorsSectionQuery = `
 query getInstructorsSection {
 	instructorsSection {
 		title
-		url
+		newStudentCalendarButton {
+			label
+			url
+		}
 		instructors {
 			image {
 				url
@@ -30,7 +38,10 @@ query getInstructorsSection {
 			}
 			name
 			bio
-			url
+			calendarButton {
+				label
+				url
+			}
 		}
 	}
 }
